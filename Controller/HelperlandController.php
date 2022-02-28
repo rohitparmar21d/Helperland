@@ -398,6 +398,77 @@ class HelperlandController
         }
         
     }
+    public function dboard()
+    {
+        $list=$this->model->dboard($_SESSION['UserId']);
+        if($list != NULL)
+        { 
+            foreach($list as $history)
+            {
+                $SP = $this->model->getUserbyId($history['ServiceProviderId']);
+                $dt=substr($history['ServiceStartDate'],0,10);
+                $tm=substr($history['ServiceStartDate'],11,5);
+                
+                $rates=$this->model->rate($history['ServiceProviderId']);
+                $j=0;
+                $totalrate=0;
+                foreach($rates as $rate)
+                {
+                    $totalrate+=$rate['Ratings'];
+                    $j++;
+                }
+                if($j == 0)
+                {
+                    $avrrate=$totalrate;
+                }
+                else
+                {
+                    $avrrate=$totalrate/$j;
+                }
+                ?>
+                    <tr class="t-row">
+                        <td><p><?php echo $history['ServiceRequestId']; ?></p></td>
+                        <td>
+                            <p class="date"><img src="./assets/Image/calendar.png"> <?php echo $dt; ?></p>
+                            <p><?php echo $tm ?></p>
+                        </td>
+                        <td> 
+                            <div class="a flex-wrap row"> 
+                                <?php
+                                if(isset($SP['FirstName']))
+                                {
+                                   ?>
+                                    <div class=""><img src="./assets/Image/forma-1-copy-19.png"></div>
+                                    <div>
+                                        <p class="lum-watson"><?php if(isset($SP['FirstName'])){echo $SP['FirstName'];} ?> </p>
+                                        <div class="row">
+                                            <div class="rateyo" id= "rating"  data-rateyo-rating=" <?php echo $avrrate; ?>"></div>
+                                            <div><?php echo round($avrrate,1); ?></div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                        </td>
+                        <td><p class="euro d-flex justify-content-center">&euro; <?php echo $history['TotalCost']; ?></p></td>
+                        <td>
+                            <button  class="reschedule" >Resschedule</button>
+                            <button  class="cancel" >Cancel</button>
+                        </td>
+                    </tr>
+                <?php
+            }
+           
+        }
+        else
+        { ?>
+          <div class="text-center"><h4>No history Found</h4></div>
+        <?php
+        }
+
+
+    }
 
 
 }

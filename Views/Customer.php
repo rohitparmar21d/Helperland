@@ -5,6 +5,7 @@ $base_url = "http://localhost/Helperland/";
 
 <link rel="stylesheet" href="./assets/css/Customer.css">
 
+
 <title>Customer</title>
 </head>
 
@@ -57,7 +58,7 @@ $base_url = "http://localhost/Helperland/";
                                     </thead>
                                     <tbody class="dboard">
                                         <!--1st row start-->
-                                        <tr class="t-row">
+                                        <!-- <tr class="t-row">
                                             <td>2323</td>
                                             <td>
                                                 <p class="date"><img src="./assets/Image/calendar.png"> 31/03/2018</p>
@@ -68,13 +69,7 @@ $base_url = "http://localhost/Helperland/";
                                                     <div class=""><img src="./assets/Image/forma-1-copy-19.png"></div>
                                                    <div>
                                                         <p class="lum-watson">Lyum Watson</p>
-                                                        <p>
-                                                        <img src="./assets/Image/star1.png">
-                                                        <img src="./assets/Image/star1.png">
-                                                        <img src="./assets/Image/star1.png">
-                                                        <img src="./assets/Image/star1.png">
-                                                        <img src="./assets/Image/star2.png"> 
-                                                        </p>
+                                                        <div class="rateyo" id= "rating"  data-rateyo-rating="3" > </div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -86,7 +81,8 @@ $base_url = "http://localhost/Helperland/";
                                             <button  class="reschedule" >Resschedule</button>
                                                 <button  class="cancel" >Cancel</button>
                                             </td>
-                                        </tr>
+                                        </tr> -->
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -153,6 +149,8 @@ $base_url = "http://localhost/Helperland/";
             <!--content ended -->
         </div>
     </section>
+    
     <?php include('./footer.php'); ?>
+    
 </body>
 </html>

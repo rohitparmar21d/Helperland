@@ -9,7 +9,23 @@ $(document).ready(function () {
         success: function (response) 
         {
                $(".history").html(response);
+               $(".rateyo").rateYo();
         }
     });
     /* listing dashboard*/
+    $.ajax({
+        type: "POST",
+        url: base_url + "?controller=Helperland&function=dboard",
+        success: function (response) 
+        {
+               $(".dboard").html(response);
+               $(".rateyo").rateYo({
+                starWidth: "20px",
+                readOnly: true
+               });
+        }
+    });
+
+    /* rating*/
+    $(".rateyo").rateYo();
 });

@@ -127,6 +127,22 @@ class Helperland
         $row  = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row; 
     }
+    function rate($id)
+    {
+        $sql = "SELECT * FROM rating WHERE RatingTo = '$id' ";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $row; 
+    }
 
+    function dboard($userid)
+    {
+        $sql = "SELECT * FROM servicerequest WHERE UserId = '$userid' AND  Status=1 ";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $row;  
+    }
 }
 ?>
