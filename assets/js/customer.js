@@ -9,7 +9,10 @@ $(document).ready(function () {
         success: function (response) 
         {
                $(".history").html(response);
-               $(".rateyo").rateYo();
+               $(".rateyo").rateYo({
+                starWidth: "20px",
+                readOnly: true
+               });
         }
     });
     /* listing dashboard*/
