@@ -135,6 +135,14 @@ class Helperland
         $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $row; 
     }
+    function rateByreqId($id)
+    {
+        $sql = "SELECT * FROM rating WHERE ServiceRequestId = '$id' ";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row; 
+    }
 
     function dboard($userid)
     {
@@ -144,5 +152,28 @@ class Helperland
         $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $row;  
     }
+    function SRByreqId($id)
+    {
+        $sql = "SELECT * FROM servicerequest WHERE ServiceRequestId = '$id' ";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row; 
+    }
+    function reschedule($datetime,$reqid)
+    {
+        $sql_query = "UPDATE servicerequest SET ServiceStartDate ='$datetime' WHERE  ServiceRequestId = '$reqid'";
+        $statement= $this->conn->prepare($sql_query);
+        $statement->execute();
+       
+    }
+
+    function cancel($comment,$reqid)
+    {
+        $sql_query = "UPDATE servicerequest SET Status =3,  Comments='$comment' WHERE  ServiceRequestId = '$reqid'";
+        $statement= $this->conn->prepare($sql_query);
+        $statement->execute();  
+    }
+
 }
 ?>

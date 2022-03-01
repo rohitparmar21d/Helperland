@@ -13,6 +13,141 @@ $base_url = "http://localhost/Helperland/";
     <header>
         <?php include('./navbar.php'); ?>
     </header>
+
+    <!--reschedule modal-->
+    <div class="modal fade" id="reschedule_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">Reschedule Service Request</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="register-inputs me-0 ms-0">
+                        <label class="cancel-question "><b>Select New Date and Time</b></label>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input class="input-element rescheduledate" type="date" id="formdate" name="formdate" data placeholder="From Date">                   
+                            </div>
+                            <div class="col-sm-6">
+                                <select name="booktime" class="rescheduletime" id="booktime">
+                                    <option value=0>00:00</option>
+                                    <option value="3:00">3:00 PM</option>
+                                    <option value="4:00">4:00 PM</option>
+                                    <option value="5:00">5:00 PM</option>
+                                    <option value="6:00">6:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-update">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--cancel-->
+    <div class="modal fade" id="cancel_bookingrequest_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle"><b>Cancel Service Request</b></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="register-inputs me-0 ms-0">
+                        <label class="cancel-question temp"><b>Why you want to cancel the service request?</b></label>
+                        <textarea class="why-cancel" name="whycancel"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button name="submit" class="btn btn-cancelnow">Cancel Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Rate SP-->
+    <div class="modal fade" id="ratesp_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content ratesp">
+                <!-- <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">
+                        <div class="d-flex align-items-center justify-content-left">
+                            <div>
+                                <img class="round-border" src="./assets/Image/forma-1-copy-19.png" alt="cap">
+                            </div>
+                            <div class="ps-2">
+                                <p class="sp-details">Lyum Watson</p>
+                                <p class="sp-details">
+                                    <img src="./assets/Image/star1.png" alt="star">
+                                    <img src="./assets/Image/star1.png" alt="star">
+                                    <img src="./assets/Image/star1.png" alt="star">
+                                    <img src="./assets/Image/star1.png" alt="star">
+                                    <img src="./assets/Image/star2.png" alt="star">
+                                    <span>3.67</span>
+                                </p>
+                            </div>
+                        </div>
+                    </h3>y
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="register-inputs me-0 ms-0">
+                        <label class="rate-service-text">Rate your service provider</label>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <label class="subtext">On time arrival</label>
+                            </div>
+                            <div class="col-sm-7">
+                            <img src="./assets/Image/star1.png" alt="star">
+                                    <img src="./assets/Image/star1.png" alt="star">
+                                    <img src="./assets/Image/star1.png" alt="star">
+                                    <img src="./assets/Image/star1.png" alt="star">
+                                    <img src="./assets/Image/star2.png" alt="star">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <label class="subtext">Friendly</label>
+                            </div>
+                            <div class="col-sm-7">
+                            <img src="./assets/Image/star1.png" alt="star">
+                                    <img src="./assets/Image/star1.png" alt="star">
+                                    <img src="./assets/Image/star1.png" alt="star">
+                                    <img src="./assets/Image/star1.png" alt="star">
+                                    <img src="./assets/Image/star2.png" alt="star">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <label class="subtext">Quality of service</label>
+                            </div>
+                            <div class="col-sm-7">
+                            <img src="./assets/Image/star1.png" alt="star">
+                                    <img src="./assets/Image/star1.png" alt="star">
+                                    <img src="./assets/Image/star1.png" alt="star">
+                                    <img src="./assets/Image/star1.png" alt="star">
+                                    <img src="./assets/Image/star2.png" alt="star">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="subtext">Feedback on service provider</label>
+                        </div>
+                        <div class="row me-0 ms-0">
+                            <textarea class="rate-feedback" name="feedback"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button name="submit" class="btn btn-ratesp-submit">Submit</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
      <!--section-2-1--> 
      <section class="section-2-1">
      <div class="container">
@@ -90,7 +225,7 @@ $base_url = "http://localhost/Helperland/";
                     </div>
                     <div class="tab-pane fade" id="v-pills-history" role="tabpanel" aria-labelledby="v-pills-history-tab">
                         <div class="container-fluid row">
-                            <div class="mr-auto "><h3 class="serhist">Service History</h3></div>
+                            <div class="mr-auto  "><h3 class="serhist">Service History</h3></div>
                             <button class="btn ml-auto export">Export</button>
                         </div>
                         <div class="container-fluid row" id="rightsidebar"> 

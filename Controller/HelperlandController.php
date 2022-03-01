@@ -351,6 +351,7 @@ class HelperlandController
         }
         if($list != NULL)
         {
+            
             foreach($list as $history)
            {
             $SP = $this->model->getUserbyId($history['ServiceProviderId']);
@@ -358,24 +359,13 @@ class HelperlandController
             $tm=substr($history['ServiceStartDate'],11,5);
             $totalmins=HourMinuteToDecimal($tm)+ (($history['ServiceHours']+$history['ExtraHours'])*60);
             $totime=DecimalToHoursMins($totalmins);
-            $rates=$this->model->rate($history['ServiceProviderId']);
-                $j=0;
-                $totalrate=0;
-                foreach($rates as $rate)
-                {
-                    $totalrate+=$rate['Ratings'];
-                    $j++;
-                }
-                if($j == 0)
-                {
-                    $avrrate=$totalrate;
-                }
-                else
-                {
-                    $avrrate=$totalrate/$j;
-                }
+            $rates=$this->model->rateByreqId($history['ServiceRequestId']);
+            if($rates == NULL)
+            {
+                $rates['Ratings']=0;
+            }    
              ?>
-            <tr class="t-row">
+            <tr class="t-row" >
                 <td><p><?php echo $history['ServiceRequestId']; ?></p></td>
                 <td>
                     <p class="date"><img src="./assets/Image/calendar.png"> <?php echo $dt; ?></p>
@@ -391,8 +381,8 @@ class HelperlandController
                             <div>
                                 <p class="lum-watson"><?php if(isset($SP['FirstName'])){echo $SP['FirstName'];} ?> </p>
                                 <div class="row">
-                                    <div class="rateyo" id= "rating"  data-rateyo-rating=" <?php echo $avrrate; ?>"></div>
-                                    <div><?php echo round($avrrate,1); ?></div>
+                                    <div class="rateyo" id= "rating"  data-rateyo-rating=" <?php echo $rates['Ratings']; ?>"></div>
+                                    <div><?php echo $rates['Ratings']; ?></div>
                                 </div>
                             </div>
                         <?php
@@ -419,10 +409,11 @@ class HelperlandController
                 }
                 ?>
                 </td>
-                <td><button  class="rate-sp" <?php if($history['Status']==3){ echo "disabled";} ?> >Rate SP</button></td>
+                <td><button type="button" id="<?php echo $history['ServiceRequestId']; ?>"  class="btn rate-sp" data-toggle="modal" data-target="#ratesp_modal" <?php if($history['Status']==3){ echo "disabled";} ?> >Rate SP</button></td>
             </tr>
             
-            <?php  
+            <?php
+             
            }
         }
         else
@@ -448,7 +439,8 @@ class HelperlandController
             return $h.":".$m;
         }
         if($list != NULL)
-        { 
+        {  
+            
             foreach($list as $history)
             {
                 $SP = $this->model->getUserbyId($history['ServiceProviderId']);
@@ -459,21 +451,28 @@ class HelperlandController
                 $rates=$this->model->rate($history['ServiceProviderId']);
                 $j=0;
                 $totalrate=0;
-                foreach($rates as $rate)
+                if($rates==NULL)
                 {
-                    $totalrate+=$rate['Ratings'];
-                    $j++;
-                }
-                if($j == 0)
-                {
-                    $avrrate=$totalrate;
+                    $avrrate=0;
                 }
                 else
                 {
-                    $avrrate=$totalrate/$j;
+                    foreach($rates as $rate)
+                    {
+                        $totalrate+=$rate['Ratings'];
+                        $j++;
+                    }
+                    if($j == 0)
+                    {
+                        $avrrate=$totalrate;
+                    }
+                    else
+                    {
+                        $avrrate=$totalrate/$j;
+                    }
                 }
                 ?>
-                    <tr class="t-row">
+                    <tr class="t-row tempo" id="<?php echo $history['ServiceRequestId']; ?>">
                         <td><p><?php echo $history['ServiceRequestId']; ?></p></td>
                         <td>
                             <p class="date"><img src="./assets/Image/calendar.png"> <?php echo $dt; ?></p>
@@ -500,8 +499,8 @@ class HelperlandController
                         </td>
                         <td><p class="euro d-flex justify-content-center">&euro; <?php echo $history['TotalCost']; ?></p></td>
                         <td>
-                            <button  class="reschedule" >Resschedule</button>
-                            <button  class="cancel" >Cancel</button>
+                            <button type="button" id="<?php echo $history['ServiceRequestId']; ?>" class="btn reschedule" data-toggle="modal" data-target="#reschedule_modal">Reschedule</button>
+                            <button type="button" class="btn cancel"  id="<?php echo $history['ServiceRequestId']; ?>" data-toggle="modal" data-target="#cancel_bookingrequest_modal">Cancel</button>
                         </td>
                     </tr>
                 <?php
@@ -515,6 +514,104 @@ class HelperlandController
         }
 
 
+    }
+    public function rate_sp() 
+    { 
+         $SR=$this->model->SRByreqId($_POST['reqId']);
+         $SP=$this->model->getUserbyId($SR['ServiceProviderId']);
+         $rates=$this->model->rate($SR['ServiceProviderId']);
+         $j=0;
+         $totalrate=0;
+         if($rates==NULL)
+         {
+             $avrrate=0;
+         }
+         else
+         {
+             foreach($rates as $rate)
+             {
+                 $totalrate+=$rate['Ratings'];
+                 $j++;
+             }
+             if($j == 0)
+             {
+                 $avrrate=$totalrate;
+             }
+             else
+             {
+                 $avrrate=$totalrate/$j;
+             }
+         }
+        ?>
+    
+        <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLongTitle">
+                <div class="d-flex align-items-center justify-content-left">
+                    <div><img class="round-border" src="./assets/Image/forma-1-copy-19.png" alt="cap"></div>
+                    <div class="ps-2">
+                        <p class="sp-details"><?php echo $SP['FirstName']." ".$SP['LastName']; ?></p>
+                        <p class="sp-details">
+                            <div class="row">
+                                <div class="rateyo rate_modal_head" id= "rating"  data-rateyo-rating=" <?php echo $avrrate; ?>"></div>
+                                <span class="sp-details"><?php echo round($avrrate,1); ?></span>
+                            </div>    
+                        </p>
+                    </div>
+                </div>
+            </h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+            <div class="register-inputs me-0 ms-0">
+                <label class="rate-service-text">Rate your service provider</label>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <label class="subtext">On time arrival</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="on_time_arrrival" id= "rating"  data-rateyo-rating=""></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <label class="subtext">Friendly</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="friendly" id= "rating"  data-rateyo-rating=""></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <label class="subtext">Quality of service</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="quality" id= "rating"  data-rateyo-rating=""></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="subtext">Feedback on service provider</label>
+                </div>
+                <div class="row me-0 ms-0">
+                    <textarea class="rate-feedback" name="feedback"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button name="submit" class="btn btn-ratesp-submit">Submit</button>
+        </div> 
+
+    <?php }
+
+    public function reschedule()
+    {
+       $datetime=$_POST['rescheduledate']." ".$_POST['rescheduletime'];
+       $this->model->reschedule($datetime,$_POST['reqId']);
+       
+    }
+    public function cancel()
+    {
+        $this->model->cancel($_POST['comment'],$_POST['reqId']);
+      
     }
 
 

@@ -51,6 +51,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
 <script src="./assets/js/Script.js"></script>
 <script src="./assets/js/customer.js"></script>
+<script src="./assets/js/sweetalert2.all.min.js"></script>
 
 
 
