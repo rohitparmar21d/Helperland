@@ -351,13 +351,87 @@ body {
 	max-width: 450px;
 	margin: 20px auto;
 }
-
+.mod
+{
+	margin-left: 15px;
+}
 .modal .modal-dialog .modal-content .modal-header {
 	font-family: 'Roboto';
 	color: #646464;
 	padding: 15px 30px;
 }
+.modal .modal-dialog .modal-content .modal-footer .btn-reschedule {
+	font-family: 'Roboto';
+	font-size: 14px;
+	padding: 5px 10px;
+	height: 35px;
+	border-radius: 17.5px;
+	color: #FFFFFF;
+	background: #1D7A8C;
+	border: 1px solid #1D7A8C;
+}
+.modal .modal-dialog .modal-content .modalfooter .btn-reschedule:hover {
+	background: #29626D;
+}
 
+.modal .modal-dialog .modal-content .modal-footer .btn-cancel {
+	font-family: 'Roboto';
+	font-size: 14px;
+	padding: 5px 10px;
+	height: 35px;
+	border-radius: 17.5px;
+	color: #FFFFFF;
+	background: #FF6B6B;
+	border: #FF6B6B;
+}
+
+.modal .modal-dialog .modal-content .modal-footer .btn-cancel:hover {
+	background: #fD4B4B;
+}
+
+
+.service-datetime {
+	font-family: 'Roboto';
+	font-size: 20px;
+	font-weight: 600;
+	color: #4F4F4F;
+}
+
+.service-detail {
+	font-family: 'Roboto';
+	font-size: 16px;
+	font-weight: 450;
+	color: #4F4F4F;
+}
+
+.service-detail-text {
+	font-family: 'Roboto';
+	font-size: 16px;
+	font-weight: 300;
+	color: #4F4F4F;
+	margin-left: 15px;
+}
+
+.service-detail-euro {
+	font-family: 'Roboto';
+	font-size: 30px;
+	font-weight: 500;
+	color: #1D7A8C;
+	margin-left: 25px;
+}
+
+.fa-times-circle {
+	font-size: 26px;
+	color: red;
+}
+
+#mod{
+	max-width: 600px;
+}
+.ft
+{
+	justify-content: flex-start;
+}
 /* .modal .modal-dialog .modal-content .modal-header {
 	font-family: 'Roboto';
 	color: #646464;

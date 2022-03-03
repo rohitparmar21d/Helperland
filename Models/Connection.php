@@ -174,6 +174,21 @@ class Helperland
         $statement= $this->conn->prepare($sql_query);
         $statement->execute();  
     }
-
+    function getSRAddbySRId($id)
+    {
+        $sql = "SELECT * FROM servicerequestaddress WHERE ServiceRequestId = '$id' ";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row; 
+    }
+    function getUserAddbyAddId($id)
+    {
+        $sql = "SELECT * FROM useraddress WHERE AddressId = '$id' ";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row; 
+    }
 }
 ?>

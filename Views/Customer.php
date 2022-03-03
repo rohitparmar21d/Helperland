@@ -13,7 +13,113 @@ $base_url = "http://localhost/Helperland/";
     <header>
         <?php include('./navbar.php'); ?>
     </header>
-
+    <!--Service detail Modal-->
+    <div class="modal fade" id="servicedetailmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" id="mod" role="document">
+            <div class="modal-content SD">
+                <!-- <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Service Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body ">
+                    <div class="register-inputs  me-0 ms-0">
+                        <div class="row">
+                            <div>
+                                <span class="service-datetime">05/10/2021&nbsp;8:00 - 11:30</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <span class="service-detail">Duration: </span>
+                            </div>
+                            <div class="service-detail-text">
+                                <span> 3.5 Hrs</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div>
+                                <span class="service-detail">Service Id: </span>
+                            </div>
+                            <div class="service-detail-text">
+                                <span> 123</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <span class="service-detail">Extras: </span>
+                            </div>
+                            <div class="service-detail-text">
+                                <span> Inside cabinets</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <span class="service-detail">Net Amount: </span>
+                            </div>
+                            <div class="service-detail-euro">
+                                <span> &euro; 87.5</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div>
+                                <span class="service-detail">Service Address: </span>
+                            </div>
+                            <div class="service-detail-text">
+                                <span> rajnagar-5, 360003 Rajkot</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <span class="service-detail">Billing Address: </span>
+                            </div>
+                            <div class="service-detail-text">
+                                <span> rajnagar-5, 360003 Rajkot</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <span class="service-detail">Phone: </span>
+                            </div>
+                            <div class="service-detail-text">
+                                <span> 9849389349</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <span class="service-detail">Email: </span>
+                            </div>
+                            <div class="service-detail-text">
+                                <span> ksfds12@gmail.com</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div>
+                                <span class="service-detail">Comments: </span>
+                            </div>
+                            <div class="service-detail-text">
+                                <span> service is good.</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <span><i class="fas fa-times-circle"></i> </span>
+                            </div>
+                            <div class="service-detail-text">
+                                <span> I don't have pets at home</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer ft">
+                    <button name="submit" class="btn btn-reschedule" data-toggle="modal" data-bs-target="#reschedule_modal"><i class="fas fa-history"></i>&nbsp; Reschedule</button>
+                    <button name="submit" class="btn btn-cancel" data-toggle="modal" data-target="#cancel_bookingrequest_modal"><i class="fas fa-times"></i>&nbsp; Cancel</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
     <!--reschedule modal-->
     <div class="modal fade" id="reschedule_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -179,9 +285,9 @@ $base_url = "http://localhost/Helperland/";
                             <div class="mr-auto "><h3 class="serhist">Current Service Requests</h3></div>
                             <button class="btn ml-auto export">Add New Service Request</button>
                         </div>
-                        <div class="container-fluid row" id="rightsidebar"> 
+                        <div class="container-fluid row db" > 
                             <div class="col">
-                                <table id="content-table" class="table table-hover">
+                                <table  class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>Service Id </th>
@@ -194,8 +300,32 @@ $base_url = "http://localhost/Helperland/";
                                     <tbody class="dboard">
                                         <!--1st row start-->
                                         <!-- <tr class="t-row">
-                                            <td>2323</td>
+                                            <td id="hs">2323</td>
+                                            <td id="hs">
+                                                <p class="date"><img src="./assets/Image/calendar.png"> 31/03/2018</p>
+                                                <p>12:00 - 18:00</p>
+                                            </td>
+                                            <td> 
+                                                <div class="a flex-wrap row">
+                                                    <div class=""><img src="./assets/Image/forma-1-copy-19.png"></div>
+                                                   <div>
+                                                        <p class="lum-watson">Lyum Watson</p>
+                                                        <div class="rateyo" id= "rating"  data-rateyo-rating="3" > </div>
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td>
+                                                <p class="euro d-flex justify-content-center">&euro; 63</p>
+                                            </td>
+                                            
+                                            <td >
+                                            <button  class="reschedule" >Resschedule</button>
+                                                <button  class="cancel" >Cancel</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="t-row">
+                                            <td id="hs">2323</td>
+                                            <td id="hs">
                                                 <p class="date"><img src="./assets/Image/calendar.png"> 31/03/2018</p>
                                                 <p>12:00 - 18:00</p>
                                             </td>
@@ -275,7 +405,9 @@ $base_url = "http://localhost/Helperland/";
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-schedule" role="tabpanel" aria-labelledby="v-pills-schedule-tab">..svdvb.</div>
+                    <div class="tab-pane fade" id="v-pills-schedule" role="tabpanel" aria-labelledby="v-pills-schedule-tab">
+                        nbfgkjs
+                    </div>
                     <div class="tab-pane fade" id="v-pills-favpro" role="tabpanel" aria-labelledby="v-pills-favpro-tab">..dds.</div>
                     <div class="tab-pane fade" id="v-pills-invoice" role="tabpanel" aria-labelledby="v-pills-invoice-tab">.ssd..</div>
                     <div class="tab-pane fade" id="v-pills-notification" role="tabpanel" aria-labelledby="v-pills-notification-tab">..ssa.</div>

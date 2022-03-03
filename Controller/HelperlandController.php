@@ -472,13 +472,13 @@ class HelperlandController
                     }
                 }
                 ?>
-                    <tr class="t-row tempo" id="<?php echo $history['ServiceRequestId']; ?>">
-                        <td><p><?php echo $history['ServiceRequestId']; ?></p></td>
-                        <td>
+                    <tr class="t-row" id="<?php echo $history['ServiceRequestId']; ?>">
+                        <td class="td" id="<?php echo $history['ServiceRequestId']; ?>"><p><?php echo $history['ServiceRequestId']; ?></p></td>
+                        <td class="td" id="<?php echo $history['ServiceRequestId']; ?>">
                             <p class="date"><img src="./assets/Image/calendar.png"> <?php echo $dt; ?></p>
                             <p><?php echo $tm."-".$totime ?></p>
                         </td>
-                        <td> 
+                        <td class="td"  id="<?php echo $history['ServiceRequestId']; ?>"> 
                             <div class="a flex-wrap row"> 
                                 <?php
                                 if(isset($SP['FirstName']))
@@ -497,8 +497,8 @@ class HelperlandController
                                 ?>
                             </div>
                         </td>
-                        <td><p class="euro d-flex justify-content-center">&euro; <?php echo $history['TotalCost']; ?></p></td>
-                        <td>
+                        <td class="td" id="<?php echo $history['ServiceRequestId']; ?>"><p class="euro d-flex justify-content-center">&euro; <?php echo $history['TotalCost']; ?></p></td>
+                        <td id="<?php echo $history['ServiceRequestId']; ?>">
                             <button type="button" id="<?php echo $history['ServiceRequestId']; ?>" class="btn reschedule" data-toggle="modal" data-target="#reschedule_modal">Reschedule</button>
                             <button type="button" class="btn cancel"  id="<?php echo $history['ServiceRequestId']; ?>" data-toggle="modal" data-target="#cancel_bookingrequest_modal">Cancel</button>
                         </td>
@@ -569,7 +569,7 @@ class HelperlandController
                         <label class="subtext">On time arrival</label>
                     </div>
                     <div class="col-sm-7">
-                        <div class="on_time_arrrival" id= "rating"  data-rateyo-rating=""></div>
+                        <div class="rateyo on_time_arrrival r1" id= ""  data-rateyo-rating="2"></div>
                     </div>
                 </div>
                 <div class="row">
@@ -577,7 +577,7 @@ class HelperlandController
                         <label class="subtext">Friendly</label>
                     </div>
                     <div class="col-sm-7">
-                        <div class="friendly" id= "rating"  data-rateyo-rating=""></div>
+                        <div class="rateyo friendly r1" id= ""  data-rateyo-rating="3"></div>
                     </div>
                 </div>
                 <div class="row">
@@ -585,7 +585,7 @@ class HelperlandController
                         <label class="subtext">Quality of service</label>
                     </div>
                     <div class="col-sm-7">
-                        <div class="quality" id= "rating"  data-rateyo-rating=""></div>
+                        <div class="rateyo quality r1" id= ""  data-rateyo-rating="4"></div>
                     </div>
                 </div>
                 <div class="row">
@@ -612,6 +612,91 @@ class HelperlandController
     {
         $this->model->cancel($_POST['comment'],$_POST['reqId']);
       
+    }
+    public function SDmodal()
+    {
+        $SR=$this->model->SRByreqId($_POST['requId']);
+        $SP= $this->model->getUserbyId($SR['ServiceProviderId']);
+        $SRAddress=$this->model->getSRAddbySRId($_POST['requId']);
+        $customerAdd=$this->model->getUserAddbyAddId($SRAddress['AddressId']);
+        function HourMinuteToDecimal($hour_minute) 
+        {
+            $t = explode(':', $hour_minute);
+            return $t[0] * 60 + $t[1];
+        }
+        function DecimalToHoursMins($mins)
+        {
+            $h=(int)($mins/60);
+            $m=round($mins%60);
+            if($h<10){$h="0".$h;}
+            if($m<10){$m="0".$m;}
+            return $h.":".$m;
+        }
+        $dt=substr($SR['ServiceStartDate'],0,10);
+        $tm=substr($SR['ServiceStartDate'],11,5);
+        $totalmins=HourMinuteToDecimal($tm)+ (($SR['ServiceHours']+$SR['ExtraHours'])*60);
+        $totime=DecimalToHoursMins($totalmins);
+        ?>
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Service Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body ">
+            <div class="register-inputs mod me-0 ms-0">
+                <div class="row">
+                    <div><span class="service-datetime"><?php echo $dt." ".$tm."-".$totime ?></span></div>
+                </div>
+                <div class="row">
+                    <div><span class="service-detail">Duration: </span></div>
+                    <div class="service-detail-text"><span><?php echo $SR['ServiceHours']+$SR['ExtraHours']." Hrs"; ?></span></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div><span class="service-detail">Service Id: </span></div>
+                    <div class="service-detail-text"><span><?php echo $_POST['requId'] ?></span></div>
+                </div>
+                <div class="row">
+                    <div><span class="service-detail">Extras: </span></div>
+                    <div class="service-detail-text"><span> Inside cabinets</span></div>
+                </div>
+                <div class="row">
+                    <div><span class="service-detail">Net Amount: </span></div>
+                    <div class="service-detail-euro"><span> &euro; <?php echo $SR['TotalCost']; ?></span></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div><span class="service-detail">Service Address: </span></div>
+                    <div class="service-detail-text"><span><?php echo $customerAdd['AddressLine1']."  ".$customerAdd['AddressLine2'].", ".$customerAdd['City']."  ".$customerAdd['State']." - ".$customerAdd['PostalCode'];  ?></span></div>
+                </div>
+                <div class="row">
+                    <div><span class="service-detail">Billing Address: </span></div>
+                    <div class="service-detail-text"><span> Same as cleaning Address</span></div>
+                </div>
+                <div class="row">
+                    <div><span class="service-detail">Phone: </span></div>
+                    <div class="service-detail-text"><span><?php if($SP!=NULL){echo $SP['Mobile'];} ?></span></div>
+                </div>
+                <div class="row">
+                    <div><span class="service-detail">Email: </span></div>
+                    <div class="service-detail-text"><span><?php if($SP!=NULL){echo $SP['Email'];} ?></span></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div><span class="service-detail">Comments: </span></div>
+                    <div class="service-detail-text"><span> <?php echo $SR['Comments']; ?> </span></div>
+                </div>
+                <div class="row"> <?php if($SR['HasPets']){ ?>
+                    <div><span><i class="fas fa-times-circle"></i> </span></div>
+                    <div class="service-detail-text"><span> I don't have pets at home</span></div><?php } ?>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer ft">
+            <button name="submit" id="<?php echo $_POST['requId']; ?>" class="btn btn-reschedule" data-toggle="modal" data-target="#reschedule_modal"><i class="fas fa-history"></i>&nbsp; Reschedule</button>
+            <button name="submit" id="<?php echo $_POST['requId']; ?>" class="btn btn-cancel" data-toggle="modal" data-target="#cancel_bookingrequest_modal"><i class="fas fa-times"></i>&nbsp; Cancel</button>
+        </div>
+        <?php
+        
     }
 
 

@@ -2,6 +2,7 @@ $(document).ready(function () {
     
     var base_url = "http://localhost/Helperland/";
     var reqIdforreschedule;
+    var reqIdfordetailmodal;
     
     
     
@@ -23,6 +24,7 @@ $(document).ready(function () {
                    });
             }
         });
+        
     }
     
     function dashboard()
@@ -38,8 +40,32 @@ $(document).ready(function () {
                 starWidth: "20px",
                 readOnly: true
                });
+               $(".dboard tr .td").click(function (e) 
+               { 
+                    $("#servicedetailmodal").modal("show");
+                    reqIdfordetailmodal=e.target.id;
+                    $.ajax({
+                        type: "POST",
+                        url:  base_url + "?controller=Helperland&function=SDmodal",
+                        data: {
+                        "requId" : reqIdfordetailmodal
+                        },
+                        success: function (response) {
+                            $(".SD").html(response);
+                            $(".btn-reschedule").click(function () { 
+                                $("#servicedetailmodal").modal("hide");
+                                
+                            });
+                            $(".btn-cancel").click(function () { 
+                                $("#servicedetailmodal").modal("hide");
+                                
+                            });
+                        }
+                });
+               });
         }
     });
+    
     }
     
 
@@ -60,15 +86,10 @@ $(document).ready(function () {
                     starWidth: "20px",
                     readOnly: true
                    });
-                $(".on_time_arrrival").rateYo({
-                    starWidth: "20px"
-                   });
-                $(".friendly").rateYo({
-                    starWidth: "20px"
-                   });
-                $(".quality").rateYo({
-                    starWidth: "20px"
-                   });
+                 $(".r1").rateYo({
+                     starWidth: "20px"
+                    });
+               
             }
         });
     });
@@ -77,10 +98,13 @@ $(document).ready(function () {
     $(".dboard").click(function (e) { 
         reqIdforreschedule=e.target.id;
     });
+    $(".ft").click(function (e) { 
+        reqIdforreschedule=e.target.id;
+        
+    });
     $(".btn-update").click(function () { 
         var rescheduledate=$(".rescheduledate").val();
         var rescheduletime=$(".rescheduletime").val();
-        
         $.ajax({
             type: "POST",
             url:  base_url + "?controller=Helperland&function=reschedule",
@@ -104,6 +128,7 @@ $(document).ready(function () {
         }); 
         
     });
+
     $(".btn-cancelnow").click(function () { 
         var comment=$(".why-cancel").val();
         
@@ -142,6 +167,7 @@ $(document).ready(function () {
         
         
     });
+    
 
     
 });
