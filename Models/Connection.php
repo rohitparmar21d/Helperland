@@ -213,5 +213,31 @@ class Helperland
         $row  = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row; 
     }
+    function israted($id)
+    {
+        $sql = "SELECT * FROM rating WHERE  ServiceRequestId = '$id'";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $number_of_rows = $stmt->fetchColumn();
+        return $number_of_rows;
+
+    }
+    function submitrate($a,$israted)
+    {
+        if($israted==0)
+        {
+            $sql_query = "INSERT INTO rating(ServiceRequestId, RatingFrom,RatingTo,Ratings,Comments,RatingDate,OnTimeArrival,Friendly,QualityOfService)
+            VALUES (:ServiceRequestId,:RatingFrom,:RatingTo,:Ratings,:Comments,:RatingDate,:OnTimeArrival,:Friendly,:QualityOfService)";
+            $statement= $this->conn->prepare($sql_query);
+            $statement->execute($a);
+        }
+        else
+        {
+            $sql_query = "UPDATE rating SET RatingFrom='".$a['RatingFrom']."' , RatingTo='".$a['RatingTo']."' , Ratings='".$a['Ratings']."' , Comments='".$a['Comments']."' , RatingDate='".$a['RatingDate']."' , OnTimeArrival='".$a['OnTimeArrival']."' , Friendly='".$a['Friendly']."' , QualityOfService='".$a['QualityOfService']."'  WHERE  ServiceRequestId = '".$a['ServiceRequestId']."' ";
+            $statement= $this->conn->prepare($sql_query);
+            $statement->execute();
+        }
+        
+    }
 }
 ?>

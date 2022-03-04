@@ -531,6 +531,7 @@ class HelperlandController
     public function rate_sp() 
     { 
          $SR=$this->model->SRByreqId($_POST['reqId']);
+         $rt=$this->model->rateByreqId($_POST['reqId']);
          $SP=$this->model->getUserbyId($SR['ServiceProviderId']);
          $rates=$this->model->rate($SR['ServiceProviderId']);
          $j=0;
@@ -582,7 +583,7 @@ class HelperlandController
                         <label class="subtext">On time arrival</label>
                     </div>
                     <div class="col-sm-7">
-                        <div class="rateyo on_time_arrrival r1" id= ""  data-rateyo-rating="2"></div>
+                        <div class="rateyo on_time_arrrival r1" id= ""  data-rateyo-rating="<?php if($rt!=NULL){ echo $rt['OnTimeArrival']; } else{ echo 0; } ?>"></div>
                     </div>
                 </div>
                 <div class="row">
@@ -590,7 +591,7 @@ class HelperlandController
                         <label class="subtext">Friendly</label>
                     </div>
                     <div class="col-sm-7">
-                        <div class="rateyo friendly r1" id= ""  data-rateyo-rating="3"></div>
+                        <div class="rateyo friendly" id= ""  data-rateyo-rating="<?php if($rt!=NULL){ echo $rt['Friendly']; } else{ echo 0; } ?>"></div>
                     </div>
                 </div>
                 <div class="row">
@@ -598,7 +599,7 @@ class HelperlandController
                         <label class="subtext">Quality of service</label>
                     </div>
                     <div class="col-sm-7">
-                        <div class="rateyo quality r1" id= ""  data-rateyo-rating="4"></div>
+                        <div class="rateyo quality r1" id= ""  data-rateyo-rating="<?php if($rt!=NULL){ echo $rt['QualityOfService']; } else{ echo 0; } ?>"></div>
                     </div>
                 </div>
                 <div class="row">
@@ -609,8 +610,8 @@ class HelperlandController
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button name="submit" class="btn btn-ratesp-submit">Submit</button>
+        <div class="modal-footer rateft">
+            <button name="submit" id="<?php echo $_POST['reqId'] ?>" class="btn btn-ratesp-submit">Submit</button>
         </div> 
 
     <?php }
@@ -721,6 +722,24 @@ class HelperlandController
         </div>
         <?php
         
+    }
+    public function submitrate()
+    {
+        $israted=$this->model->israted($_POST['SRId']);
+        $SR=$this->model->SRByreqId($_POST['SRId']);
+        $avr=($_POST['friendly']+$_POST['quality']+$_POST['ontimearrival'])/3;
+        $array = [
+            'ServiceRequestId' => $_POST['SRId'],
+            'RatingFrom'=>$_SESSION['UserId'],
+            'RatingTo' => $SR['ServiceProviderId'],
+            'Ratings' =>$avr,
+            'Comments' => $_POST['feedback'],
+            'RatingDate' =>date('Y-m-d H:i:s'),
+            'OnTimeArrival' => $_POST['ontimearrival'],
+            'QualityOfService' => $_POST['quality'],
+            'Friendly'=>$_POST['friendly']
+        ];
+        $this->model->submitrate($array,$israted);
     }
 
 

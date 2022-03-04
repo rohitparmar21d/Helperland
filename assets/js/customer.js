@@ -3,6 +3,7 @@ $(document).ready(function () {
     var base_url = "http://localhost/Helperland/";
     var reqIdforreschedule;
     var reqIdfordetailmodal;
+    var reqIdforrate;
     
     
     
@@ -73,23 +74,65 @@ $(document).ready(function () {
 
     /*service history modals */
     $(".history").click(function (e) { 
-        var reqId=e.target.id;
+        reqIdforrate=e.target.id;
         $.ajax({
             type: "POST",
             url: base_url + "?controller=Helperland&function=rate_sp",
             data: {
-                "reqId" : reqId
+                "reqId" : reqIdforrate
             },
             success: function (response) {
+                var ontimearrival=0;
+                var friendly=0;
+                var quality=0;
                 $(".ratesp").html(response);
                 $(".rate_modal_head").rateYo({
                     starWidth: "20px",
                     readOnly: true
                    });
-                 $(".r1").rateYo({
+                $(".on_time_arrrival").rateYo({
                      starWidth: "20px"
                     });
-               
+                $(".on_time_arrrival").rateYo().on("rateyo.change", function (e, data) { 
+                    ontimearrival = data.rating;
+                });
+                $(".friendly").rateYo({
+                        starWidth: "20px"
+                       });
+                $(".friendly").rateYo().on("rateyo.change", function (e, data) {
+                    friendly = data.rating;
+                });
+                $(".quality").rateYo({
+                        starWidth: "20px"
+                       });
+                $(".quality").rateYo().on("rateyo.change", function (e, data) {
+                    quality = data.rating;
+                });
+                $(".btn-ratesp-submit").click(function (e) { 
+                    var feedback=$(".rate-feedback").val();
+                    $.ajax({
+                        type: "POST",
+                        url: base_url + "?controller=Helperland&function=submitrate",
+                        data: {
+                            "SRId" : e.target.id,
+                            "friendly" : friendly,
+                            "quality" : quality,
+                            "ontimearrival" : ontimearrival,
+                            "feedback" : feedback
+                        },
+                        success: function (response) {
+                            history();
+                            $("#ratesp_modal").modal("hide");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Done',
+                                text: 'Rate Submitted successfully',
+                                
+                              })
+                            
+                        }
+                    });
+                });
             }
         });
     });
@@ -171,3 +214,7 @@ $(document).ready(function () {
 
     
 });
+
+
+
+
