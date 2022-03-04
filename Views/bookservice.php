@@ -154,12 +154,12 @@
                                         <span class="text-1"><b>Extra Services</b></span>
                                         <div class="extra-service">
                                             <div class="extra-content ">
-                                                <div class="extra-image-1"><img src="./assets/Image/3.png"></div><br>
+                                                <div class="extra-image-1 im" id="0"><img id="0" src="./assets/Image/3.png"></div><br>
                                                 <label class="extra-text" ><span class="extra-text-1">Inside cabinets</span><br></label>
                                             </div>
                                             <div class="extra-content">
-                                                <div class="extra-image-2">
-                                                  <img src="./assets/Image/5.png">
+                                                <div class="extra-image-2 im" id="1">
+                                                  <img id="1" src="./assets/Image/5.png">
                                                 </div>
                                                 <br>
                                                 <div class="extra-text">
@@ -168,8 +168,8 @@
                                                 </div>
                                             </div>
                                             <div class="extra-content">
-                                                <div class="extra-image-3">
-                                                    <img src="./assets/Image/4.png">
+                                                <div class="extra-image-3 im" id="2">
+                                                    <img id="2" src="./assets/Image/4.png">
                                                 </div>
                                                 <br>
                                                 <div class="extra-text">
@@ -178,8 +178,8 @@
                                                 </div>
                                             </div>
                                             <div class="extra-content">
-                                                <div class="extra-image-4">
-                                                    <img src="./assets/Image/2.png">
+                                                <div class="extra-image-4 im" id="3">
+                                                    <img id="3" src="./assets/Image/2.png">
                                                 </div>
                                                 <br>
                                                 <div class="extra-text">
@@ -188,8 +188,8 @@
                                                 </div>
                                             </div>
                                             <div class="extra-content">
-                                                <div class="extra-image-5">
-                                                    <img src="./assets/Image/1.png">
+                                                <div class="extra-image-5 im" id="4">
+                                                    <img id="4" src="./assets/Image/1.png">
                                                 </div>
                                                 <br>
                                                 <div class="extra-text">

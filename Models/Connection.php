@@ -103,6 +103,13 @@ class Helperland
         $statement= $this->conn->prepare($sql_query);
         $statement->execute($Add);
     }
+    function add_extraservice($Add)
+    {
+        $sql_query = "INSERT INTO servicerequestextra(ServiceRequestId, ServiceExtraId)
+        VALUES (:reqid,:selectextraserviceid)";
+        $statement= $this->conn->prepare($sql_query);
+        $statement->execute($Add);
+    }
     function getSPById($zip)
     {
         $sql = "SELECT * FROM user WHERE UserTypeId = 2 AND ZipCode = '$zip' ";
@@ -185,6 +192,22 @@ class Helperland
     function getUserAddbyAddId($id)
     {
         $sql = "SELECT * FROM useraddress WHERE AddressId = '$id' ";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row; 
+    }
+    function getextrabySRId($rqid)
+    {
+        $sql = "SELECT * FROM servicerequestextra WHERE ServiceRequestId = '$rqid' ";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $row; 
+    }
+    function getextrasbyextraId($id)
+    {
+        $sql = "SELECT * FROM extraservices WHERE ServiceExtraId = '$id' ";
         $stmt =  $this->conn->prepare($sql);
         $stmt->execute();
         $row  = $stmt->fetch(PDO::FETCH_ASSOC);

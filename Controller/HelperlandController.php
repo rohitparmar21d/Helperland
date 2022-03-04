@@ -303,6 +303,7 @@ class HelperlandController
     {
     
         $servicetimedate =$_POST['date']." ".$_POST['time'];
+        $selectextraserviceid=$_POST['extraserv'];
             $array = [
                 'UserId' => $_SESSION['UserId'],
                 'ServiceStartDate'=>$servicetimedate,
@@ -323,8 +324,20 @@ class HelperlandController
                 'addid' => $seladdid,
             ];
             $this->model->add_service_request_address($reqAdd);
-            $SPList=$this->model->getSPById($_POST['postalcode']);
 
+            if($selectextraserviceid != null)
+            {
+                for($i=0; $i<sizeof($selectextraserviceid) ; $i++)
+                {
+                    $array2 = [
+                          'reqid' => $reqid,
+                         'selectextraserviceid' => $selectextraserviceid[$i]
+                     ];
+                    $this->model->add_extraservice($array2);
+                }
+            }
+            
+            $SPList=$this->model->getSPById($_POST['postalcode']);
             foreach($SPList as $SPs)
             {
                 $to_email = $SPs['Email'];
@@ -619,6 +632,8 @@ class HelperlandController
         $SP= $this->model->getUserbyId($SR['ServiceProviderId']);
         $SRAddress=$this->model->getSRAddbySRId($_POST['requId']);
         $customerAdd=$this->model->getUserAddbyAddId($SRAddress['AddressId']);
+        $extras=$this->model->getextrabySRId($_POST['requId']);
+        
         function HourMinuteToDecimal($hour_minute) 
         {
             $t = explode(':', $hour_minute);
@@ -657,7 +672,16 @@ class HelperlandController
                 </div>
                 <div class="row">
                     <div><span class="service-detail">Extras: </span></div>
-                    <div class="service-detail-text"><span> Inside cabinets</span></div>
+                    <div class="service-detail-text"><span><?php
+                   if($extras!=NULL)
+                   {
+                    foreach($extras as $extra)
+                    {
+                        $extraname=$this->model->getextrasbyextraId($extra['ServiceExtraId']);
+                        echo $extraname['ServiceExtra'].",";
+                    }
+                   }
+                    ?></span></div>
                 </div>
                 <div class="row">
                     <div><span class="service-detail">Net Amount: </span></div>

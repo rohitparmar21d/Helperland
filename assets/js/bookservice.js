@@ -11,7 +11,7 @@ $(document).ready(function(){
     var totalpayment = 0;
     var date;
     var time;
-    var useraddId ;
+    var extraserv=[] ;
      var base_url = "http://localhost/Helperland/";
        function switchtab(from, to )
     {
@@ -57,10 +57,50 @@ $(document).ready(function(){
         }
      });
      $(".continue-tab-2").click(function () { 
-        switchtab("SchedulePlan","YourDetails");
+         alert(extraserv);
+        // switchtab("SchedulePlan","YourDetails");
         comments = $(".service-comment").val();
         
     });
+
+    
+    
+     $(".im").click(function (e) { 
+         var id =parseInt(e.target.id);
+        for (let j=0 ; j<5 ; j++)
+        {
+            const index = extraserv.indexOf(id);
+
+            if(extraserv==id)
+            {
+                extraserv.splice(index, 1);
+            }
+            else if(extraserv!=id)
+            {
+                extraserv.push(id);
+            }
+        }
+        
+        console.log(extraserv);
+         
+     });
+    // for (let i=1 ; i<=images.length ; i++)
+    // {
+    //     $(images[i]).click(function () { 
+    //         alert("njs");
+    //         // const index = extraserv.indexOf(i);
+
+    //         // if(!(document.getElementById("im"+i).classList.contains("active")))
+    //         // {
+    //         //     extraserv.push(i);
+    //         // }
+    //         // else
+    //         // {
+    //         //     extraserv.splice(index, 1);
+    //         // } 
+    //         // console.log(extraserv);
+    //     });
+    // }
     $(".extra-image-1").click(function ()
     { 
         
@@ -69,7 +109,7 @@ $(document).ready(function(){
             extra_service_active("extra-image-1");
             $(".cabinet").show();
             $(".cabinet-txt").show();
-         }
+        }
         else
         {
             extra_service_diactive("extra-image-1");
@@ -77,8 +117,6 @@ $(document).ready(function(){
             $(".cabinet-txt").hide();
         }
         totaltime();
-    
-        
     });
     $(".extra-image-5").click(function ()
     { 
@@ -376,7 +414,8 @@ $(document).ready(function(){
                 "totalpayment" : totalpayment,
                 "comments":comments,
                 "haspet" : haspet,
-                 "seladdid" : seladdid
+                 "seladdid" : seladdid,
+                 "extraserv":extraserv
                },
             success: function (response) {
                
