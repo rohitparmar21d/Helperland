@@ -741,6 +741,34 @@ class HelperlandController
         ];
         $this->model->submitrate($array,$israted);
     }
+    public function update_password()
+    {
+        $user = $this->model->getUserbyId($_SESSION['UserId']);
+        $email = $user['Email'];
+        $oldpassword = $_POST['oldpassword'];
+        $newpassword = $_POST['newpassword'];
+        $confirmpassword = $_POST['confirmpassword'];
+
+        $count = $this->model->check_password($email, $oldpassword);
+
+        if($count == 1)
+        {
+            if($newpassword == $confirmpassword)
+            {
+                $this->model->update_password($email, $newpassword);
+            }
+            else
+            {
+                echo 1;
+            }
+            
+        }
+        else 
+        {
+            echo 2;
+        }
+        
+    }
 
 
 }

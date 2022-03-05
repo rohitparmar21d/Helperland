@@ -210,7 +210,102 @@ $(document).ready(function () {
         
         
     });
+
+    /*addresses tAb open*/
+    $(".mysettingbtn").click(function (e) { 
+        e.preventDefault();
+        
+           $(".leftsidebar .nav-link").removeClass("active");
+           $(".tab-content .tab-pane").removeClass("show active");
+           $("#v-pills-notification").addClass("show active");
     
+       
+        
+    });
+
+
+    $(".details").click(function () { 
+        $(".details").addClass("active");
+        $(".addresses").removeClass("active");
+        $(".password").removeClass("active");
+        $(".details-body").show();
+        $(".address-body").hide();
+        $(".password-body").hide();
+    });
+    $(".addresses").click(function () { 
+        $(".details").removeClass("active");
+        $(".addresses").addClass("active");
+        $(".password").removeClass("active");
+        $(".details-body").hide();
+        $(".address-body").show();
+        $(".password-body").hide();
+    });
+    $(".password").click(function () { 
+        $(".details").removeClass("active");
+        $(".addresses").removeClass("active");
+        $(".password").addClass("active");
+        $(".details-body").hide();
+        $(".address-body").hide();
+        $(".password-body").show();
+    });
+    
+    $(".password-save").click(function () { 
+        var oldpassword = $("input[name='oldpassword']").val();
+        var newpassword = $("input[name='newpassword']").val();
+        var confirmpassword = $("input[name='confirmpassword']").val();
+
+        if(oldpassword == "" || newpassword == "" || confirmpassword == "")
+        {
+            $(".password_error").html("fill all details.");
+        }
+        else
+        {
+            $(".password_error").html("");
+            $.ajax({
+                type: "POST",
+                url: "http://localhost/Helperland/?controller=Helperland&function=update_password",
+                data: {
+                        "oldpassword" : oldpassword,
+                        "newpassword" : newpassword,
+                        "confirmpassword" : confirmpassword,
+                      },
+                success: function (response) {
+                    if(response==1)
+                    {
+                        Swal.fire({
+                            icon: "warning",
+                            text: 'Password And Confirm Password Must be Same',
+                            
+                          })
+                    }
+                    else if(response==2)
+                    {
+                        Swal.fire({
+                            icon: "warning",
+                            text: 'You entered wrong Old Password',
+                            
+                          })
+                    }
+                    else
+                    {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Done",
+                            text: 'Password Updated Successfully',
+                            
+                          }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = base_url + "?controller=Helperland&function=logout";
+                            }
+                              
+                          });
+                    }
+                    
+                }
+            });
+        }
+    });
+   
 
     
 });

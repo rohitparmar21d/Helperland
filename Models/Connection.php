@@ -239,5 +239,22 @@ class Helperland
         }
         
     }
+    public function check_password($email, $oldpassword)
+    {
+        $sql_qry = "SELECT * FROM user where Email = '$email' AND Password = '$oldpassword'";
+        $statement = $this->conn->prepare($sql_qry);
+        $statement->execute();
+        $count = $statement->rowCount();
+        return $count;
+    }
+
+    public function update_password($email, $newpassword)
+    {
+        $sql_qry = "UPDATE user
+                    SET Password = '$newpassword'
+                    WHERE Email = '$email'";
+        $statement = $this->conn->prepare($sql_qry);
+        $statement->execute();
+    }
 }
 ?>
