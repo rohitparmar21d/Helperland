@@ -13,7 +13,7 @@ if (!isset($_SESSION['loggedin'])) { ?>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav  w-100 justify-content-end">
                     <li class="nav-item  booknow">
-                        <a class="nav-link book-now"title="Book Service" href="<?= $base_url."./?controller=Helperland&function=gotobookservicepage"?>">Book Now</a>
+                        <a class="nav-link book-now" href="<?= $base_url."./?controller=Helperland&function=gotobookservicepage"?>" title="Book Service" >Book Now</a>
                     </li>
                     <li class="nav-item ps">
                         <a class="nav-link ps1" title="Price" href="./Price.php">Prices & services</a>
@@ -83,7 +83,7 @@ if (!isset($_SESSION['loggedin'])) { ?>
                             <a class="dropdown-item mysettingbtn" id="<?php echo $_SESSION['loggedin']; ?>" href="<?php if($_SESSION['loggedin']==1){ ?> ./Customer.php <?php } ?>" >Setting</a>
                             <div class="dropdown-divider"></div>
                             <form method="POST" action=<?= $base_url."./?controller=helperland&function=Logout"?>>
-                                    <button class="dropdown-item" name="logout" type="submit">Logout</button>
+                                    <button class="dropdown-item logout" name="logout" type="submit">Logout</button>
                                 </form>
                         </div>
                     </li>
@@ -161,7 +161,7 @@ if (!isset($_SESSION['loggedin'])) { ?>
                     </li>
                     <li class="nav-item">
                     <form method="POST" action=<?= $base_url."./?controller=helperland&function=logout"?>>
-                                    <button class="dropdown-item" name="logout" type="submit">Logout</button>
+                                    <button class="dropdown-item logout" name="logout" type="submit">Logout</button>
                                 </form>
                     </li>
                     <li class="nav-item newnav">

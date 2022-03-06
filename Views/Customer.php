@@ -3,6 +3,7 @@
 $base_url = "http://localhost/Helperland/";
 ?>
 
+
 <link rel="stylesheet" href="./assets/css/Customer.css">
 
 
@@ -581,6 +582,9 @@ $base_url = "http://localhost/Helperland/";
     </section>
     
     <?php include('./footer.php'); ?>
+    <?php if(!isset($_SESSION['loggedin'])){ ?>
+        <script src="./assets/js/session.js"></script>
+    <?php } ?>
     
 </body>
 </html>

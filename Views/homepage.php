@@ -33,8 +33,6 @@
   unset($_SESSION['login_wrong']);
  ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,14 +49,28 @@
     <link rel="stylesheet" href="./assets/css/Homepage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./assets/css/validation.css">
-    <?php
-    if (!isset($_SESSION['loggedin'])) { ?>
-        <link rel="stylesheet" href="./assets/css/Homenav.css">
-    <?php } ?>
-    <?php
-    if (isset($_SESSION['loggedin'])) { ?>
+    <?php 
+    
+    if(!isset($_SESSION))
+    {
+        session_start();
+    }
+
+
+    if(isset($_SESSION['loggedin']))
+    {  ?>
+    
         <link rel="stylesheet" href="./assets/css/HomeLogin.css">
-    <?php } ?>
+    <?php
+    }
+    else
+    {  ?>
+    
+       <link rel="stylesheet" href="./assets/css/Homenav.css">
+    
+    <?php
+    }
+    ?>
 
 
 
