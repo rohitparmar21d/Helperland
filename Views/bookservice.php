@@ -84,13 +84,13 @@ if (!isset($_SESSION['loggedin'])) { ?>
 <?php if (isset($_SESSION['loggedin'])) { ?>
     <div class="header-navigationbar">
         <nav class="navbar navbar-expand-lg fixed-top">
-            <a class="navbar-brand" href="homepage.php"><img src="assets/image/white-logo-transparent-background.png"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand logo" href="homepage.php"><img src="assets/image/white-logo-transparent-background.png"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"><i class="fa fa-bars bars"></i></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ms-auto">
 
                     <li class="nav-item booked">
                         <a class="nav-link booknow" href="<?= $base_url."./?controller=Helperland&function=gotobookservicepage"?>">Book now</a>
@@ -104,7 +104,7 @@ if (!isset($_SESSION['loggedin'])) { ?>
                         <a class="nav-link Contact" href="./Contact.php">Contact</a>
                     </li>
                     <li class="nav-item dropdown notification">
-                        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-bell ntf"></i><span class="badge badge-danger">2</span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -118,7 +118,7 @@ if (!isset($_SESSION['loggedin'])) { ?>
 
 
                     <li class="nav-item dropdown users">
-                        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="assets/image/admin-user.png">
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -127,7 +127,7 @@ if (!isset($_SESSION['loggedin'])) { ?>
                             <a class="dropdown-item mysettingbtn" id="<?php echo $_SESSION['loggedin']; ?>" href="<?php if($_SESSION['loggedin']==1){ ?> ./Customer.php <?php } ?>" >Setting</a>
                             <div class="dropdown-divider"></div>
                             <form method="POST" action=<?= $base_url."./?controller=helperland&function=Logout"?>>
-                                    <button class="dropdown-item" name="logout" type="submit">Logout</button>
+                                    <button class="dropdown-item logout" name="logout" type="submit">Logout</button>
                                 </form>
                         </div>
                     </li>
@@ -142,7 +142,7 @@ if (!isset($_SESSION['loggedin'])) { ?>
         <nav class="navbar navbar-expand-lg fixed-top">
             <a class="navbar-brand"><img src="assets/image/white-logo-transparent-background.png"></a>
             <div class="nav-brand dropdown notifications">
-                <a class="dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="dropdown-toggle " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-bell ntf"></i><span class="badge badge-danger">2</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -153,7 +153,7 @@ if (!isset($_SESSION['loggedin'])) { ?>
                     <a class="dropdown-item" href="#">Notification3</a>
                 </div>
             </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContents" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContents" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"><i class="fa fa-bars bars"></i></span>
             </button>
 
@@ -205,7 +205,7 @@ if (!isset($_SESSION['loggedin'])) { ?>
                     </li>
                     <li class="nav-item">
                     <form method="POST" action=<?= $base_url."./?controller=helperland&function=logout"?>>
-                                    <button class="dropdown-item" name="logout" type="submit">Logout</button>
+                                    <button class="dropdown-item logout" name="logout" type="submit">Logout</button>
                                 </form>
                     </li>
                     <li class="nav-item newnav">
