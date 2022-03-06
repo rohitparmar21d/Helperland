@@ -830,7 +830,6 @@ class HelperlandController
             'UserId'=>$_SESSION['UserId'],
         ];
         $this->model->updatemydetails($array);
-        echo "done";
     }
     
 
