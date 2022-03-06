@@ -613,8 +613,8 @@ class HelperlandController
         <div class="modal-footer rateft">
             <button name="submit" id="<?php echo $_POST['reqId'] ?>" class="btn btn-ratesp-submit">Submit</button>
         </div> 
-
-    <?php }
+        <?php 
+    }
 
     public function reschedule()
     {
@@ -769,6 +769,71 @@ class HelperlandController
         }
         
     }
+    public function mydetails()
+    {
+        $userdetail = $this->model->getUserbyId($_SESSION['UserId']);
+        ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="text-danger error-message"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="fname">First name</label><br>
+                    <input type="text" class="input" name="fname" placeholder="First name" reqiured value="<?php echo $userdetail['FirstName']; ?>">
+                </div>
+                <div class="col-md-4">
+                    <label for="lname">Last name</label><br>
+                    <input type="text" class="input" name="lname" placeholder="Last name" required value="<?php echo $userdetail['LastName']; ?>">
+                </div>
+                <div class="col-md-4">
+                    <label for="email">E-mail address</label><br>
+                    <input type="email" class="input" name="email" placeholder="E-mail address" disabled value="<?php echo $userdetail['Email']; ?>">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="mobile">Mobile number</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">+49</span>
+                        <input type="text" name="mobile" placeholder="Mobile number" value="<?php echo $userdetail['Mobile'] ?>" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="birthdate">Date of Birth</label><br>
+                    <input class="input-element birthdate" type="date" id="birthdate" name="dob" data placeholder="From Date" value="<?php if(isset($userdetail['DateOfBirth'])){ echo $userdetail['DateOfBirth']; } ?>">
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="language">Language</label><br>
+                    <select name="language" id="language" required>
+                        <option value="Gujarati">English</option>
+                        <option value="Maths">Hindi</option>
+                        <option value="Science">Gujarati</option>
+                    </select>
+                </div>
+            </div>
+            <div><button class="details-save">Save</button></div>
+        <?php
+        
+    }
+    public function updatemydetails()
+    {
+        $array = [
+            'FirstName' => $_POST['fname'],
+            'LastName' => $_POST['lname'],
+            'Mobile' => $_POST['mobile'],
+            'DateOfBirth' => $_POST['birthdate'],
+            'UserId'=>$_SESSION['UserId'],
+        ];
+        $this->model->updatemydetails($array);
+        echo "done";
+    }
+    
+
 
 
 }

@@ -305,8 +305,58 @@ $(document).ready(function () {
             });
         }
     });
-   
 
+
+    /*updating details*/
+
+    $.ajax({
+        type: "POST",
+        url: base_url +"?controller=Helperland&function=mydetails",
+        success: function (response) {
+            $(".details-body").html(response);
+           
+            $(".details-save").click(function () { 
+                
+                var fname = $("input[name='fname']").val();
+                var lname = $("input[name='lname']").val();
+                var mobile = $("input[name='mobile']").val();
+                var dob = $("input[name='dob']").val();
+
+                if(fname == "" || lname == "" || mobile == "" || dob == "")
+                {
+                    $(".error-message").html("please fill all the details.");
+                }
+                else
+                {
+                    $(".error-message").html("");
+                    $.ajax({
+                        type: "POST",
+                        url: base_url +"?controller=Helperland&function=updatemydetails",
+                        data: {
+                            "fname" : fname,
+                            "lname" : lname,
+                            "mobile" : mobile,
+                            "birthdate" : dob,
+                        },
+                        success: function (response) {
+                            if(response)
+                            {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Updated',
+                                    text:'Detail changed successfully.',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                    })
+                            }
+                        }
+                    });
+                } 
+             });
+        }
+    });
+
+    
     
 });
 

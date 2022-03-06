@@ -269,7 +269,7 @@ $base_url = "http://localhost/Helperland/";
             <!-- left nav -->
             <div class="col-3">
                 <div class="nav flex-column nav-pills leftsidebar" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link " id="v-pills-dashboard-tab" data-toggle="pill" href="#v-pills-dashboard" role="tab" aria-controls="v-pills-dashboard" aria-selected="true">Dashboard</a>
+                    <a class="nav-link active" id="v-pills-dashboard-tab" data-toggle="pill" href="#v-pills-dashboard" role="tab" aria-controls="v-pills-dashboard" aria-selected="true">Dashboard</a>
                     <a class="nav-link" id="v-pills-history-tab" data-toggle="pill" href="#v-pills-history" role="tab" aria-controls="v-pills-history" aria-selected="false">Service History</a>
                     <a class="nav-link" id="v-pills-schedule-tab" data-toggle="pill" href="#v-pills-schedule" role="tab" aria-controls="v-pills-schedule" aria-selected="false">Service Schedule</a>
                     <a class="nav-link" id="v-pills-favpro-tab" data-toggle="pill" href="#v-pills-favpro" role="tab" aria-controls="v-pills-favpro" aria-selected="false">Favourite Pros</a>
@@ -281,10 +281,10 @@ $base_url = "http://localhost/Helperland/";
             <!-- content -->
             <div class="col-9" id="rightside">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade " id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+                    <div class="tab-pane fade  show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
                         <div class="container-fluid row">
                             <div class="mr-auto "><h3 class="serhist">Current Service Requests</h3></div>
-                            <button class="btn ml-auto export">Add New Service Request</button>
+                            <a class="btn ml-auto export text-white" href="http://localhost/Helperland/?controller=Helperland&function=gotobookservicepage">Add New Service Request</a>
                         </div>
                         <div class="container-fluid row db" > 
                             <div class="col">
@@ -411,7 +411,7 @@ $base_url = "http://localhost/Helperland/";
                     </div>
                     <div class="tab-pane fade" id="v-pills-favpro" role="tabpanel" aria-labelledby="v-pills-favpro-tab">..dds.</div>
                     <div class="tab-pane fade" id="v-pills-invoice" role="tabpanel" aria-labelledby="v-pills-invoice-tab">.ssd..</div>
-                    <div class="tab-pane fade show active" id="v-pills-notification" role="tabpanel" aria-labelledby="v-pills-notification-tab">
+                    <div class="tab-pane fade" id="v-pills-notification" role="tabpanel" aria-labelledby="v-pills-notification-tab">
                         <div class="customer-table mysetting">
                             <div class="d-flex align-items-center justify-content-center">
                                 <button class="btn btn-setting details active">My Details</button>
@@ -420,7 +420,7 @@ $base_url = "http://localhost/Helperland/";
                             </div>
                             <div class="button-body">
                                 <div class="details-body">
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-md-4">
                                             <label for="fname">First name</label><br>
                                             <input type="text" class="input" name="fname" placeholder="First name">
@@ -481,99 +481,93 @@ $base_url = "http://localhost/Helperland/";
                                             </select>
                                         </div>
                                     </div>
-                                <div>
-                                <button class="details-save">Save</button>
+                                    <div><button class="details-save">Save</button></div> -->
+                                </div>
+                                <div class="address-body">
+                                    <table class="address-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Addresses</th>
+                                                <th class="text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="addressline">
+                                                        <div><b>Address:</b></div>&nbsp;
+                                                        <div>Prabhukrupa, 360005-Rajkot</div>
+                                                    </div>
+                                                    <div class="addressline">
+                                                        <div><b>Phone Number:</b></div>&nbsp;
+                                                        <div>9845968794</div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-right">
+                                                    <div>
+                                                        <i class="address-edit fas fa-edit"></i>&nbsp;
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="addressline">
+                                                        <div><b>Address:</b></div>&nbsp;
+                                                        <div>Prabhukrupa, 360005-Rajkot</div>
+                                                    </div>
+                                                    <div class="addressline">
+                                                        <div><b>Phone Number:</b></div>&nbsp;
+                                                        <div>9845968794</div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-right">
+                                                    <div>
+                                                        <i class="address-edit fas fa-edit"></i>&nbsp;
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="addressline">
+                                                        <div><b>Address:</b></div>&nbsp;
+                                                        <div>Prabhukrupa, 360005-Rajkot</div>
+                                                    </div>
+                                                    <div class="addressline">
+                                                        <div><b>Phone Number:</b></div>&nbsp;
+                                                        <div>9845968794</div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-right">
+                                                    <div>
+                                                        <i class="address-edit fas fa-edit"></i>&nbsp;
+                                                        <i class=" fas fa-trash-alt"></i>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div><button class="addnewaddress">Add New Address</button></div>
+                                </div>
+                                <div class="password-body">
+                                    <div class="password_error text-danger"></div>
+                                    <div>
+                                        <label class="password-label" for="oldpassword">Old Password</label> <br>
+                                        <input class="password-input" type="password" name="oldpassword" placeholder="Current Pasword">
+                                    </div>
+                                    <div>
+                                        <label class="password-label" for="newpassword">New Password</label> <br>
+                                        <input class="password-input" type="password" name="newpassword" placeholder="Password">
+                                    </div>
+                                    <div>
+                                        <label class="password-label" for="confirmpassword">Confirm Password</label> <br>
+                                        <input class="password-input" type="password" name="confirmpassword" placeholder="Confirm Password">
+                                    </div>
+                                    <div><button class="password-save">Save</button></div>
+                                </div>
                             </div>
                         </div>
-                        <div class="address-body">
-                            <table class="address-table">
-                                <thead>
-                                    <tr>
-                                        <th>Addresses</th>
-                                        <th class="text-right">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="addressline">
-                                                <div><b>Address:</b></div>&nbsp;
-                                                <div>Prabhukrupa, 360005-Rajkot</div>
-                                            </div>
-                                            <div class="addressline">
-                                                <div><b>Phone Number:</b></div>&nbsp;
-                                                <div>9845968794</div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div>
-                                                <i class="address-edit fas fa-edit"></i>&nbsp;
-                                                <i class="fas fa-trash-alt"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="addressline">
-                                                <div><b>Address:</b></div>&nbsp;
-                                                <div>Prabhukrupa, 360005-Rajkot</div>
-                                            </div>
-                                            <div class="addressline">
-                                                <div><b>Phone Number:</b></div>&nbsp;
-                                                <div>9845968794</div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div>
-                                                <i class="address-edit fas fa-edit"></i>&nbsp;
-                                                <i class="fas fa-trash-alt"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="addressline">
-                                                <div><b>Address:</b></div>&nbsp;
-                                                <div>Prabhukrupa, 360005-Rajkot</div>
-                                            </div>
-                                            <div class="addressline">
-                                                <div><b>Phone Number:</b></div>&nbsp;
-                                                <div>9845968794</div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div>
-                                                <i class="address-edit fas fa-edit"></i>&nbsp;
-                                                <i class=" fas fa-trash-alt"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div>
-                                <button class="addnewaddress">Add New Address</button>
-                            </div>
-                        </div>
-                        <div class="password-body">
-                            <div class="password_error text-danger"></div>
-                            <div>
-                                <label class="password-label" for="oldpassword">Old Password</label> <br>
-                                <input class="password-input" type="password" name="oldpassword" placeholder="Current Pasword">
-                            </div>
-                            <div>
-                                <label class="password-label" for="newpassword">New Password</label> <br>
-                                <input class="password-input" type="password" name="newpassword" placeholder="Password">
-                            </div>
-                            <div>
-                                <label class="password-label" for="confirmpassword">Confirm Password</label> <br>
-                                <input class="password-input" type="password" name="confirmpassword" placeholder="Confirm Password">
-                            </div>
-                            <div>
-                                <button class="password-save">Save</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                     </div>
                 </div>
             </div>

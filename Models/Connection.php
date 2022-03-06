@@ -256,5 +256,13 @@ class Helperland
         $statement = $this->conn->prepare($sql_qry);
         $statement->execute();
     }
+    public function updatemydetails($array)
+    {
+        $sql_qry = "UPDATE user
+                    SET FirstName = :FirstName, LastName = :LastName , Mobile = :Mobile, DateOfBirth = :DateOfBirth
+                    WHERE UserId = :UserId ";
+        $statement = $this->conn->prepare($sql_qry);
+        $statement->execute($array);
+    }
 }
 ?>
