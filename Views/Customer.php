@@ -14,6 +14,58 @@ $base_url = "http://localhost/Helperland/";
     <header>
         <?php include('./navbar.php'); ?>
     </header>
+    <!--add or edit address-->
+    <div class="modal fade" id="addedit_address_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" id="mod" role="document">
+            <div class="modal-content addmodal">
+                <!-- <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">Edit Address</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="text-danger err"></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="addresslable" for="streetname">Street name</label><br>
+                                <input class="input" type="text" name="streetname" placeholder="Street name">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="addresslable" for="housenumber">House number</label><br>
+                                <input class="input" type="text" name="housenumber" placeholder="House number">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="addresslable" for="postalcode">Postal code</label><br>
+                                <input class="input" type="text" name="postal_code" placeholder="360005">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="addresslable" for="city">City</label><br>
+                                <input class="input" type="text" name="city" placeholder="Bonn">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="addresslable" for="phonenumber">Phone number</label><br>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">+49</span>
+                                    <input type="text" id="phonenumber" name="phonenumber" placeholder="9745643546">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button name="submit" class="btn btn-addresssave">save</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
     <!--Service detail Modal-->
     <div class="modal fade" id="servicedetailmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" id="mod" role="document">
@@ -274,14 +326,14 @@ $base_url = "http://localhost/Helperland/";
                     <a class="nav-link" id="v-pills-schedule-tab" data-toggle="pill" href="#v-pills-schedule" role="tab" aria-controls="v-pills-schedule" aria-selected="false">Service Schedule</a>
                     <a class="nav-link" id="v-pills-favpro-tab" data-toggle="pill" href="#v-pills-favpro" role="tab" aria-controls="v-pills-favpro" aria-selected="false">Favourite Pros</a>
                     <a class="nav-link" id="v-pills-invoice-tab" data-toggle="pill" href="#v-pills-invoice" role="tab" aria-controls="v-pills-invoice" aria-selected="false">Invoices</a>
-                    <a class="nav-link" id="v-pills-notification-tab" data-toggle="pill" href="#v-pills-notification" role="tab" aria-controls="v-pills-notification" aria-selected="false">Notifications</a>
+                    <a class="nav-link" id="v-pills-notification-tab" data-toggle="pill" href="#" role="tab" aria-controls="v-pills-notification" aria-selected="false">Notifications</a>
                 </div>
             </div>
             <!-- ended nav -->
             <!-- content -->
             <div class="col-9" id="rightside">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade  show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+                    <div class="tab-pane fade   show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
                         <div class="container-fluid row">
                             <div class="mr-auto "><h3 class="serhist">Current Service Requests</h3></div>
                             <a class="btn ml-auto export text-white" href="http://localhost/Helperland/?controller=Helperland&function=gotobookservicepage">Add New Service Request</a>
@@ -491,8 +543,8 @@ $base_url = "http://localhost/Helperland/";
                                                 <th class="text-right">Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
+                                        <tbody class="addressinsettings">
+                                            <!-- <tr>
                                                 <td>
                                                     <div class="addressline">
                                                         <div><b>Address:</b></div>&nbsp;
@@ -545,7 +597,7 @@ $base_url = "http://localhost/Helperland/";
                                                         <i class=" fas fa-trash-alt"></i>
                                                     </div>
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                     <div><button class="addnewaddress">Add New Address</button></div>

@@ -356,8 +356,156 @@ $(document).ready(function () {
         }
     });
 
-    
-    
+
+    AddInSet();
+
+    /* enlist the addresses in settings*/
+   function AddInSet()
+   {
+    $.ajax({
+        type: "POST",
+        url: base_url +"?controller=Helperland&function=addressesinsettings",
+        success: function (response) {
+            $(".addressinsettings").html(response);
+            
+            /*delete address in settings*/
+            $(".fa-trash-alt").click(function (e) { 
+        
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        
+                        $.ajax({
+                            type: "POST",
+                            url: base_url +"?controller=Helperland&function=deleteaddressesinsettings",
+                            data:{ "AddId" : e.target.id},
+                            success: function (response) {
+                                AddInSet();
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'deleted',
+                                    text:'Deleted successfully.',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                    })
+
+                            }
+                        });
+                    }
+                  })
+            });
+
+            /*add mew address in setings*/
+            $(".fa-edit").click(function (eve) { 
+                $("#addedit_address_modal").modal("show");
+                $.ajax({
+                    type: "POST",
+                    url: base_url +"?controller=Helperland&function=addmodal",
+                    data: {"Addnum": eve.target.id},
+                    success: function (response) {
+                        $(".addmodal").html(response);
+
+                        $(".btn-addresssave").click(function (e) { 
+                           
+                            var housenum = $("input[name='housenumber']").val();
+                            var streetname = $("input[name='streetname']").val();
+                            var postalcode = $("input[name='postal_code']").val();
+                            var city = $("input[name='city']").val();
+                            var mobile = $("input[name='phonenumber']").val();
+
+                            $.ajax({
+                                type: "POST",
+                                url: base_url +"?controller=Helperland&function=editadd",
+                                data: {
+                                    "adid":e.target.id,
+                                    "addline1":housenum,
+                                    "addline2":streetname,
+                                    "postalcode":postalcode,
+                                    "city":city,
+                                    "mobile":mobile
+
+                                },
+                                success: function (response) {
+                                    AddInSet();
+                                    $("#addedit_address_modal").modal("hide");
+                                    if(response)
+                                    {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Updated',
+                                            text:'Address updated',
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                            })
+                                    }
+                                }
+                            });
+                            
+                        });
+                    }
+                });
+                
+            });
+        }
+    });
+   }   
+   /* blank modal content*/
+
+   $(".addnewaddress").click(function () { 
+        
+        $("#addedit_address_modal").modal("show");
+        $.ajax({
+            type: "POST",
+            url: base_url +"?controller=Helperland&function=addmodal",
+            success: function (response) {
+                $(".addmodal").html(response);
+
+                $(".btn-addresssave").click(function () { 
+
+                    var housenum = $("input[name='housenumber']").val();
+                    var streetname = $("input[name='streetname']").val();
+                    var postalcode = $("input[name='postal_code']").val();
+                    var city = $("input[name='city']").val();
+                    var mobile = $("input[name='phonenumber']").val();
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: base_url +"?controller=Helperland&function=editadd",
+                        data: {
+                            "addline1":housenum,
+                            "addline2":streetname,
+                            "postalcode":postalcode,
+                            "city":city,
+                            "mobile":mobile
+
+                        },
+                        success: function (response) {
+                            AddInSet();
+                            $("#addedit_address_modal").modal("hide");
+                            if(response)
+                            {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'New One Added',
+                                    text:'New Address added successfully',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                    })
+                            }
+                        }
+                    });
+                     
+                 });
+            }
+        });
+   });
 });
 
 

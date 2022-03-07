@@ -831,9 +831,122 @@ class HelperlandController
         ];
         $this->model->updatemydetails($array);
     }
-    
+    public function addressesinsettings()
+    {
+        $list = $this->model->UserAdresses($_SESSION['UserId']);
 
+        foreach($list as $Add)
+        {
+            ?>
+            <tr>
+                <td>
+                    <div class="addressline">
+                        <div><b>Address:</b></div>&nbsp;
+                        <div><?php echo $Add['AddressLine1']."  ".$Add['AddressLine2'].", ".$Add['City']."  ".$Add['State']." - ".$Add['PostalCode']." ";  ?></div>
+                    </div>
+                    <div class="addressline">
+                        <div><b>Phone Number:</b></div>&nbsp;
+                        <div><?php echo $Add['Mobile']; ?></div>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div>
+                        <i id="<?php echo $Add['AddressId']; ?>" class="address-edit fas fa-edit"></i>&nbsp;
+                        <i id="<?php echo $Add['AddressId']; ?>" class="fas fa-trash-alt"></i>
+                    </div>
+                </td>
+            </tr>
+            <?php
+        }
+    }
+    public function deleteaddressesinsettings()
+    {
+        $this->model->deleteaddressesinsettings($_POST['AddId']);
+        echo "hhii";
+    }
+    public function addmodal()
+    {
+        if(isset($_POST['Addnum']))
+        {
+            $add=$this->model->getAddressbyId($_POST['Addnum']);
+        }
+        ?>
+        <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">Edit Address</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="text-danger err"></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="addresslable" for="streetname">Street name</label><br>
+                                <input class="input" type="text" name="streetname" placeholder="Street name" value="<?php if(isset($_POST['Addnum'])){ echo $add['AddressLine2']; } ?>">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="addresslable" for="housenumber">House number</label><br>
+                                <input class="input" type="text" name="housenumber" placeholder="House number" value="<?php if(isset($_POST['Addnum'])){ echo $add['AddressLine1']; } ?>">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="addresslable" for="postalcode">Postal code</label><br>
+                                <input class="input" type="text" name="postal_code" placeholder="360005" value="<?php if(isset($_POST['Addnum'])){ echo $add['PostalCode']; } ?>">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="addresslable" for="city">City</label><br>
+                                <input class="input" type="text" name="city" placeholder="Bonn" value="<?php if(isset($_POST['Addnum'])){ echo $add['City']; } ?>">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="addresslable" for="phonenumber">Phone number</label><br>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">+49</span>
+                                    <input type="text" id="phonenumber" name="phonenumber" placeholder="9745643546" value="<?php if(isset($_POST['Addnum'])){ echo $add['Mobile']; } ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button name="submit" id="<?php echo $add['AddressId'] ?>" class="btn btn-addresssave">save</button>
+                </div>
+        <?php
+    }
+    public function editadd()
+    {
+        if(isset($_POST['adid']))
+        {
+            $edittype=1;//to update
+            $array = [
+                'AddressLine1' => $_POST['addline1'],
+                'AddressLine2' => $_POST['addline2'],
+                'City' => $_POST['city'],
+                'PostalCode' => $_POST['postalcode'],
+                'Mobile'=>$_POST['mobile'],
+                'AddressId'=>$_POST['adid'],
+            ];
+        }
+        else
+        {
+            $edittype=0;//to insert
+            $array = [
+                'AddressLine1' => $_POST['addline1'],
+                'AddressLine2' => $_POST['addline2'],
+                'City' => $_POST['city'],
+                'PostalCode' => $_POST['postalcode'],
+                'Mobile'=>$_POST['mobile'],
+                'UserId'=>$_SESSION['UserId'],
+            ];
 
-
+        }
+        
+        $this->model->editadd($array,$edittype);
+    }
 }
 ?>

@@ -658,6 +658,51 @@ body {
     padding: 0px 10px;
     margin: 16px 10px 0px 0px;
   }
+
+  .modal .modal-dialog .modal-content .modal-body .addresslable {
+	font-weight: 600;
+}
+
+.modal .modal-dialog .modal-content .modal-body .input {
+	width: 100%;
+	height: 46px;
+	padding: 0 12px;
+	border: 1px solid #E1E1E1;
+	border-radius: 3px;
+	margin: 5px 0 15px 0;
+}
+.modal .modal-dialog .modal-content .modal-body .input-group .input-group-text {
+	width: 54px;
+	height: 46px;
+	border: 1px solid #E1E1E1;
+	border-right: none;
+	border-radius: 3px 0 0 3px;
+	margin: 5px 0 15px 0;
+}
+.modal .modal-dialog .modal-content .modal-body .input-group input {
+	width: calc(100% - 54px);
+	height: 46px;
+	margin: 5px 0 15px 0;
+	border: 1px solid #E1E1E1;
+	border-radius: 0 3px 3px 0;
+	padding-left: 15px;
+}
+
+.modal .modal-dialog .modal-content .modal-footer .btn-addresssave {
+	width: 100%;
+	height: 46px;
+	font-family: 'Roboto';
+	font-size: 16px;
+	font-weight: 400;
+	color: #FFFFFF;
+	background-color: #1D7A8C;
+	border: 1px solid #1D7A8C;
+	border-radius: 23px;
+}
+
+.modal .modal-dialog .modal-content .modal-footer .btn-addresssave:hover {
+	background-color: #29626D;
+}
 /* .modal .modal-dialog .modal-content .modal-header {
 	font-family: 'Roboto';
 	color: #646464;

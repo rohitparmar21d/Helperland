@@ -73,7 +73,7 @@ class Helperland
     }
     function addresslist($zipcode,$userid)
     {
-        $sql = "SELECT * FROM useraddress WHERE  PostalCode = '$zipcode' AND  UserId ='$userid' ";
+        $sql = "SELECT * FROM useraddress WHERE  PostalCode = '$zipcode' AND  UserId ='$userid' AND IsDeleted=0 ";
         $stmt =  $this->conn->prepare($sql);
         $stmt->execute();
         $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -263,6 +263,47 @@ class Helperland
                     WHERE UserId = :UserId ";
         $statement = $this->conn->prepare($sql_qry);
         $statement->execute($array);
+    }
+    function UserAdresses($userid)
+    {
+        $sql = "SELECT * FROM useraddress WHERE UserId ='$userid' AND IsDeleted=0 ";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    function deleteaddressesinsettings($id)
+    {
+        $sql_query = "UPDATE useraddress SET IsDeleted =1 WHERE  AddressId = '$id'";
+        $statement= $this->conn->prepare($sql_query);
+        $statement->execute();  
+    }
+    function getAddressbyId($id)
+    {
+        $sql = "SELECT * FROM useraddress WHERE AddressId = '$id' ";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row; 
+    }
+    function editadd($array,$edittype)
+    {
+        if($edittype==0)
+        {
+            $sql_query = "INSERT INTO useraddress(UserId,AddressLine1, AddressLine2, City, PostalCode, Mobile)
+            VALUES (:UserId,:AddressLine1, :AddressLine2, :City, :PostalCode, :Mobile)";
+            $statement= $this->conn->prepare($sql_query);
+            $statement->execute($array);
+        }
+        else
+        {
+            $sql_query = "UPDATE useraddress
+                    SET AddressLine1 = :AddressLine1, AddressLine2 = :AddressLine2 , City = :City, PostalCode = :PostalCode, Mobile = :Mobile
+                    WHERE AddressId = :AddressId ";
+            $statement = $this->conn->prepare($sql_query);
+            $statement->execute($array);
+        }
+        
     }
 }
 ?>
