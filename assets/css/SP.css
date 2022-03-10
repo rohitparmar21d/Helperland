@@ -66,9 +66,9 @@ body {
     font-size: 13px;
     margin-bottom: 6px;
 }
-.serhist{
+.serarea{
     font-weight: bold;
-    font-size: 22px;
+    font-size: 15px;
     color:#646464;
     
     padding-left:15px;
@@ -360,21 +360,21 @@ body {
 	color: #646464;
 	padding: 15px 30px;
 }
-.modal .modal-dialog .modal-content .modal-footer .btn-reschedule {
+.modal .modal-dialog .modal-content .modal-body .btn-accept {
 	font-family: 'Roboto';
 	font-size: 14px;
 	padding: 5px 10px;
 	height: 35px;
 	border-radius: 17.5px;
 	color: #FFFFFF;
-	background: #1D7A8C;
-	border: 1px solid #1D7A8C;
+	background: #0c830c;
+	border: 1px solid #0c830c;
 }
-.modal .modal-dialog .modal-content .modalfooter .btn-reschedule:hover {
-	background: #29626D;
+.modal .modal-dialog .modal-content .modal-body .btn-accept:hover {
+	background: #1d5a01;
 }
 
-.modal .modal-dialog .modal-content .modal-footer .btn-cancel {
+.modal .modal-dialog .modal-content .modal-body .btn-cancel {
 	font-family: 'Roboto';
 	font-size: 14px;
 	padding: 5px 10px;
@@ -385,7 +385,7 @@ body {
 	border: #FF6B6B;
 }
 
-.modal .modal-dialog .modal-content .modal-footer .btn-cancel:hover {
+.modal .modal-dialog .modal-content .modal-body .btn-cancel:hover {
 	background: #fD4B4B;
 }
 
@@ -426,7 +426,7 @@ body {
 }
 
 #mod{
-	max-width: 600px;
+	max-width: 800px;
 }
 .ft
 {
@@ -703,112 +703,12 @@ body {
 .modal .modal-dialog .modal-content .modal-footer .btn-addresssave:hover {
 	background-color: #29626D;
 }
-/* .modal .modal-dialog .modal-content .modal-header {
-	font-family: 'Roboto';
-	color: #646464;
-	padding: 15px 30px;
-} */
-
-/*.modal .modal-dialog .modal-content .modal-body .register-inputs .rate-service-text {
-	font-family: 'Roboto';
-	font-size: 18px;
-	font-weight: 600;
-	color: #4F4F4F;
-	margin-bottom: 10px;
-}
-
-.modal .modal-dialog .modal-content .modal-body .register-inputs .subtext {
-	font-family: 'Roboto';
-	font-size: 16px;
-	font-weight: 300;
-	color: #4F4F4F;
-	margin: 10px 0;
-}
-
-.modal .modal-dialog .modal-content .modal-body .register-inputs .rate-feedback {
-	font-family: 'Roboto';
-	font-size: 16px;
-	color: #4F4F4F;
-	width: 100%;
-	height: 60px;
-	margin-bottom: 15px;
-	padding: 5px 10px;
-	border: 1px solid #E1E1E1;
-	border-radius: 3px;
-}
-
-.modal .modal-dialog .modal-content .modal-body .register-inputs .btn-ratesp-submit {
-	width: auto;
-	height: 46px;
-	font-family: 'Roboto';
-	font-size: 16px;
-	font-weight: 400;
-	color: #FFFFFF;
-	background-color: #1D7A8C;
-	border: 1px solid #1D7A8C;
-	padding: 5px 20px;
-	border-radius: 23px;
-}
-
-.modal .modal-dialog .modal-content .modal-body .register-inputs .btn-ratesp-submit:hover {
-	background-color: #29626D;
-}
-
-.modal .modal-dialog .modal-content .modal-body .register-inputs .input-group {
-	font-family: 'Roboto';
-	font-size: 16px;
-	opacity: 1;
-	letter-spacing: 0px;
-	margin: 20px 0px;
-	height: 48px;
-	border: 1px solid #C8C8C8;
-	border-radius: 4px;
-}
-
-.modal .modal-dialog .modal-content .modal-body .register-inputs .input-group input {
-	font-family: 'Roboto';
-	font-size: 16px;
-	opacity: 1;
-	letter-spacing: 0px;
-	padding-left: 10px;
-	height: 46px;
+.accept-btn {
+	background:#1D7A8C;
+	color: white;
 	border: none;
-}
-
-.modal .modal-dialog .modal-content .modal-body .register-inputs .input-group .input-group-text {
-	margin: -1px -1px -1px 0;
-}
-
-.modal .modal-dialog .modal-content .modal-body .register-inputs .checkbox-content {
-	display: flex;
-	text-align: left;
-	margin: 20px 0px;
-}
-
-.modal .modal-dialog .modal-content .modal-body .register-inputs .checkbox-content .checkbox {
-	width: 20px;
-	height: 20px;
-	margin-top: 2px;
-}
-
-.modal .modal-dialog .modal-content .modal-body .register-inputs .checkbox-content label {
-	height: 20px;
-	font-family: 'Roboto';
-	font-size: 16px;
-	color: #4F4F4F;
-	padding-left: 10px;
-}
-
-.modal .modal-dialog .modal-content .modal-body .register-inputs .btn-login {
-	width: 100%;
-	height: 50px;
-	font-family: 'Roboto';
-	font-size: 18px;
-	font-weight: bold;
-	color: #FFFFFF;
-	text-align: center;
-	background: #1D7A8C;
-	border: 1px solid #1D7A8C;
 	border-radius: 25px;
-	margin-bottom: 20px;
-}*/
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
+  }

@@ -506,6 +506,27 @@ $(document).ready(function () {
             }
         });
    });
+
+   $("#export").click(function () { 
+       $.ajax({
+           type: "POST",
+           url: base_url +"?controller=Helperland&function=exporthistory",
+           success: function (response) {
+               $(".serhist").html(response);
+            // if(response)
+            // {
+            //     Swal.fire({
+            //         icon: 'success',
+            //         title: 'Exported ',
+            //         showConfirmButton: false,
+            //         timer: 1500
+            //         })
+            // }
+               
+           }
+       });
+       
+   });
 });
 
 

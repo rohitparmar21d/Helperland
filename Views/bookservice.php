@@ -752,9 +752,7 @@ if (!isset($_SESSION['loggedin'])) { ?>
 <script src="./assets/js/Script.js"></script>
 <script src="./assets/js/bookservice.js"></script>
 <script src="./assets/js/sweetalert2.all.min.js"></script>
-<?php if(!isset($_SESSION['loggedin'])){ ?>
-        <script src="./assets/js/session.js"></script>
-    <?php } ?>
+<script src="./assets/js/session.js"></script>
 </body>
 
 </html>

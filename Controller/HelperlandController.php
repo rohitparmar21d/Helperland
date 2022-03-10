@@ -184,7 +184,7 @@ class HelperlandController
         if (isset($_POST))
         {
             $customer = "http://localhost/Helperland/Customer";
-            $sp = "http://localhost/Helperland/upcoming_service";
+            $sp = "http://localhost/Helperland/SP";
             if(($_POST['Email'] == "") || ($_POST['Password'] == "")){
                 
                 $base_url ="http://localhost/Helperland/#LoginModal'";
@@ -591,7 +591,7 @@ class HelperlandController
                         <label class="subtext">Friendly</label>
                     </div>
                     <div class="col-sm-7">
-                        <div class="rateyo friendly" id= ""  data-rateyo-rating="<?php if($rt!=NULL){ echo $rt['Friendly']; } else{ echo 0; } ?>"></div>
+                        <div class="rateyo friendly r1" id= ""  data-rateyo-rating="<?php if($rt!=NULL){ echo $rt['Friendly']; } else{ echo 0; } ?>"></div>
                     </div>
                 </div>
                 <div class="row">
@@ -710,7 +710,7 @@ class HelperlandController
                     <div><span class="service-detail">Comments: </span></div>
                     <div class="service-detail-text"><span> <?php echo $SR['Comments']; ?> </span></div>
                 </div>
-                <div class="row"> <?php if($SR['HasPets']){ ?>
+                <div class="row"> <?php if(!$SR['HasPets']){ ?>
                     <div><span><i class="fas fa-times-circle"></i> </span></div>
                     <div class="service-detail-text"><span> I don't have pets at home</span></div><?php } ?>
                 </div>
@@ -947,6 +947,27 @@ class HelperlandController
         }
         
         $this->model->editadd($array,$edittype);
+    }
+    public function exporthistory()
+    {
+        $list=$this->model->service_history($_SESSION['UserId']);
+        $filename='Service_History.csv';
+        $file = fopen($filename,"w");
+        foreach ($list as $line)
+        {
+            fputcsv($file,$line);
+        }
+        fclose($file);
+
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename=".$filename);
+        header("Content-Type: application/csv; "); 
+
+        readfile($filename);
+
+       // deleting file
+       unlink($filename);
+       exit();  
     }
 }
 ?>

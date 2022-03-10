@@ -93,10 +93,10 @@
                                 <img src="assets/image/admin-user.png">
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-item" >Welcome,<br><b><?php echo $_SESSION["name"]; ?></b></div>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">User Profile</a>
-                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Setting</a>
-                                <div class="dropdown-divider"></div>
                                 <form method="POST" action=<?= $base_url."./?controller=helperland&function=Logout"?>>
                                     <button class="dropdown-item logout" name="logout" type="submit">Logout</button>
                                 </form>

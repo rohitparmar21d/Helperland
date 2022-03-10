@@ -49,6 +49,7 @@
     <link rel="stylesheet" href="./assets/css/Homepage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./assets/css/validation.css">
+    <link rel="stylesheet" href="./assets/css/sweetalert2.min.css">
     <?php 
     
     if(!isset($_SESSION))
@@ -190,7 +191,7 @@
                             <div class="form-group mt-3">
                             </div>
                             <div class="form-group mt-3">
-                                <button type="submit" name="login" class="btn btn-login form-control">Login</button>
+                                <button type="submit" name="login" class="btn btn-login login form-control">Login</button>
                             </div>
                         </form>
 
@@ -519,7 +520,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="./assets/js/Homepage.js"></script>
-    <script src="./assets/js/modal.js"></script>
+    <script src="./assets/js/Script.js"></script>
+    <script src="./assets/js/sweetalert2.all.min.js"></script>
 
 </body>
 
