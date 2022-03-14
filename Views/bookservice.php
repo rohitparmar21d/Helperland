@@ -1,6 +1,3 @@
-
-<?php include('servicerequest.php'); ?>
-
 <!doctype html>
 <html lang="en">
 

@@ -969,5 +969,175 @@ class HelperlandController
        unlink($filename);
        exit();  
     }
+    public function newservicesrequests()
+    {
+        $list=$this->model->newservicesrequests($_SESSION['UserId']);
+        function HourMinuteToDecimal($hour_minute) 
+        {
+            $t = explode(':', $hour_minute);
+            return $t[0] * 60 + $t[1];
+        }
+        function DecimalToHoursMins($mins)
+        {
+            $h=(int)($mins/60);
+            $m=round($mins%60);
+            if($h<10){$h="0".$h;}
+            if($m<10){$m="0".$m;}
+            return $h.":".$m;
+        }
+        foreach($list as $rq)
+        {
+            $customer= $this->model->getUserbyId($rq['UserId']);
+            $SRAddress=$this->model->getSRAddbySRId($rq['ServiceRequestId']);
+            $customerAdd=$this->model->getUserAddbyAddId($SRAddress['AddressId']);
+            $dt=substr($rq['ServiceStartDate'],0,10);
+            $tm=substr($rq['ServiceStartDate'],11,5);
+            $totalmins=HourMinuteToDecimal($tm)+ (($rq['ServiceHours']+$rq['ExtraHours'])*60);
+            $totime=DecimalToHoursMins($totalmins);
+            ?>
+            <tr class="t-row" data-toggle="modal" data-target="#servicedetailmodal">
+                <td><p><?php echo $rq['ServiceRequestId']; ?></p></td>
+                <td>
+                    <div class="date"><img src="./assets/Image/calendar2.png"><?php echo $dt; ?></div>
+                    <div><img src="./assets/Image/layer-14.png"><?php echo $tm."-".$totime; ?></div>
+                </td>
+                <td> 
+                    <div><?php echo $customer['FirstName'] ?></div>
+                    <div><img src="./assets/Image/layer-719.png"><?php echo $customerAdd['AddressLine1']."  ".$customerAdd['AddressLine2'].", " ?></div>
+                    <div><?php echo $customerAdd['City']." - ".$customerAdd['PostalCode']; ?></div>
+                </td>
+                <td><p class="euro d-flex justify-content-center">&euro;<?php echo $rq['TotalCost'] ?></p></td>
+                <td><p></p></td>
+                <td ><button id="<?php echo $rq['ServiceRequestId']; ?>"  class="btn accept-btn">Accept</button></td>
+            </tr>
+        <?php   
+        }
+    }
+    public function acceptrequest()
+    {
+        $array = [
+            'ServiceRequestId' => $_POST['reqId'],
+            'ServiceProviderId' => $_SESSION['UserId'],
+            'SPAcceptedDate' => date('Y-m-d H:i:s'),
+        ];
+
+        $this->model->acceptrequest($array);
+        
+        $SR=$this->model->SRByreqId($_POST['reqId']);
+        $SP= $this->model->getUserbyId($SR['ServiceProviderId']);
+        $customer=$this->model->getUserbyId($SR['UserId']);
+        
+        $to_email = $customer['Email'];
+        $subject = "SERVICE REQUEST ACCEPTED";
+        $body = "Your Service Request ID  ".$_POST['reqId']."  Accepted By " .$SP['FirstName']."  ".$SP['LastName'].". Check out your Upcoming Services";
+        $headers = "From: rohit1parmar11@gmail.com";
+        mail($to_email, $subject, $body, $headers);
+
+    }
+    public function upcoming()
+    {
+        $list=$this->model->upcoming($_SESSION['UserId']);
+        function HourMinuteToDecimal($hour_minute) 
+        {
+            $t = explode(':', $hour_minute);
+            return $t[0] * 60 + $t[1];
+        }
+        function DecimalToHoursMins($mins)
+        {
+            $h=(int)($mins/60);
+            $m=round($mins%60);
+            if($h<10){$h="0".$h;}
+            if($m<10){$m="0".$m;}
+            return $h.":".$m;
+        }
+        foreach($list as $rq)
+        {
+            $customer= $this->model->getUserbyId($rq['UserId']);
+            $SRAddress=$this->model->getSRAddbySRId($rq['ServiceRequestId']);
+            $customerAdd=$this->model->getUserAddbyAddId($SRAddress['AddressId']);
+            $dt=substr($rq['ServiceStartDate'],0,10);
+            $tm=substr($rq['ServiceStartDate'],11,5);
+            $totalmins=HourMinuteToDecimal($tm)+ (($rq['ServiceHours']+$rq['ExtraHours'])*60);
+            $totime=DecimalToHoursMins($totalmins);
+        ?>
+        <tr class="t-row" data-toggle="modal" data-target="#servicedetailmodal" >
+            <td><p><?php echo $rq['ServiceRequestId']; ?></p></td>
+            <td>
+                <div class="date"><img src="./assets/Image/calendar2.png"><?php echo $dt; ?></div>
+                <div><img src="./assets/Image/layer-14.png"><?php echo $tm."-".$totime; ?></div>
+            </td>
+            <td> 
+                <div><?php echo $customer['FirstName']." ".$customer['LastName'] ?></div>
+                <div><img src="./assets/Image/layer-719.png"><?php echo $customerAdd['AddressLine1']."  ".$customerAdd['AddressLine2'].", " ?></div>
+                <div><?php  echo $customerAdd['City']." - ".$customerAdd['PostalCode']; ?></div>
+            </td>
+            <td><p class="euro d-flex justify-content-center">&euro;<?php echo $rq['TotalCost'] ?></p></td>
+            <td><p></p></td>
+            <td ><button id="<?php echo $rq['ServiceRequestId']; ?>" class="cancel-btn">Cancel</button><button id="<?php echo $rq['ServiceRequestId']; ?>" class="complete-btn">Complete</button>
+        </td>
+        </tr>
+        <?php
+        }
+    }
+    public function cancelrequest()
+    {
+        $SR=$this->model->SRByreqId($_POST['reqId']);
+        $SP= $this->model->getUserbyId($SR['ServiceProviderId']);
+        $customer=$this->model->getUserbyId($SR['UserId']);
+
+        $this->model->cancelrequest($_POST['reqId']);
+
+        $to_email = $customer['Email'];
+        $subject = "Your SERVICE REQUEST is Cancelled";
+        $body = "Your Service Request ID  ".$_POST['reqId']." is Cancelled  By " .$SP['FirstName']."  ".$SP['LastName'].". we'll notify you when other sevice provider  will your request ";
+        $headers = "From: rohit1parmar11@gmail.com";
+        mail($to_email, $subject, $body, $headers);
+        
+    } 
+    public function completerequest()
+    {
+        $this->model->completerequest($_POST['reqId']);
+    }
+    public function sphistory()
+    {
+        $list=$this->model->sphistory($_SESSION['UserId']);
+        function HourMinuteToDecimal($hour_minute) 
+        {
+            $t = explode(':', $hour_minute);
+            return $t[0] * 60 + $t[1];
+        }
+        function DecimalToHoursMins($mins)
+        {
+            $h=(int)($mins/60);
+            $m=round($mins%60);
+            if($h<10){$h="0".$h;}
+            if($m<10){$m="0".$m;}
+            return $h.":".$m;
+        }
+        foreach($list as $history)
+        {
+            $customer= $this->model->getUserbyId($history['UserId']);
+            $SRAddress=$this->model->getSRAddbySRId($history['ServiceRequestId']);
+            $customerAdd=$this->model->getUserAddbyAddId($SRAddress['AddressId']);
+            $dt=substr($history['ServiceStartDate'],0,10);
+            $tm=substr($history['ServiceStartDate'],11,5);
+            $totalmins=HourMinuteToDecimal($tm)+ (($history['ServiceHours']+$history['ExtraHours'])*60);
+            $totime=DecimalToHoursMins($totalmins);
+        ?>
+            <tr class="t-row">
+                <td><?php echo $history['ServiceRequestId'] ?></td>
+                <td>
+                    <div class="date"><img src="./assets/Image/calendar2.png"><?php echo $dt; ?></div>
+                    <div><?php echo $tm."-".$totime; ?></div>
+                </td>
+                <td>
+                    <div><?php echo $customer['FirstName']." ".$customer['LastName'] ?></div>
+                    <div><img src="./assets/Image/layer-719.png"><?php echo $customerAdd['AddressLine1']."  ".$customerAdd['AddressLine2'].", " ?></div>
+                    <div><?php  echo $customerAdd['City']." - ".$customerAdd['PostalCode']; ?></div> 
+                </td>
+            </tr>
+        <?php
+        }
+    }
 }
 ?>

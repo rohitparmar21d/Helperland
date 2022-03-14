@@ -305,5 +305,61 @@ class Helperland
         }
         
     }
+    function newservicesrequests($id)
+    {
+        $sql = "SELECT * FROM servicerequest WHERE SPAcceptedDate IS NULL AND  Status=1  AND (ServiceProviderId IS NULL OR ServiceProviderId='$id') ";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $row;  
+    }
+    function upcoming($id)
+    {
+        $sql = "SELECT * FROM servicerequest WHERE SPAcceptedDate IS NOT NULL AND  Status=1 AND  ServiceProviderId='$id' ";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    function acceptrequest($array)
+    {
+        $sql_query = "UPDATE servicerequest
+                    SET ServiceProviderId = :ServiceProviderId, SPAcceptedDate = :SPAcceptedDate 
+                    WHERE ServiceRequestId = :ServiceRequestId ";
+        $statement = $this->conn->prepare($sql_query);
+        $statement->execute($array);
+    }
+    function getSPScheduledetail($id)
+    {
+        $sql = "SELECT * FROM servicerequest WHERE ServiceProviderId='$id' ";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    function cancelrequest($id)
+    {
+        $sql_query = "UPDATE servicerequest
+                      SET ServiceProviderId=NULL, SPAcceptedDate=NULL
+                      WHERE ServiceRequestId = '$id' ";
+        $statement = $this->conn->prepare($sql_query);
+        $statement->execute();  
+    }
+    function completerequest($id)
+    {
+        $sql_query = "UPDATE servicerequest
+                      SET Status=2
+                      WHERE ServiceRequestId = '$id' ";
+        $statement = $this->conn->prepare($sql_query);
+        $statement->execute();
+    }
+    function sphistory($id)
+    {
+        $sql = "SELECT * FROM servicerequest WHERE ServiceProviderId = '$id' AND Status=2";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $row; 
+    }
 }
 ?>

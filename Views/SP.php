@@ -14,58 +14,6 @@ $base_url = "http://localhost/Helperland/";
     <header>
         <?php include('./navbar.php'); ?>
     </header>
-    <!--add or edit address-->
-    <!-- <div class="modal fade" id="addedit_address_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" id="mod" role="document">
-            <div class="modal-content addmodal">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLongTitle">Edit Address</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label class="text-danger err"></label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label class="addresslable" for="streetname">Street name</label><br>
-                                <input class="input" type="text" name="streetname" placeholder="Street name">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="addresslable" for="housenumber">House number</label><br>
-                                <input class="input" type="text" name="housenumber" placeholder="House number">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label class="addresslable" for="postalcode">Postal code</label><br>
-                                <input class="input" type="text" name="postal_code" placeholder="360005">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="addresslable" for="city">City</label><br>
-                                <input class="input" type="text" name="city" placeholder="Bonn">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label class="addresslable" for="phonenumber">Phone number</label><br>
-                                <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon1">+49</span>
-                                    <input type="text" id="phonenumber" name="phonenumber" placeholder="9745643546">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button name="submit" class="btn btn-addresssave">save</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
     <!--Service detail Modal-->
     <div class="modal fade" id="servicedetailmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" id="mod" role="document">
@@ -274,6 +222,7 @@ $base_url = "http://localhost/Helperland/";
      </div>
     </section>
      <!--section-2-2-->
+     <div class="loading d-none">Loading&#8230;</div>
     <section class="section-2-2">
         <div class="row dashboard justify-content-center" id="dashboard">
             <!-- left nav -->
@@ -287,6 +236,7 @@ $base_url = "http://localhost/Helperland/";
                     <a class="nav-link" id="v-pills-bolckcustomer-tab" data-toggle="pill" href="#v-pills-bolckcustomer" role="tab" aria-controls="v-pills-bolckcustomer" aria-selected="false">Block Customer</a>
                     <a class="nav-link" id="v-pills-invoices-tab" data-toggle="pill" href="#v-pills-invoices" role="tab" aria-controls="v-pills-invoices" aria-selected="true">Invoices</a>
                     <a class="nav-link" id="v-pills-notifications-tab" data-toggle="pill" href="#v-pills-notifications" role="tab" aria-controls="v-pills-notifications" aria-selected="false">Notifications</a>
+                    <a class="nav-link" id="v-pills-notification-tab" data-toggle="pill" href="#v-pills-notification" role="tab" aria-controls="v-pills-notification" aria-selected="false">Notifications</a>
                     
                 </div>
             </div>
@@ -294,16 +244,20 @@ $base_url = "http://localhost/Helperland/";
             <!-- content -->
             <div class="col-9" id="rightside">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-newservicerequest" role="tabpanel" aria-labelledby="v-pills-newservicerequest-tab">
+                    <div class="tab-pane fade" id="v-pills-newservicerequest" role="tabpanel" aria-labelledby="v-pills-newservicerequest-tab">
                         <div class="container-fluid row justify-content-right">
                             <div class=" "><span class="serarea">Service Area</span></div>
                             <select name="serareadropdown" class="serareadropdown" id="serareadropdown">
-                                    <option value=5 >5 KM</option>
-                                    <option value="10">10 KM</option>
-                                    <option value="15">15 KM</option>
-                                    <option value="20">20 KM</option>
-                                    <option value="25" selected>25 KM</option>
-                                </select>
+                                <option value=5 >5 KM</option>
+                                <option value="10">10 KM</option>
+                                <option value="15">15 KM</option>
+                                <option value="20">20 KM</option>
+                                <option value="25" selected>25 KM</option>
+                            </select>
+                            <div class="haspet">
+                                <input type="checkbox" class="checkbox pet">
+                                <label class="checkbox-text" for="pet">Include Pet at home</label>
+                            </div>
                         </div>
                         <div class="container-fluid row db" > 
                             <div class="col">
@@ -318,9 +272,9 @@ $base_url = "http://localhost/Helperland/";
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="dboard">
+                                    <tbody class="newrequest">
                                         <!-- 1st row start-->
-                                        <tr class="t-row" data-toggle="modal" data-target="#servicedetailmodal">
+                                        <!-- <tr class="t-row" data-toggle="modal" data-target="#servicedetailmodal">
                                             <td><p>2323</p></td>
                                             <td>
                                                 <p class="date"><img src="./assets/Image/calendar2.png"> 09/04/2018</p>
@@ -335,7 +289,7 @@ $base_url = "http://localhost/Helperland/";
                                             </td>
                                             <td><p></p></td>
                                             <td ><button  class="btn accept-btn">Accept</button></td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -355,9 +309,9 @@ $base_url = "http://localhost/Helperland/";
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="history">
+                                    <tbody class="upcoming">
                                         <!--1st row start-->
-                                        <tr class="t-row" data-toggle="modal" data-target="#servicedetailmodal" >
+                                        <!-- <tr class="t-row" data-toggle="modal" data-target="#servicedetailmodal" >
                                             <td><p>2323</p></td>
                                             <td>
                                                 <p class="date"><img src="./assets/Image/calendar2.png"> 09/04/2018</p>
@@ -372,7 +326,7 @@ $base_url = "http://localhost/Helperland/";
                                             </td>
                                             <td><p>15 Km</p></td>
                                             <td ><button  class="cancel-btn">Cancel</button></td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -381,20 +335,61 @@ $base_url = "http://localhost/Helperland/";
                     <div class="tab-pane fade" id="v-pills-serviceschedule" role="tabpanel" aria-labelledby="v-pills-serviceschedule-tab">
                         nbfgkjs
                     </div>
-                    <div class="tab-pane fade" id="v-pills-servicehistory" role="tabpanel" aria-labelledby="v-pills-servicehistory-tab">..history.</div>
+                    <div class="tab-pane fade" id="v-pills-servicehistory" role="tabpanel" aria-labelledby="v-pills-servicehistory-tab">
+                        <div class="container-fluid row">
+                            <div class="mr-auto"><span class="serarea">Payment Status</span></div>
+                            <select name="serareadropdown" class="paymentstatus mr-auto" id="PaymentStatus" disabled>
+                                <option value=5 >All</option>
+                                <option value="10">Pendimg</option>
+                                <option value="15">Completed</option>>
+                            </select>
+                            <a class="btn ml-auto export text-white">Export</a>
+                        </div>
+                        <div class="container-fluid row" > 
+                            <div class="col">
+                                <table  class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Service Id </th>
+                                            <th >Service Date </th>
+                                            <th >Customer Details </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class=" sphistory">
+                                        <!--1st row start-->
+                                        <!-- <tr class="t-row">
+                                            <td>2323</td>
+                                            <td>
+                                                <div class="date"><img src="./assets/Image/calendar.png"> 31/03/2018</div>
+                                                <div>12:00 - 18:00</div>
+                                            </td>
+                                            <td>
+                                                <div>David Bough</div>
+                                                <div><img src="./assets/Image/layer-719.png"> Musterstrabe 5,12345 Bonn</div> 
+                                            </td>
+                                        </tr> -->
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     <div class="tab-pane fade" id="v-pills-myratings" role="tabpanel" aria-labelledby="v-pills-myratings-tab">.ratings..</div>
                     <div class="tab-pane fade" id="v-pills-bolckcustomer" role="tabpanel" aria-labelledby="v-pills-bolckcustomer-tab">..block.</div>
                     <div class="tab-pane fade" id="v-pills-invoices" role="tabpanel" aria-labelledby="v-pills-invoices-tab">.invoice..</div>
                     <div class="tab-pane fade" id="v-pills-notifications" role="tabpanel" aria-labelledby="v-pills-notifications-tab">..notification.</div>
-                    <div class="tab-pane fade" id="v-pills-notification" role="tabpanel" aria-labelledby="v-pills-notification-tab">
+                    <div class="tab-pane fade  show active" id="v-pills-notification" role="tabpanel" aria-labelledby="v-pills-notification-tab">
                         <div class="customer-table mysetting">
                             <div class="d-flex align-items-center justify-content-center">
                                 <button class="btn btn-setting details active">My Details</button>
-                                <button class="btn btn-setting addresses">My Addresses</button>
                                 <button class="btn btn-setting password">Change Password</button>
                             </div>
                             <div class="button-body">
                                 <div class="details-body">
+                                    <div class="row">
+                                        <div class="col-md-12 tags"><b>Basic Details</b></div>
+                                    </div>
+                                    <hr>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label for="fname">First name</label><br>
@@ -419,111 +414,62 @@ $base_url = "http://localhost/Helperland/";
                                         </div>
                                         <div class="col-md-4">
                                             <label for="birthdate">Date of Birth</label><br>
-                                            <select name="bdate" id="birthdate" required>
-                                                <option value="01">01</option>
-                                                <option value="02">02</option>
-                                                <option value="03">03</option>
-                                                <option value="04">04</option>
-                                                <option value="05">05</option>
-                                                <option value="06">06</option>
-                                            </select>
-                                            <select name="bmonth" id="birthmonth" required>
-                                                <option value="january">January</option>
-                                                <option value="february">February</option>
-                                                <option value="march">March</option>
-                                                <option value="april">April</option>
-                                                <option value="may">May</option>
-                                                <option value="june">June</option>
-                                            </select>
-                                            <select name="byear" id="birthyear" required>
-                                                <option value="2001">2001</option>
-                                                <option value="2002">2002</option>
-                                                <option value="2003">2003</option>
-                                                <option value="2004">2004</option>
-                                                <option value="2005">2005</option>
-                                                <option value="2006">2006</option>
+                                            <input class="input-element birthdate" type="date" id="birthdate" name="dob" data placeholder="From Date">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="nationality">Nationality</label><br>
+                                            <select name="language" id="nationality" required>
+                                                <option value="German">German</option>
+                                                <option value="Indian">Indian</option>
+                                                <option value="African">African</option>
                                             </select>
                                         </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="streetname">Gender</label><br>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-check gender">
+                                            <input class="form-check-input" type="radio" name="male" id="male" value="Male" checked>
+                                            <label class="form-check-label" for="male">Male</label>
+                                        </div>
+                                        <div class="form-check gender">
+                                            <input class="form-check-input" type="radio" name="female" id="female" value="Female">
+                                            <label class="form-check-label" for="female">Female</label>
+                                        </div>
+                                        <div class="form-check gender">
+                                            <input class="form-check-input" type="radio" name="nottosay" id="nottosay" value="Rather not to say">
+                                            <label class="form-check-label" for="nottosay">Rather not to say</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 tags"><b>My Address</b></div>
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <label for="language">E-mail address</label><br>
-                                            <select name="language" id="language" required>
-                                                <option value="Gujarati">English</option>
-                                                <option value="Maths">Hindi</option>
-                                                <option value="Science">Gujarati</option>
-                                            </select>
+                                        <div class="col-md-4">
+                                            <label for="streetname">Street Name</label><br>
+                                            <input type="text" class="input" name="streetname" placeholder="Street Name">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="housenum">House Number</label><br>
+                                            <input type="text" class="input" name="housenum" placeholder="House Number">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="postalcode">Postal Code</label><br>
+                                            <input type="email" class="input" name="postalcode" placeholder="Postal Code">
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="city">City</label><br>
+                                            <input type="text" class="input" name="city" placeholder="City">
+                                        </div>
+                                    </div>
+                                    <hr>
                                     <div><button class="details-save">Save</button></div>
-                                </div>
-                                <div class="address-body">
-                                    <table class="address-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Addresses</th>
-                                                <th class="text-right">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="addressinsettings">
-                                            <tr>
-                                                <td>
-                                                    <div class="addressline">
-                                                        <div><b>Address:</b></div>&nbsp;
-                                                        <div>Prabhukrupa, 360005-Rajkot</div>
-                                                    </div>
-                                                    <div class="addressline">
-                                                        <div><b>Phone Number:</b></div>&nbsp;
-                                                        <div>9845968794</div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-right">
-                                                    <div>
-                                                        <i class="address-edit fas fa-edit"></i>&nbsp;
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="addressline">
-                                                        <div><b>Address:</b></div>&nbsp;
-                                                        <div>Prabhukrupa, 360005-Rajkot</div>
-                                                    </div>
-                                                    <div class="addressline">
-                                                        <div><b>Phone Number:</b></div>&nbsp;
-                                                        <div>9845968794</div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-right">
-                                                    <div>
-                                                        <i class="address-edit fas fa-edit"></i>&nbsp;
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="addressline">
-                                                        <div><b>Address:</b></div>&nbsp;
-                                                        <div>Prabhukrupa, 360005-Rajkot</div>
-                                                    </div>
-                                                    <div class="addressline">
-                                                        <div><b>Phone Number:</b></div>&nbsp;
-                                                        <div>9845968794</div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-right">
-                                                    <div>
-                                                        <i class="address-edit fas fa-edit"></i>&nbsp;
-                                                        <i class=" fas fa-trash-alt"></i>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <div><button class="addnewaddress">Add New Address</button></div>
                                 </div>
                                 <div class="password-body">
                                     <div class="password_error text-danger"></div>
