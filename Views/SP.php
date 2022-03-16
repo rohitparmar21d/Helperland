@@ -244,10 +244,10 @@ $base_url = "http://localhost/Helperland/";
             <!-- content -->
             <div class="col-9" id="rightside">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade" id="v-pills-newservicerequest" role="tabpanel" aria-labelledby="v-pills-newservicerequest-tab">
+                    <div class="tab-pane fade  show active" id="v-pills-newservicerequest" role="tabpanel" aria-labelledby="v-pills-newservicerequest-tab">
                         <div class="container-fluid row justify-content-right">
                             <div class=" "><span class="serarea">Service Area</span></div>
-                            <select name="serareadropdown" class="serareadropdown" id="serareadropdown">
+                            <select name="serareadropdown" class="serareadropdown" id="serareadropdown" disabled>
                                 <option value=5 >5 KM</option>
                                 <option value="10">10 KM</option>
                                 <option value="15">15 KM</option>
@@ -255,7 +255,7 @@ $base_url = "http://localhost/Helperland/";
                                 <option value="25" selected>25 KM</option>
                             </select>
                             <div class="haspet">
-                                <input type="checkbox" class="checkbox pet">
+                                <input type="checkbox" class="checkbox pet" id="pet">
                                 <label class="checkbox-text" for="pet">Include Pet at home</label>
                             </div>
                         </div>
@@ -378,7 +378,7 @@ $base_url = "http://localhost/Helperland/";
                     <div class="tab-pane fade" id="v-pills-bolckcustomer" role="tabpanel" aria-labelledby="v-pills-bolckcustomer-tab">..block.</div>
                     <div class="tab-pane fade" id="v-pills-invoices" role="tabpanel" aria-labelledby="v-pills-invoices-tab">.invoice..</div>
                     <div class="tab-pane fade" id="v-pills-notifications" role="tabpanel" aria-labelledby="v-pills-notifications-tab">..notification.</div>
-                    <div class="tab-pane fade  show active" id="v-pills-notification" role="tabpanel" aria-labelledby="v-pills-notification-tab">
+                    <div class="tab-pane fade" id="v-pills-notification" role="tabpanel" aria-labelledby="v-pills-notification-tab">
                         <div class="customer-table mysetting">
                             <div class="d-flex align-items-center justify-content-center">
                                 <button class="btn btn-setting details active">My Details</button>

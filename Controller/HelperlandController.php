@@ -971,7 +971,8 @@ class HelperlandController
     }
     public function newservicesrequests()
     {
-        $list=$this->model->newservicesrequests($_SESSION['UserId']);
+        $user= $this->model->getUserbyId($_SESSION['UserId']);
+        $list=$this->model->newservicesrequests($_SESSION['UserId'],$user['ZipCode'],$_POST['pet']);
         function HourMinuteToDecimal($hour_minute) 
         {
             $t = explode(':', $hour_minute);
@@ -1015,24 +1016,56 @@ class HelperlandController
     }
     public function acceptrequest()
     {
-        $array = [
-            'ServiceRequestId' => $_POST['reqId'],
-            'ServiceProviderId' => $_SESSION['UserId'],
-            'SPAcceptedDate' => date('Y-m-d H:i:s'),
-        ];
+        $row = $this->model->fill_selected_pending_request($_POST['reqId']);
 
-        $this->model->acceptrequest($array);
-        
-        $SR=$this->model->SRByreqId($_POST['reqId']);
-        $SP= $this->model->getUserbyId($SR['ServiceProviderId']);
-        $customer=$this->model->getUserbyId($SR['UserId']);
-        
-        $to_email = $customer['Email'];
-        $subject = "SERVICE REQUEST ACCEPTED";
-        $body = "Your Service Request ID  ".$_POST['reqId']."  Accepted By " .$SP['FirstName']."  ".$SP['LastName'].". Check out your Upcoming Services";
-        $headers = "From: rohit1parmar11@gmail.com";
-        mail($to_email, $subject, $body, $headers);
+        $date = substr($row['ServiceStartDate'], 0, 10);
+        $nextdate = date("Y-m-d H-i-s", strtotime($date . '+1 day'));
 
+        $timecomplete = "+" . ($row['ServiceHours'] + $row['ExtraHours']) . " " . "hours";
+        $newserviceenddate = date("Y-m-d H-i-s", strtotime($row['ServiceStartDate'] . $timecomplete));
+
+        $allrequests = $this->model->get_requests_for_that_date($_SESSION['UserId'], $date, $nextdate);
+        $count = true;
+        // print_r($date.$nextdate);
+
+        foreach ($allrequests as $request) {
+            // for old request
+
+            $oldstartdate = date("Y-m-d H-i-s", strtotime($request['ServiceStartDate'] . '-1 hour'));
+            $totaltimeforcompletion = "+" . ($request['ServiceHours'] + $request['ExtraHours'] + 1) . " " . "hours";
+            $oldenddate = date("Y-m-d H-i-s", strtotime($request['ServiceStartDate'] . $totaltimeforcompletion));
+
+            
+            if ($oldstartdate >= $date && $newserviceenddate <= $oldenddate) {
+                global $count;
+                $count = false;
+                break;
+            }
+            
+        }
+        if ($count != false) {
+            $array = [
+                'ServiceRequestId' => $_POST['reqId'],
+                'ServiceProviderId' => $_SESSION['UserId'],
+                'SPAcceptedDate' => date('Y-m-d H:i:s'),
+            ];
+    
+            $this->model->acceptrequest($array);
+            
+            $SR=$this->model->SRByreqId($_POST['reqId']);
+            $SP= $this->model->getUserbyId($SR['ServiceProviderId']);
+            $customer=$this->model->getUserbyId($SR['UserId']);
+            
+            $to_email = $customer['Email'];
+            $subject = "SERVICE REQUEST ACCEPTED";
+            $body = "Your Service Request ID  ".$_POST['reqId']."  Accepted By " .$SP['FirstName']."  ".$SP['LastName'].". Check out your Upcoming Services";
+            $headers = "From: rohit1parmar11@gmail.com";
+            mail($to_email, $subject, $body, $headers);
+        } 
+        else
+        {
+            echo 1;
+        }
     }
     public function upcoming()
     {
@@ -1059,6 +1092,10 @@ class HelperlandController
             $tm=substr($rq['ServiceStartDate'],11,5);
             $totalmins=HourMinuteToDecimal($tm)+ (($rq['ServiceHours']+$rq['ExtraHours'])*60);
             $totime=DecimalToHoursMins($totalmins);
+            $timecomplete = "+".($rq['ServiceHours'] + $rq['ExtraHours'])." "."hours";
+            $previousdate = date('Y-m-d H-i-s', strtotime($rq['ServiceStartDate'] .'-1 day'));
+            $serviceenddate = date("Y-m-d H-i-s", strtotime($rq['ServiceStartDate'] .$timecomplete));
+                        
         ?>
         <tr class="t-row" data-toggle="modal" data-target="#servicedetailmodal" >
             <td><p><?php echo $rq['ServiceRequestId']; ?></p></td>
@@ -1073,7 +1110,12 @@ class HelperlandController
             </td>
             <td><p class="euro d-flex justify-content-center">&euro;<?php echo $rq['TotalCost'] ?></p></td>
             <td><p></p></td>
-            <td ><button id="<?php echo $rq['ServiceRequestId']; ?>" class="cancel-btn">Cancel</button><button id="<?php echo $rq['ServiceRequestId']; ?>" class="complete-btn">Complete</button>
+            <td >
+                <?php if($serviceenddate < date('Y-m-d H-i-s')) { ?>
+                    <button id="<?php echo $rq['ServiceRequestId']; ?>" class="complete-btn">Complete</button>
+                    <?php } if($previousdate > date('Y-m-d H-i-s')) { ?>
+                    <button id="<?php echo $rq['ServiceRequestId']; ?>" class="cancel-btn">Cancel</button>
+                    <?php  } ?>
         </td>
         </tr>
         <?php
@@ -1081,22 +1123,37 @@ class HelperlandController
     }
     public function cancelrequest()
     {
+        $row = $this->model->fill_selected_pending_request($_POST['reqId']);
+        $previousdate = date('Y-m-d H-i-s', strtotime($row['ServiceStartDate'] .'-1 day'));
         $SR=$this->model->SRByreqId($_POST['reqId']);
         $SP= $this->model->getUserbyId($SR['ServiceProviderId']);
         $customer=$this->model->getUserbyId($SR['UserId']);
 
-        $this->model->cancelrequest($_POST['reqId']);
+        if($previousdate > date('Y-m-d H-i-s'))
+        {
+            $this->model->cancelrequest($_POST['reqId']);
 
-        $to_email = $customer['Email'];
-        $subject = "Your SERVICE REQUEST is Cancelled";
-        $body = "Your Service Request ID  ".$_POST['reqId']." is Cancelled  By " .$SP['FirstName']."  ".$SP['LastName'].". we'll notify you when other sevice provider  will your request ";
-        $headers = "From: rohit1parmar11@gmail.com";
-        mail($to_email, $subject, $body, $headers);
-        
+            $to_email = $customer['Email'];
+            $subject = "Your SERVICE REQUEST is Cancelled";
+            $body = "Your Service Request ID  ".$_POST['reqId']." is Cancelled  By " .$SP['FirstName']."  ".$SP['LastName'].". we'll notify you when other sevice provider  will your request ";
+            $headers = "From: rohit1parmar11@gmail.com";
+            mail($to_email, $subject, $body, $headers);
+        }
+        else
+        {
+            echo 1;
+        }
     } 
     public function completerequest()
     {
-        $this->model->completerequest($_POST['reqId']);
+        $row = $this->model->fill_selected_pending_request($_POST['reqId']);
+        $timecomplete = "+".($row['ServiceHours'] + $row['ExtraHours'])." "."hours";
+        $serviceenddate = date("Y-m-d H-i-s", strtotime($row['ServiceStartDate'] .$timecomplete));
+
+        if($serviceenddate < date('Y-m-d H-i-s'))
+        {
+            $this->model->completerequest($_POST['reqId']);
+        }
     }
     public function sphistory()
     {
@@ -1139,5 +1196,6 @@ class HelperlandController
         <?php
         }
     }
+
 }
 ?>

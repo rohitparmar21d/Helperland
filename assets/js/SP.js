@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     var base_url = "http://localhost/Helperland/";
-
+    var includepet=0;
     $(".details").click(function () { 
         $(".details").addClass("active");
         $(".password").removeClass("active");
@@ -21,6 +21,21 @@ $(document).ready(function () {
            $(".tab-content .tab-pane").removeClass("show active");
            $("#v-pills-notification").addClass("show active");
     });
+
+    $("#pet").click(function () { 
+        if(this.checked == true){
+
+            includepet = 1;
+
+           }else{
+            
+            includepet = 0;
+
+        } 
+        newrequest();
+    });
+
+
     newrequest();
     upcoming();
     sphistory();
@@ -29,6 +44,7 @@ $(document).ready(function () {
         /*list new requests*/
         $.ajax({
             type: "POST",
+            data:{"pet" : includepet},
             url: base_url + "?controller=Helperland&function=newservicesrequests",
             success: function (response)
             {
@@ -76,12 +92,23 @@ $(document).ready(function () {
                 newrequest();
                 upcoming();
                 $(".loading").addClass("d-none");
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Accepted',
-                    showConfirmButton: false,
-                    timer: 1000
-                    })
+                if(response==1)
+                {
+                    Swal.fire({
+                        icon: 'warning',
+                        text: "You are already assigned another request At this time "
+                        })
+                }
+                else
+                {
+                    Swal.fire({
+                        icon: 'success',
+                        title: "Accepted",
+                        text: 'The request Assigned to ',
+                        showConfirmButton: false,
+                        timer: 1000
+                        })
+                }
             }
         });
     });
@@ -100,14 +127,26 @@ $(document).ready(function () {
                 $(".loading").addClass("d-none");
                 newrequest();
                 upcoming();
-                Swal.fire({
-                    icon: 'success',
-                    title: "Cancelled",
-                    text: 'Request cancelled',
-                    showConfirmButton: false,
-                    timer: 1000
-                    })
-            }
+                
+                if(response==1)
+                {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: "Can not cancel"
+                        })
+                }
+                else
+                {
+                    Swal.fire({
+                        icon: 'success',
+                        title: "Cancelled",
+                        text: 'Request cancelled',
+                        showConfirmButton: false,
+                        timer: 1000
+                        })
+                }
+                }
+                
         });
         
     });

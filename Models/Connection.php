@@ -305,13 +305,24 @@ class Helperland
         }
         
     }
-    function newservicesrequests($id)
+    function newservicesrequests($id,$zip,$pet)
     {
-        $sql = "SELECT * FROM servicerequest WHERE SPAcceptedDate IS NULL AND  Status=1  AND (ServiceProviderId IS NULL OR ServiceProviderId='$id') ";
-        $stmt =  $this->conn->prepare($sql);
-        $stmt->execute();
-        $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $row;  
+        if($pet==1)
+        {
+            $sql = "SELECT * FROM servicerequest WHERE HasPets=1 AND SPAcceptedDate IS NULL AND ZipCode='$zip' AND Status=1  AND (ServiceProviderId IS NULL OR ServiceProviderId='$id') ";
+            $stmt =  $this->conn->prepare($sql);
+            $stmt->execute();
+            $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $row; 
+        }
+        else
+        {
+            $sql = "SELECT * FROM servicerequest WHERE SPAcceptedDate IS NULL AND ZipCode='$zip' AND Status=1  AND (ServiceProviderId IS NULL OR ServiceProviderId='$id') ";
+            $stmt =  $this->conn->prepare($sql);
+            $stmt->execute();
+            $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $row; 
+        } 
     }
     function upcoming($id)
     {
@@ -360,6 +371,23 @@ class Helperland
         $stmt->execute();
         $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $row; 
+    }
+    public function fill_selected_pending_request($selectedrequestid)
+    {
+        $sql_qry = "SELECT * FROM servicerequest WHERE ServiceRequestId = $selectedrequestid";
+        $statement = $this->conn->prepare($sql_qry);
+        $statement->execute();
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    public function get_requests_for_that_date( $serviceproviderid, $date, $nextdate)
+    {
+        $sql_qry = "SELECT * FROM servicerequest 
+                    WHERE ServiceProviderId = '$serviceproviderid' AND SPAcceptedDate IS NOT NULL  AND Status = 1 AND ServiceStartDate BETWEEN '$date' AND '$nextdate'";
+        $statement = $this->conn->prepare($sql_qry);
+        $statement->execute();
+        $row = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
     }
 }
 ?>
