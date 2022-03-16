@@ -244,7 +244,7 @@ $base_url = "http://localhost/Helperland/";
             <!-- content -->
             <div class="col-9" id="rightside">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade  show active" id="v-pills-newservicerequest" role="tabpanel" aria-labelledby="v-pills-newservicerequest-tab">
+                    <div class="tab-pane fade " id="v-pills-newservicerequest" role="tabpanel" aria-labelledby="v-pills-newservicerequest-tab">
                         <div class="container-fluid row justify-content-right">
                             <div class=" "><span class="serarea">Service Area</span></div>
                             <select name="serareadropdown" class="serareadropdown" id="serareadropdown" disabled>
@@ -374,7 +374,51 @@ $base_url = "http://localhost/Helperland/";
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-myratings" role="tabpanel" aria-labelledby="v-pills-myratings-tab">.ratings..</div>
+                    <div class="tab-pane fade show active sp-ratings-body" id="v-pills-myratings" role="tabpanel" aria-labelledby="v-pills-myratings-tab">
+                        <div class="container-fluid row justify-content-right">
+                            <div class=" "><span class="serarea">Ratings</span></div>
+                            <select name="serareadropdown" class="serareadropdown" id="serareadropdown" disabled>
+                                <option value=5 >5 KM</option>
+                                <option value="10">10 KM</option>
+                                <option value="15">15 KM</option>
+                                <option value="20">20 KM</option>
+                                <option value="25" selected>All</option>
+                            </select>
+                        </div>
+                        <table id="tablerating" class="table display">
+                            <thead class="d-none"><th>details</th></thead>
+                            <tbody class="sprate">
+                                <!-- <tr class="mt-20 pt-20">
+                                    <td>
+                                        <div class="rate-detail">
+                                            <div class="rate-content">
+                                                <div>2323</div>
+                                                <div><b>Rohit Parmar</b></div>
+                                            </div>
+                                            <div class="rate-content">
+                                                <div>
+                                                    <img src="./assets/Image/layer-712.png" alt="clock">&nbsp; <span><b>23/12/2020</b></span><br>
+                                                    <img src="./assets/Image/calendar2.png" alt="calendar">&nbsp; <span> 19:20 to 19:30 </span>
+                                                </div>
+                                            </div>
+                                            <div class="rate-content">
+                                                <div><b>ratings</b></div>
+                                                <div class="rate-detail">
+                                                    <div class="rateyo pe-0 ps-0" id="rating" data-rateyo-rating="4"></div>
+                                                    <div>good</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div>
+                                            <div><b>Customer Comment</b></div>
+                                            <div>kjgsdjhgjkfkjsdkf</div>
+                                        </div>
+                                    </td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="tab-pane fade" id="v-pills-bolckcustomer" role="tabpanel" aria-labelledby="v-pills-bolckcustomer-tab">..block.</div>
                     <div class="tab-pane fade" id="v-pills-invoices" role="tabpanel" aria-labelledby="v-pills-invoices-tab">.invoice..</div>
                     <div class="tab-pane fade" id="v-pills-notifications" role="tabpanel" aria-labelledby="v-pills-notifications-tab">..notification.</div>

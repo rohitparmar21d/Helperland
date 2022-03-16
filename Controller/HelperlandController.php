@@ -1196,6 +1196,85 @@ class HelperlandController
         <?php
         }
     }
+    public function sprate()
+    {
+        $rates=$this->model->rate($_SESSION['UserId']);
+        function HourMinuteToDecimal($hour_minute) 
+        {
+            $t = explode(':', $hour_minute);
+            return $t[0] * 60 + $t[1];
+        }
+        function DecimalToHoursMins($mins)
+        {
+            $h=(int)($mins/60);
+            $m=round($mins%60);
+            if($h<10){$h="0".$h;}
+            if($m<10){$m="0".$m;}
+            return $h.":".$m;
+        }
+        foreach($rates as $rate)
+        {
+            $customer = $this->model->getUserbyId($rate['RatingFrom']);
+            $rq=$this->model->SRByreqId($rate['ServiceRequestId']);
+            $dt=substr($rq['ServiceStartDate'],0,10);
+            $tm=substr($rq['ServiceStartDate'],11,5);
+            $totalmins=HourMinuteToDecimal($tm)+ (($rq['ServiceHours']+$rq['ExtraHours'])*60);
+            $totime=DecimalToHoursMins($totalmins);
+            ?>
+            <tr class="mt-20 pt-20">
+                <td>
+                    <div class="rate-detail">
+                        <div class="rate-content">
+                            <div><?php echo $rate['ServiceRequestId']; ?></div>
+                            <div><b><?php echo $customer['FirstName'] . " " . $customer['LastName']; ?></b></div>
+                        </div>
+                        <div class="rate-content">
+                            <div>
+                                <img src="./assets/Image/layer-712.png" alt="clock">&nbsp; <span><?php echo $dt; ?></span><br>
+                                <img src="./assets/Image/calendar2.png" alt="calendar">&nbsp; <span><?php echo $tm."-".$totime; ?></span>
+                            </div>
+                            </div>
+                                <div class="rate-content">
+                                    <div><b>Ratings</b></div>
+                                    <div class="rate-detail">
+                                        <div class="rateyo pe-0 ps-0" id="rating" data-rateyo-rating="<?php echo $rate['Ratings']; ?>"></div>
+                                        <div>
+                                        <?php
+                                                if(0 < $rate['Ratings'] && $rate['Ratings'] <= 1)
+                                                {
+                                                    echo 'bad';
+                                                }
+                                                else if(1 < $rate['Ratings'] && $rate['Ratings'] <= 2)
+                                                {
+                                                    echo 'not bad';
+                                                }
+                                                else if(2 < $rate['Ratings'] && $rate['Ratings'] <= 3)
+                                                {
+                                                    echo 'good';
+                                                }
+                                                else if(3 < $rate['Ratings'] && $rate['Ratings'] <= 4)
+                                                {
+                                                    echo 'very good';
+                                                }
+                                                else if(4 < $rate['Ratings'] && $rate['Ratings'] <= 5)
+                                                {
+                                                    echo 'excellent';
+                                                }
+                                                ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <div><b>Customer Comment</b></div>
+                                <div><?php echo $rate['Comments']; ?></div>
+                            </div>
+                        </td>
+                    </tr>
+            <?php
+        }
+    }
 
 }
 ?>

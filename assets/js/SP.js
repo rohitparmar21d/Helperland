@@ -39,6 +39,7 @@ $(document).ready(function () {
     newrequest();
     upcoming();
     sphistory();
+    sprate();
     function newrequest()
     {
         /*list new requests*/
@@ -77,7 +78,23 @@ $(document).ready(function () {
             }
         });
     }
-    
+    function sprate()
+    {
+        /*list SP rate */
+        $.ajax({
+            type: "POST",
+            url: base_url + "?controller=Helperland&function=sprate",
+            success: function (response) 
+            {
+                $(".sprate").html(response);
+                $(".rateyo").rateYo({
+                    starWidth: "16px",
+                    ratedFill: "#FFD600",
+                    readOnly: true,
+                });
+            }
+        });
+    }
     
     $(document).on ('click', '.accept-btn', function (e) { 
         e.stopPropagation();

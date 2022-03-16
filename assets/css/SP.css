@@ -762,6 +762,26 @@ body {
 	padding-left: 10px;
   }
 
+  .sp-ratings-body .table {
+	border: none !important;
+}
+
+.sp-ratings-body .table tr {
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto 40px auto;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.sp-ratings-body .table tr td {
+	border: none !important;
+}
+
+.sp-ratings-body .rate-detail {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
   /*loader*/
   
 /* Absolute Center Spinner */
