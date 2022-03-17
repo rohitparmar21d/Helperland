@@ -374,7 +374,7 @@ $base_url = "http://localhost/Helperland/";
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade show active sp-ratings-body" id="v-pills-myratings" role="tabpanel" aria-labelledby="v-pills-myratings-tab">
+                    <div class="tab-pane fade sp-ratings-body" id="v-pills-myratings" role="tabpanel" aria-labelledby="v-pills-myratings-tab">
                         <div class="container-fluid row justify-content-right">
                             <div class=" "><span class="serarea">Ratings</span></div>
                             <select name="serareadropdown" class="serareadropdown" id="serareadropdown" disabled>
@@ -419,7 +419,38 @@ $base_url = "http://localhost/Helperland/";
                             </tbody>
                         </table>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-bolckcustomer" role="tabpanel" aria-labelledby="v-pills-bolckcustomer-tab">..block.</div>
+                    <div class="tab-pane fade show active block-card sp-block-customer-body" id="v-pills-bolckcustomer" role="tabpanel" aria-labelledby="v-pills-bolckcustomer-tab">
+                        <div class="card-customer">
+                            <!-- <div class="card">
+                                <div class="customer-image"><img src="./assets/Image/forma-1-copy-19.png" alt=""></div>
+                                <div class="customer-name"><b>Rohit Parmar</b></div>
+                                <div class="block-unblock-button">
+                                    <button class="block-button">Block</button>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="customer-image"><img src="./assets/Image/forma-1-copy-19.png" alt=""></div>
+                                <div class="customer-name"><b>Rohit Parmar</b></div>
+                                <div class="block-unblock-button">
+                                    <button class="block-button">Block</button>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="customer-image"><img src="./assets/Image/forma-1-copy-19.png" alt=""></div>
+                                <div class="customer-name"><b>Rohit Parmar</b></div>
+                                <div class="block-unblock-button">
+                                    <button class="block-button">Block</button>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="customer-image"><img src="./assets/Image/forma-1-copy-19.png" alt=""></div>
+                                <div class="customer-name"><b>Rohit Parmar</b></div>
+                                <div class="block-unblock-button">
+                                    <button class="block-button">Block</button>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
                     <div class="tab-pane fade" id="v-pills-invoices" role="tabpanel" aria-labelledby="v-pills-invoices-tab">.invoice..</div>
                     <div class="tab-pane fade" id="v-pills-notifications" role="tabpanel" aria-labelledby="v-pills-notifications-tab">..notification.</div>
                     <div class="tab-pane fade" id="v-pills-notification" role="tabpanel" aria-labelledby="v-pills-notification-tab">

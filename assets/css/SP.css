@@ -782,6 +782,76 @@ body {
 	justify-content: space-between;
 	align-items: center;
 }
+.sp-block-customer-body .card-customer {
+	font-family: 'Roboto';
+	color: #4F4F4F;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.sp-block-customer-body .card-customer .card {
+	min-width: 280px;
+	border: 1px solid #E1E1E1;
+	padding: 30px 0;
+	border-radius: 0px;
+	margin:5px 5px;
+}
+
+.sp-block-customer-body .card-customer .card .customer-image {
+	margin: auto;
+	width: 80px;
+	height: 80px;
+	border: 1px solid #9C9C9C;
+	border-radius: 50%;
+}
+
+.sp-block-customer-body .card-customer .card .customer-image img {
+	width: 48px;
+	height: 32px;
+	margin: 24px 16px;
+}
+
+.sp-block-customer-body .card-customer .card .customer-name {
+	font-size: 20px;
+	text-align: center;
+	padding: 15px 0;
+}
+
+.sp-block-customer-body .card-customer .card .block-unblock-button {
+	text-align: center;
+}
+
+.sp-block-customer-body .card-customer .card .block-unblock-button .block-button {
+	font-family: 'Roboto';
+	font-size: 16px;
+	color: #FFFFFF;
+	padding: 0 20px;
+	height: 34px;
+	border-radius: 17px;
+	background: #FF6B6B;
+	border: 1px solid #FF6B6B;
+}
+
+.sp-block-customer-body .card-customer .card .block-unblock-button .block-button:hover {
+	background: #fD4B4B;
+}
+
+.sp-block-customer-body .card-customer .card .block-unblock-button .unblock-button {
+	font-family: 'Roboto';
+	font-size: 16px;
+	color: #FFFFFF;
+	padding: 0 20px;
+	height: 34px;
+	border-radius: 17px;
+	background: #1D7A8C;
+	border: 1px solid #29626D;
+}
+
+.sp-block-customer-body .card-customer .card .block-unblock-button .unblock-button:hover {
+	background: #29626D;
+}
   /*loader*/
   
 /* Absolute Center Spinner */

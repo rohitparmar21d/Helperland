@@ -40,6 +40,7 @@ $(document).ready(function () {
     upcoming();
     sphistory();
     sprate();
+    blockcard();
     function newrequest()
     {
         /*list new requests*/
@@ -95,6 +96,17 @@ $(document).ready(function () {
             }
         });
     }
+    function blockcard()
+    {
+        /* fill block cards*/
+        $.ajax({
+            type: "POST",
+            url: base_url + "?controller=Helperland&function=blockcard",
+            success: function (response) {
+                $(".card-customer").html(response);
+            }
+        });
+    }
     
     $(document).on ('click', '.accept-btn', function (e) { 
         e.stopPropagation();
@@ -108,6 +120,7 @@ $(document).ready(function () {
             success: function (response) {
                 newrequest();
                 upcoming();
+                sphistory();
                 $(".loading").addClass("d-none");
                 if(response==1)
                 {
@@ -144,7 +157,7 @@ $(document).ready(function () {
                 $(".loading").addClass("d-none");
                 newrequest();
                 upcoming();
-                
+                sphistory();
                 if(response==1)
                 {
                     Swal.fire({
@@ -179,12 +192,38 @@ $(document).ready(function () {
             success: function (response) {
                 newrequest();
                 upcoming();
+                sphistory();
                 Swal.fire({
                     icon: 'success',
                     text: 'Marked as Completed',
                     showConfirmButton: false,
                     timer: 1000
                     })
+            }
+        });
+        
+    });
+
+    $(document).on ('click', '.block-button', function () {
+        $.ajax({
+            type: "POST",
+            url: base_url + "?controller=Helperland&function=blockcustomer",
+            data: { "userid" : this.id ,},
+            success: function (response) {
+                blockcard();
+                
+            }
+        });
+        
+    });
+    $(document).on ('click', '.unblock-button', function () {
+        $.ajax({
+            type: "POST",
+            url: base_url + "?controller=Helperland&function=unblockcustomer",
+            data: { "userid" : this.id ,},
+            success: function (response) {
+                blockcard();
+                
             }
         });
         

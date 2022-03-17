@@ -1275,6 +1275,41 @@ class HelperlandController
             <?php
         }
     }
-
+    public function blockcard()
+    {
+        $data = $this->model->blockcard($_SESSION['UserId']);
+        foreach($data as $rq)
+        {
+            $customer = $this->model->getUserbyId($rq['UserId']);
+            ?>
+            <div class="card">
+                <div class="customer-image"><img src="./assets/Image/forma-1-copy-19.png" alt=""></div>
+                <div class="customer-name"><b> <?php echo $customer['FirstName'] . " " . $customer['LastName']; ?> </b></div>
+                <div class="block-unblock-button">
+                    <?php
+                    $checkblockunblock = $this->model->checkblocked($rq['UserId'], $_SESSION['UserId']);
+                    if ($checkblockunblock == null) {
+                    ?>
+                        <button class="block-button" id="<?php echo $rq['UserId']; ?>">Block</button>
+                    <?php
+                    } else {
+                    ?>
+                        <button class="unblock-button" id="<?php echo $rq['UserId']; ?>">Unblock</button>
+                    <?php
+                    }
+                    ?>
+                </div>
+            </div>
+            <?php
+        }
+    }
+    public function blockcustomer()
+    {
+        $this->model->blockcustomer($_POST['userid'], $_SESSION['UserId']);
+    }
+    public function unblockcustomer()
+    {
+        $this->model->unblockcustomer($_POST['userid'], $_SESSION['UserId']);
+    }
 }
 ?>

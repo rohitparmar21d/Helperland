@@ -389,5 +389,35 @@ class Helperland
         $row = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
+    public function blockcard($serviceproviderid)
+    {
+        $sql_qry = "SELECT DISTINCT UserId FROM servicerequest WHERE ServiceProviderId = $serviceproviderid AND Status = 2";
+        $statement = $this->conn->prepare($sql_qry);
+        $statement->execute();
+        $row = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    public function checkblocked($selectedcustomerid,$serviceproviderid)
+    {
+        $sql_qry = "SELECT * FROM favoriteandblocked WHERE UserId = $serviceproviderid AND TargetUserId = $selectedcustomerid";
+        $statement = $this->conn->prepare($sql_qry);
+        $statement->execute();
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    public function blockcustomer($selectedcustomerid, $serviceproviderid)
+    {
+        $sql_qry = "INSERT INTO favoriteandblocked(UserId, TargetUserId, IsBlocked)
+                    VALUES ($serviceproviderid, $selectedcustomerid, 1)";
+        $statement= $this->conn->prepare($sql_qry);
+        $statement->execute();
+    }
+
+    public function unblockcustomer($selectedcustomerid, $serviceproviderid)
+    {
+        $sql_qry = "DELETE FROM favoriteandblocked WHERE UserId = $serviceproviderid AND TargetUserId = $selectedcustomerid AND IsBlocked = 1";
+        $statement= $this->conn->prepare($sql_qry);
+        $statement->execute();
+    }
 }
 ?>
