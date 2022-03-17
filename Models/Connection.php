@@ -419,5 +419,40 @@ class Helperland
         $statement= $this->conn->prepare($sql_qry);
         $statement->execute();
     }
+    function UserAddress($userid)
+    {
+        $sql = "SELECT * FROM useraddress WHERE UserId ='$userid' AND IsDeleted=0 ";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    public function update_sp_details($table, $userid, $array)
+    {
+        $sql_qry = "UPDATE $table
+                    SET FirstName = :spfname, LastName = :splname , Mobile = :spmobile, DateOfBirth = :spdob, LanguageId = :splanguage, NationalityId = :spnationality, Gender = :spgender, UserProfilePicture = :selectedavatar
+                    WHERE UserId = $userid";
+        $statement = $this->conn->prepare($sql_qry);
+        $statement->execute($array);
+    }
+
+    function insert_update_spaddress($table, $array2, $edit)
+    {
+        if($edit == 0)
+        {
+            $sql_query = "INSERT INTO $table (UserId, AddressLine1, AddressLine2, City, PostalCode, Mobile, Email)
+                        VALUES (:UserId, :AddressLine1, :AddressLine2, :City, :PostalCode, :Mobile, :Email)";
+            $statement= $this->conn->prepare($sql_query);
+            $statement->execute($array2);
+        }
+        else
+        {
+            $sql_query = "UPDATE $table
+                        SET AddressLine1 = :AddressLine1, AddressLine2 = :AddressLine2 , City = :City, PostalCode = :PostalCode
+                        WHERE AddressId = :AddressId";
+            $statement = $this->conn->prepare($sql_query);
+            $statement->execute($array2);
+        }
+    }
 }
 ?>

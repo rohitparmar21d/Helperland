@@ -2,6 +2,8 @@ $(document).ready(function () {
 
     var base_url = "http://localhost/Helperland/";
     var includepet=0;
+    var selectedaddressid = "";
+    selectedavatar = [];
     $(".details").click(function () { 
         $(".details").addClass("active");
         $(".password").removeClass("active");
@@ -41,6 +43,7 @@ $(document).ready(function () {
     sphistory();
     sprate();
     blockcard();
+    spdetails();
     function newrequest()
     {
         /*list new requests*/
@@ -104,6 +107,42 @@ $(document).ready(function () {
             url: base_url + "?controller=Helperland&function=blockcard",
             success: function (response) {
                 $(".card-customer").html(response);
+            }
+        });
+    }
+    function spdetails()
+    {
+        /* SP Details*/
+        $.ajax({
+            type: "POST",
+            url: base_url + "?controller=Helperland&function=spdetails",
+            success: function (response) {
+                $(".sp-details-body").html(response);
+                let avatars = document.querySelectorAll(".avatar-image");
+
+                for (let i = 1; i <= avatars.length; i++) {
+                    $("#avatar"+i).click(function (e) { 
+                        for (let j = 1; j <= avatars.length; j++){
+                            if(i == j){
+                                activateAvatar("avatar" + j);
+                                selectedavatar = [];
+                                selectedavatar.push(j);
+                            }
+                            else{
+                                deactiveAvatar("avatar" + j);
+                            }
+                        }
+                    });
+                }
+                function activateAvatar(avatarid) {
+                    $("#"+avatarid).addClass("active");
+                    $("#"+avatarid).css("border", "3px solid #1D7A8C");
+                }
+
+                function deactiveAvatar(avatarid) {
+                    $("#"+avatarid).removeClass("active");
+                    $("#"+avatarid).css("border", "none");
+                }
             }
         });
     }
@@ -227,6 +266,105 @@ $(document).ready(function () {
             }
         });
         
+    });
+
+    $(document).on ('click', '.sp-details-save', function () {
+        selectedaddressid = this.id;
+        var spfname = $("input[name='spfname']").val();
+        var splname = $("input[name='splname']").val();
+        var spmobile = $("input[name='spmobile']").val();
+        var spemail = $("input[name='spemail']").val();
+        var spdob = $("input[name='spdob']").val();
+        var spnationality = $("[name='spnationality'] option:selected").val();
+        var splanguage = $("[name='splanguage'] option:selected").val();
+        var spgender = document.querySelector('input[name="spgender"]:checked').value;
+        var spstreetname = $("input[name='spstreetname']").val();
+        var sphousenumber = $("input[name='sphousenumber']").val();
+        var sppostalcode = $("input[name='sppostalcode']").val();
+        var spcity = $("input[name='spcity']").val();
+        
+        if(selectedaddressid == "")
+        {
+            if(spfname == "" || splname == "" || spmobile == "" || spdob == "" || spnationality == "" || splanguage == "" || spgender == "" || selectedavatar == "" || spstreetname == "" || sphousenumber == "" || sppostalcode == "" || spcity == "")
+            {
+                $(".error-line").css("display", "flex");
+                $(".sp-error-message").html("Please fill all the details...");
+            }
+            else
+            {
+                $(".sp-error-message").html("");
+                $.ajax({
+                    type: "POST",
+                    url: base_url + "?controller=Helperland&function=savespdetails",
+                    data: {
+                        "spfname" : spfname,
+                        "splname" : splname,
+                        "spmobile" : spmobile,
+                        "spemail" : spemail,
+                        "spdob" : spdob,
+                        "spnationality" : spnationality,
+                        "splanguage" : splanguage,
+                        "spgender" : spgender,
+                        "selectedavatar" : selectedavatar,
+                        "spstreetname" : spstreetname,
+                        "sphousenumber" : sphousenumber,
+                        "sppostalcode" : sppostalcode,
+                        "spcity" : spcity,
+                    },
+                    success: function (response) {
+                        spdetails();
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Your details updated and address insereted successfully..',
+                            showConfirmButton: false,
+                            timer: 1000
+                            })
+                    }
+                });
+            }
+           
+        }
+        else
+        {
+            if(spfname == "" || splname == "" || spmobile == "" || spdob == "" || spnationality == "" || splanguage == "" || spgender == "" || selectedavatar == "" || spstreetname == "" || sphousenumber == "" || sppostalcode == "" || spcity == "")
+            {
+                $(".error-line").css("display", "flex");
+                $(".sp-error-message").html("Please fill all the details...");
+            }
+            else
+            {
+                $(".sp-error-message").html("");
+                $.ajax({
+                    type: "POST",
+                    url: base_url + "?controller=Helperland&function=savespdetails",
+                    data: {
+                        "selectedaddressid" : selectedaddressid,
+                        "spfname" : spfname,
+                        "splname" : splname,
+                        "spmobile" : spmobile,
+                        "spemail" : spemail,
+                        "spdob" : spdob,
+                        "spnationality" : spnationality,
+                        "splanguage" : splanguage,
+                        "spgender" : spgender,
+                        "selectedavatar" : selectedavatar,
+                        "spstreetname" : spstreetname,
+                        "sphousenumber" : sphousenumber,
+                        "sppostalcode" : sppostalcode,
+                        "spcity" : spcity,
+                    },
+                    success: function (response) {
+                        spdetails();
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'your details updated successfully.',
+                            showConfirmButton: false,
+                            timer: 1000
+                            })
+                    }
+                });
+            }
+        }
     });
 
     $(".password-save").click(function () { 

@@ -1311,5 +1311,211 @@ class HelperlandController
     {
         $this->model->unblockcustomer($_POST['userid'], $_SESSION['UserId']);
     }
+    public function spdetails()
+    {
+        $SP = $this->model->getUserbyId($_SESSION['UserId']);
+        $SPAdd=$this->model->UserAddress($_SESSION['UserId']);
+        ?>
+         <div class="d-flex align-items-center pb-2">
+            <div><b>Account Status:</b></div>
+            <div class="ps-2 <?php if($SP['IsActive'] == 1) { echo 'active'; } else { echo ' notactive'; } ?>"><?php if($SP['IsActive'] == 1) { echo 'Active'; } else { echo 'Not Active'; } ?></div>
+        </div>
+        <div class="row">
+            <div class="sp-basic col-md-12">
+                <b>Basic details</b>
+                <hr class="sp-breakline">
+                <div class="sp-avatar"><img src="<?php if($SP['UserProfilePicture'] != null) { echo $SP['UserProfilePicture']; } ?>" alt=""></div>
+            </div>
+        </div>
+        <div class="error-line row">
+            <div class="col-md-12"><label class="label text-danger sp-error-message"></label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label class="label" for="spfname">First name</label><br>
+                <input type="text" class="input" name="spfname" placeholder="First name" required value="<?php echo $SP['FirstName'] ?>">
+            </div>
+            <div class="col-md-4">
+                <label class="label" for="splname">Last name</label><br>
+                <input type="text" class="input" name="splname" placeholder="Last name" required value="<?php echo $SP['LastName'] ?>">
+            </div>
+            <div class="col-md-4">
+                <label class="label" for="spemail">E-mail address</label><br>
+                <input type="email" class="input" name="spemail" disabled placeholder="E-mail address" required value="<?php echo $SP['Email'] ?>">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label class="label" for="spmobile">Mobile number</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1">+49</span>
+                    <input type="text" name="spmobile" placeholder="Mobile number" value="<?php echo $SP['Mobile'] ?>" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="label" for="spdob">Date of Birth</label><br>
+                <input type="date" class="input" name="spdob" required value="<?php echo $SP['DateOfBirth'] ?>">
+            </div>
+            <div class="col-md-4">
+                <label class="label" for="spnationality">Nationality</label><br>
+                <select name="spnationality" id="spnationality">
+                    <option disabled selected value> -- select an option -- </option>
+                    <option value="1" <?php echo ($SP['NationalityId']==1)?'selected="selected"':'' ?>>German</option>
+                    <option value="2" <?php echo ($SP['NationalityId']==2)?'selected="selected"':'' ?>>Italian</option>
+                    <option value="3" <?php echo ($SP['NationalityId']==3)?'selected="selected"':'' ?>>British</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label class="label" for="splanguage">Language</label><br>
+                <select name="splanguage" id="splanguage" required>
+                    <option disabled selected value> -- select an option -- </option>
+                    <option value="1" <?php echo ($SP['LanguageId']==1)?'selected="selected"':'' ?>>German</option>
+                    <option value="2" <?php echo ($SP['LanguageId']==2)?'selected="selected"':'' ?>>English</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <label class="label" for="spgender">Gender</label><br>
+            <div class="gender col-md-6">
+                <div>
+                    <input type="radio" id="male" name="spgender" value="1" <?php echo ($SP['Gender']==1)?'checked':'' ?>>
+                    <label for="male">Male</label>
+                </div>
+                <div>
+                    <input type="radio" id="female" name="spgender" value="2" <?php echo ($SP['Gender']==2)?'checked':'' ?>>
+                    <label for="female">Female</label>
+                </div>
+                <div>
+                    <input type="radio" id="notsay" name="spgender" value="0" <?php echo ($SP['Gender']==null)?'checked':'' ?>>
+                    <label for="notsay">Rather not to say</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="label" for="avatar">Select Avatar</label><br>
+                <div class="choose-avatar">
+                    <div class="avatar-image"><img id="avatar1" <?php if($SP['UserProfilePicture'] == "./assets/Image/avatar-car.png") { echo 'class="active"'; } ?> src="./assets/Image/avatar-car.png" alt=""></div>
+                    <div class="avatar-image"><img id="avatar2" <?php if($SP['UserProfilePicture'] == "./assets/Image/avatar-female.png") { echo 'class="active"'; } ?> src="./assets/Image/avatar-female.png" alt=""></div>
+                    <div class="avatar-image"><img id="avatar3" <?php if($SP['UserProfilePicture'] == "./assets/Image/avatar-hat.png") { echo 'class="active"'; } ?> src="./assets/Image/avatar-hat.png" alt=""></div>
+                    <div class="avatar-image"><img id="avatar4" <?php if($SP['UserProfilePicture'] == "./assets/Image/avatar-iron.png") { echo 'class="active"'; } ?> src="./assets/Image/avatar-iron.png" alt=""></div>
+                    <div class="avatar-image"><img id="avatar5" <?php if($SP['UserProfilePicture'] == "./assets/Image/avatar-male.png") { echo 'class="active"'; } ?> src="./assets/Image/avatar-male.png" alt=""></div>
+                    <div class="avatar-image"><img id="avatar6" <?php if($SP['UserProfilePicture'] == "./assets/Image/avatar-ship.png") { echo 'class="active"'; } ?> src="./assets/Image/avatar-ship.png" alt=""></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <b>My address</b>
+                <hr class="sp-breakline">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label class="label" for="spstreetname">Street name</label><br>
+                <input type="text" class="input" name="spstreetname" placeholder="street name" required value="<?php if($SPAdd == null) { echo ''; } else { echo $SPAdd['AddressLine1']; } ?>">
+            </div>
+            <div class="col-md-4">
+                <label class="label" for="sphousenumber">House number</label><br>
+                <input type="text" class="input" name="sphousenumber" placeholder="house number" required value="<?php if($SPAdd == null) { echo ''; } else { echo $SPAdd['AddressLine2']; } ?>">
+            </div>
+            <div class="col-md-4">
+                <label class="label" for="sppostalcode">Postal code</label><br>
+                <input type="email" class="input" name="sppostalcode" placeholder="postalcode" required value="<?php if($SPAdd == null) { echo ''; } else { echo $SPAdd['PostalCode']; } ?>">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label class="label" for="spcity">City</label><br>
+                <input type="text" class="input" name="spcity" placeholder="city" required value="<?php if($SPAdd == null) { echo ''; } else { echo $SPAdd['City']; } ?>">
+            </div>
+        </div>
+        <div>
+            <button type="submit" id="<?php if($SPAdd == null) { echo ''; } else { echo $SPAdd['AddressId']; } ?>" class="sp-details-save">Save</button>
+        </div>
+        <?php
+    }
+    public function savespdetails()
+    {
+        $userid = $_SESSION['UserId'];
+        $spfname = $_POST['spfname'];
+        $splname = $_POST['splname'];
+        $spmobile = $_POST['spmobile'];
+        $spemail = $_POST['spemail'];
+        $spdob = $_POST['spdob'];
+        $spnationality = $_POST['spnationality'];
+        $splanguage = $_POST['splanguage'];
+        $spgender = $_POST['spgender'];
+        $spstreetname = $_POST['spstreetname'];
+        $sphousenumber = $_POST['sphousenumber'];
+        $sppostalcode = $_POST['sppostalcode'];
+        $spcity = $_POST['spcity'];
+
+        if($_POST['selectedavatar'][0] == 1)
+        {
+            $selectedavatar = "./assets/Image/avatar-car.png";
+        }
+        else if($_POST['selectedavatar'][0] == 2)
+        {
+            $selectedavatar = "./assets/Image/avatar-female.png";
+        }
+        else if($_POST['selectedavatar'][0] == 3)
+        {
+            $selectedavatar = "./assets/Image/avatar-hat.png";
+        }
+        else if($_POST['selectedavatar'][0] == 4)
+        {
+            $selectedavatar = "./assets/Image/avatar-iron.png";
+        }
+        else if($_POST['selectedavatar'][0] == 5)
+        {
+            $selectedavatar = "./assets/Image/avatar-male.png";
+        }
+        else if($_POST['selectedavatar'][0] == 6)
+        {
+            $selectedavatar = "./assets/Image/avatar-ship.png";
+        }
+
+        $array = [
+            'spfname' => $spfname,
+            'splname' => $splname,
+            'spmobile' => $spmobile,
+            'spdob' => $spdob,
+            'spnationality' => $spnationality,
+            'splanguage' => $splanguage,
+            'spgender' => $spgender,
+            'selectedavatar' => $selectedavatar,
+        ];
+        $this->model->update_sp_details('user', $userid, $array);
+
+        if(isset($_POST['selectedaddressid']))
+        {
+            $edit = 1;
+            $array2 = [
+                'AddressId' => $_POST['selectedaddressid'],
+                'AddressLine1' => $spstreetname,
+                'AddressLine2' => $sphousenumber,
+                'PostalCode' => $sppostalcode,
+                'City' => $spcity,
+            ];
+        }
+        else
+        {
+            $edit = 0;
+            $array2 = [
+                'UserId' => $userid,
+                'AddressLine1' => $spstreetname,
+                'AddressLine2' => $sphousenumber,
+                'PostalCode' => $sppostalcode,
+                'City' => $spcity,
+                'Mobile' => $spmobile,
+                'Email' => $spemail,
+            ];
+        }
+        $this->model->insert_update_spaddress('useraddress', $array2, $edit);
+    
+    }
 }
 ?>
