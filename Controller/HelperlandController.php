@@ -185,6 +185,7 @@ class HelperlandController
         {
             $customer = "http://localhost/Helperland/Customer";
             $sp = "http://localhost/Helperland/SP";
+            $admin="http://localhost/Helperland/Admin";
             if(($_POST['Email'] == "") || ($_POST['Password'] == "")){
                 
                 $base_url ="http://localhost/Helperland/#LoginModal'";
@@ -214,8 +215,8 @@ class HelperlandController
                     
                     header('Location:' . $sp);
                     }
-                    else{
-                    echo "Admin";
+                    if($usertypeid == 3){
+                    header('Location:' . $admin);
                     }
                 }
                 
