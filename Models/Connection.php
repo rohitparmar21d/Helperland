@@ -454,5 +454,13 @@ class Helperland
             $statement->execute($array2);
         }
     }
+    function getallservicerequest()
+    {
+        $sql = "SELECT * FROM servicerequest ";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
 }
 ?>

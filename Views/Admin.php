@@ -174,24 +174,24 @@
                                         <th scope="col " >Actions </th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
+                                <tbody class="adminservicerequest">
+                                    <!-- <tr>
                                         <td>2323</td>
                                         <td>
                                             <p><img src="./assets/Image/calendar2.png"> 09/04/2018</p>
                                             <p><img src="./assets/Image/layer-14.png"> 12:00 - 18:00</p>
                                         </td>
                                         <td>
-                                            <!-- <p>David Bough</p>
+                                            <p>David Bough</p>
                                             <p><img src="./assets/Image/layer-719.png"> Musterstrabe 5,</p>
                                             <p>12345</p>
-                                            <p> Bonn</p> -->
+                                            <p> Bonn</p>
                                         </td>
                                         <td>David Bough</td>
-                                        <td>6565456465654</td>
-                                        <td>45545</td>
-                                        <td>6565456465654</td>
-                                        <td class="action"><button class="btn active">Active</button></td>
+                                        <td>100</td>
+                                        <td>100</td>
+                                        <td></td>
+                                        <td class="action"><button class="btn pending">New</button></td>
                                         <td class="action"><button class="btn active">Active</button></td>
                                         <td class="action">
                                             <a class="dropdown-toggle Actions " href="#" id="navbarDropdowns" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -210,16 +210,16 @@
                                             <p><img src="./assets/Image/layer-14.png"> 12:00 - 18:00</p>
                                         </td>
                                         <td>
-                                            <!-- <p>David Bough</p>
+                                            <p>David Bough</p>
                                             <p><img src="./assets/Image/layer-719.png"> Musterstrabe 5,</p>
                                             <p>12345</p>
-                                            <p> Bonn</p> -->
+                                            <p> Bonn</p>
                                         </td>
                                         <td>David Bough</td>
-                                        <td>Berlin</td>
+                                        <td>100</td>
+                                        <td>100</td>
                                         <td></td>
-                                        <td>6565456465654</td>
-                                        <td class="action"><button class="btn inactive">Inactive</button></td>
+                                        <td class="action"><button class="btn complete">complete</button></td>
                                         <td class="action"><button class="btn inactive">Inactive</button></td>
                                         <td class="action">
                                             <a class="dropdown-toggle Actions " href="#" id="navbarDropdowns" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -232,6 +232,35 @@
                                             </div>
                                         </td> 
                                     </tr>
+                                    <tr>
+                                        <td>2323</td>
+                                        <td>
+                                            <p><img src="./assets/Image/calendar2.png"> 09/04/2018</p>
+                                            <p><img src="./assets/Image/layer-14.png"> 12:00 - 18:00</p>
+                                        </td>
+                                        <td>
+                                            <p>David Bough</p>
+                                            <p><img src="./assets/Image/layer-719.png"> Musterstrabe 5,</p>
+                                            <p>12345</p>
+                                            <p> Bonn</p>
+                                        </td>
+                                        <td>David Bough</td>
+                                        <td>100</td>
+                                        <td>100</td>
+                                        <td></td>
+                                        <td class="action"><button class="btn cancel">cancel</button></td>
+                                        <td class="action"><button class="btn inactive">Inactive</button></td>
+                                        <td class="action">
+                                            <a class="dropdown-toggle Actions " href="#" id="navbarDropdowns" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                            </a>
+                                            <div class="dropdown-menu tooltiptext" aria-labelledby="navbarDropdowns">
+                                                <a class="dropdown-item" href="#">Edit </a>
+                                                <a class="dropdown-item" href="#">Deactivate</a>
+                                                <a class="dropdown-item" href="#">Service History</a>
+                                            </div>
+                                        </td> 
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>

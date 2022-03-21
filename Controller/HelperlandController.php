@@ -1518,5 +1518,84 @@ class HelperlandController
         $this->model->insert_update_spaddress('useraddress', $array2, $edit);
     
     }
+    public function adminservicesrequests()
+    {
+        $SRs=$this->model->getallservicerequest();
+        function HourMinuteToDecimal($hour_minute) 
+        {
+            $t = explode(':', $hour_minute);
+            return $t[0] * 60 + $t[1];
+        }
+        function DecimalToHoursMins($mins)
+        {
+            $h=(int)($mins/60);
+            $m=round($mins%60);
+            if($h<10){$h="0".$h;}
+            if($m<10){$m="0".$m;}
+            return $h.":".$m;
+        }
+        foreach($SRs as $SR)
+        {
+            $dt=substr($SR['ServiceStartDate'],0,10);
+            $tm=substr($SR['ServiceStartDate'],11,5);
+            $totalmins=HourMinuteToDecimal($tm)+ (($SR['ServiceHours']+$SR['ExtraHours'])*60);
+            $totime=DecimalToHoursMins($totalmins);
+            $SRAdd=$this->model->getSRAddbySRId($SR['ServiceRequestId']);
+            $customer=$this->model->getUserbyId($SR['UserId']);
+            $SP=$this->model->getUserbyId($SR['ServiceProviderId']);
+            $customeraddress=$this->model->getAddressbyId($SRAdd['AddressId']);
+            ?>
+                <tr>
+                    <td><?php echo $SR['ServiceRequestId']; ?></td>
+                    <td>
+                        <div><img src="./assets/Image/calendar2.png"><?php echo $dt; ?></div>
+                        <div><img src="./assets/Image/layer-14.png"><?php echo $tm."-".$totime; ?></div>
+                    </td>
+                    <td>
+                        <div><?php echo $customer['FirstName']." ".$customer['LastName']; ?></div>
+                        <divp><img src="./assets/Image/layer-719.png"><?php echo $customeraddress['AddressLine1'].",".$customeraddress['AddressLine2'].","; ?></divp>
+                        <div><?php echo $customeraddress['City'].",".$customeraddress['PostalCode']."."; ?></div>
+                    </td>
+                    <td><?php if(isset($SR['ServiceProviderId'])){ echo $SP['FirstName']." ".$SP['LastName'];} ?></td>
+                    <td>&euro;<?php echo $SR['SubTotal']; ?></td>
+                    <td>&euro;<?php echo $SR['TotalCost']; ?></td>
+                    <td></td>
+                    <td class="action">
+                        <?php  
+                         if($SR['Status']==1)
+                         {?>
+                            <button class="btn pending"><b>New</b></button>
+                         <?php
+                         }
+                         elseif($SR['Status']==2)
+                         {?>
+                             <button class="btn complete"><b>Complete</b></button>
+                         <?php
+                         }
+                         elseif($SR['Status']==3)
+                         {?>
+                              <button class="btn cancel"><b>Cancel</b></button>
+                         <?php
+                         }
+                        ?>
+                    </td>
+                    <td class="action"></td>
+                    <td class="action">
+                        <a class="dropdown-toggle Actions " href="#" id="navbarDropdowns" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                        </a>
+                        <div class="dropdown-menu tooltiptext" aria-labelledby="navbarDropdowns">
+                            <a class="dropdown-item editreschedule" id="<?php echo $SR['ServiceRequestId']; ?>" >Edit & Reschedule</a>
+                            <a class="dropdown-item cancelrq" id="<?php echo $SR['ServiceRequestId']; ?>"  >Cancel SR By Customer</a>
+                            <a class="dropdown-item" >Inquiry</a>
+                            <a class="dropdown-item" >History Log</a>
+                            <a class="dropdown-item" >Download Invoice</a>
+                            <a class="dropdown-item" >Other Transactions</a>
+                        </div>
+                    </td>
+                </tr>
+            <?php
+        }
+    }
 }
 ?>
