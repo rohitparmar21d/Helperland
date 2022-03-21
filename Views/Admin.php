@@ -66,7 +66,7 @@
             </nav>
             <div class="ml-0 data">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-servicerequest" role="tabpanel" aria-labelledby="v-pills-servicerequest-tab">
+                    <div class="tab-pane fade" id="v-pills-servicerequest" role="tabpanel" aria-labelledby="v-pills-servicerequest-tab">
                         <div class="blocks row">
                                 <h2 class="mr-auto">Service Requests</h2>
                         </div>
@@ -265,7 +265,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-usermanagement" role="tabpanel" aria-labelledby="v-pills-usermanagement-tab">
+                    <div class="tab-pane fade show active" id="v-pills-usermanagement" role="tabpanel" aria-labelledby="v-pills-usermanagement-tab">
                         <div class="blocks row">
                                 <h2 class="mr-auto">User Management</h2>
                                 <div class="adduser">
@@ -326,8 +326,8 @@
                                         <th scope="col " class="action" >Actions </th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
+                                <tbody class="usermanagement">
+                                    <!-- <tr>
                                         <td>Lyum watson </td>
                                         <td>Call Center</td>
                                         <td><img class="calender" src="./assets/Image/calendar2.png">12/13/2020</td>
@@ -363,7 +363,7 @@
                                                 <a class="dropdown-item" href="#">Service History</a>
                                             </div>
                                         </td> 
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div> 

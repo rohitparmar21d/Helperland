@@ -24,8 +24,8 @@ class Helperland
     }
     
     function Signup($table,$array){
-        $sql_query = "INSERT INTO $table(FirstName,LastName,Email,Password,Mobile,UserTypeId)
-        VALUES (:FirstName,:LastName,:Email,:Password,:Mobile,:UserTypeId)";
+        $sql_query = "INSERT INTO $table(FirstName,LastName,Email,Password,Mobile,UserTypeId,CreatedDate)
+        VALUES (:FirstName,:LastName,:Email,:Password,:Mobile,:UserTypeId,:CreatedDate)";
         $statement= $this->conn->prepare($sql_query);
         $statement->execute($array);
     }
@@ -457,6 +457,14 @@ class Helperland
     function getallservicerequest()
     {
         $sql = "SELECT * FROM servicerequest ";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    function usermanagement()
+    {
+        $sql = " SELECT * FROM user WHERE NOT UserTypeId=3 ";
         $stmt =  $this->conn->prepare($sql);
         $stmt->execute();
         $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);

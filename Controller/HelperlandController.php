@@ -33,7 +33,6 @@ class HelperlandController
             echo 'Error Occurring in Data';
         }
     }
-
     public function cSignup()
     {
         if (isset($_POST))
@@ -69,6 +68,7 @@ class HelperlandController
                 'Password' =>$_POST['Password'],
                 'Mobile' => $_POST['Mobile'],
                 'UserTypeId' => 1,
+                'CreatedDate' =>date('Y-m-d H:i:s')
             ];
             $this->model->Signup('user', $array);
             unset($_SESSION['message']);  
@@ -115,6 +115,7 @@ class HelperlandController
                 'Password' =>$_POST['Password'],
                 'Mobile' => $_POST['Mobile'],
                 'UserTypeId' => 2,
+                'CreatedDate' =>date('Y-m-d H:i:s')
             ];
             $this->model->Signup('user', $array);
             unset($_SESSION['message1']);  
@@ -155,7 +156,6 @@ class HelperlandController
         }  
         
     }
-
     public function resetpass()
     {
         if (isset($_POST))
@@ -616,7 +616,6 @@ class HelperlandController
         </div> 
         <?php 
     }
-
     public function reschedule()
     {
        $datetime=$_POST['rescheduledate']." ".$_POST['rescheduletime'];
@@ -1593,6 +1592,76 @@ class HelperlandController
                             <a class="dropdown-item" >Other Transactions</a>
                         </div>
                     </td>
+                </tr>
+            <?php
+        }
+    }
+    public function usermanagement()
+    {
+        $users=$this->model->usermanagement();
+        function HourMinuteToDecimal($hour_minute) 
+        {
+            $t = explode(':', $hour_minute);
+            return $t[0] * 60 + $t[1];
+        }
+        function DecimalToHoursMins($mins)
+        {
+            $h=(int)($mins/60);
+            $m=round($mins%60);
+            if($h<10){$h="0".$h;}
+            if($m<10){$m="0".$m;}
+            return $h.":".$m;
+        }
+        foreach($users as $user)
+        {
+            ?>
+                <tr>
+                    <td><?php echo $user['FirstName']." ".$user['LastName']; ?></td>
+                    <td></td>
+                    <td><img class="calender" src="./assets/Image/calendar2.png"><?php echo substr($user['CreatedDate'],0,10) ?></td>
+                    <td><?php if($user['UserTypeId']==1){ echo "Customer";} elseif($user['UserTypeId']==2){ echo "Service Provider"; } ?></td>
+                    <td><?php echo $user['Mobile']; ?></td>
+                    <td><?php echo $user['ZipCode']; ?></td>
+                    <td class="action">
+                        <?php 
+                        if($user['IsActive']==0)
+                        {?>
+                            <button class="btn inactive">Inactive</button>
+                        <?php
+                        }
+                        elseif($user['IsActive']==1)
+                        {?>
+                            <button class="btn active">Active</button>
+                        <?php
+                        }
+                        ?>
+                    </td>
+                    <td class="action">
+                        <a class="dropdown-toggle Actions " href="#" id="navbarDropdowns" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                        </a>
+                        <div class="dropdown-menu tooltiptext" aria-labelledby="navbarDropdowns">
+                            <?php 
+                                if($user['IsActive']==0)
+                                {?>
+                                    <a class="dropdown-item letactive" href="#">Activate</a>
+                                <?php
+                                }
+                                elseif($user['IsActive']==1)
+                                {?>
+                                    <a class="dropdown-item letdeactive" href="#">Deactivate</a>
+                                <?php
+                                }
+                            ?>
+                            <?php 
+                                if($user['UserTypeId']==2 && $user['IsApproved']==0)
+                                {?>
+                                <a class="dropdown-item letapprove" href="#">Approve</a>
+                                <?php
+                                }
+                            ?>
+                        </div>
+                    </td>          
                 </tr>
             <?php
         }
