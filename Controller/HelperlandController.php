@@ -1644,19 +1644,19 @@ class HelperlandController
                             <?php 
                                 if($user['IsActive']==0)
                                 {?>
-                                    <a class="dropdown-item letactive" href="#">Activate</a>
+                                    <a class="dropdown-item letactive" id="<?php echo $user['UserId']; ?>" href="#">Activate</a>
                                 <?php
                                 }
                                 elseif($user['IsActive']==1)
                                 {?>
-                                    <a class="dropdown-item letdeactive" href="#">Deactivate</a>
+                                    <a class="dropdown-item letdeactive" id="<?php echo $user['UserId']; ?>" href="#">Deactivate</a>
                                 <?php
                                 }
                             ?>
                             <?php 
                                 if($user['UserTypeId']==2 && $user['IsApproved']==0)
                                 {?>
-                                <a class="dropdown-item letapprove" href="#">Approve</a>
+                                <a class="dropdown-item letapprove" id="<?php echo $user['UserId']; ?>" href="#">Approve</a>
                                 <?php
                                 }
                             ?>
@@ -1666,5 +1666,40 @@ class HelperlandController
             <?php
         }
     }
+    public function activeuser()
+    {
+        $this->model->activeuser($_POST['userid']);
+        $user=$this->model->getUserbyId($_POST['userid']);
+
+        $to_email = $user['Email'];
+        $subject = "Account activated";
+        $body = "Your Account with UserId:".$user['UserId']." is Activated by Admin";
+        $headers = "From: rohit1parmar11@gmail.com";
+        mail($to_email, $subject, $body, $headers);
+        
+    }
+    public function deactiveuser()
+    {
+        $this->model->deactiveuser($_POST['userid']);
+        $user=$this->model->getUserbyId($_POST['userid']);
+
+        $to_email = $user['Email'];
+        $subject = "Account deactivated";
+        $body = "Your Account with UserId:".$user['UserId']." is Activated by Admin";
+        $headers = "From: rohit1parmar11@gmail.com";
+        mail($to_email, $subject, $body, $headers);
+    }
+    public function approvesp()
+    {
+        $this->model->approvesp($_POST['userid']);
+        $user=$this->model->getUserbyId($_POST['userid']);
+
+        $to_email = $user['Email'];
+        $subject = "Registration Approved";
+        $body = "Your Registration Request approved with  UserId:".$user['UserId']." by Admin";
+        $headers = "From: rohit1parmar11@gmail.com";
+        mail($to_email, $subject, $body, $headers);
+    }
+
 }
 ?>

@@ -470,5 +470,23 @@ class Helperland
         $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
+    function activeuser($id)
+    {
+        $sql_query = "UPDATE user SET IsActive =1 WHERE  UserId = '$id'";
+        $statement= $this->conn->prepare($sql_query);
+        $statement->execute();  
+    }
+    function deactiveuser($id)
+    {
+        $sql_query = "UPDATE user SET IsActive =0 WHERE  UserId = '$id'";
+        $statement= $this->conn->prepare($sql_query);
+        $statement->execute();  
+    }
+    function approvesp($id)
+    {
+        $sql_query = "UPDATE user SET IsActive =1 , IsApproved=1 WHERE  UserId = '$id'";
+        $statement= $this->conn->prepare($sql_query);
+        $statement->execute();  
+    }
 }
 ?>

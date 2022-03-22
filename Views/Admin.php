@@ -51,6 +51,7 @@
         </section>
         <!---header ened-->
     
+        <div class="loading d-none">Loading&#8230;</div>
         <!--section-2 left-sidebar -->
         <section class="row main-item">
             <nav class="vertical-nav  mr-0" id="sidebar"> 
@@ -66,7 +67,7 @@
             </nav>
             <div class="ml-0 data">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade" id="v-pills-servicerequest" role="tabpanel" aria-labelledby="v-pills-servicerequest-tab">
+                    <div class="tab-pane fade show active" id="v-pills-servicerequest" role="tabpanel" aria-labelledby="v-pills-servicerequest-tab">
                         <div class="blocks row">
                                 <h2 class="mr-auto">Service Requests</h2>
                         </div>
@@ -265,7 +266,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="tab-pane fade show active" id="v-pills-usermanagement" role="tabpanel" aria-labelledby="v-pills-usermanagement-tab">
+                    <div class="tab-pane fade" id="v-pills-usermanagement" role="tabpanel" aria-labelledby="v-pills-usermanagement-tab">
                         <div class="blocks row">
                                 <h2 class="mr-auto">User Management</h2>
                                 <div class="adduser">
@@ -311,7 +312,6 @@
                             </div>
                             
                         </form>
-            
                         <div class="table_usermanagement">
                             <table class="table table-hover" id="tblusermanagement">
                                 <thead id="headings">

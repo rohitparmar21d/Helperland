@@ -28,4 +28,93 @@ $(document).ready(function () {
         }
     });
    }
+
+   $(document).on ('click', '.letactive', function (e) { 
+        e.preventDefault();
+        $('.loading').removeClass("d-none");
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Active'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                
+                 $.ajax({
+                    type: "POST",
+                    url:base_url + "?controller=Helperland&function=activeuser",
+                    data: { "userid" : this.id },
+                    success: function (response) {
+                        $('.loading').addClass("d-none");
+                        usermanagement();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Activated',
+                            text:'Activated successfully.',
+                            showConfirmButton: false,
+                            timer: 1500
+                            })
+
+                    }
+                });
+            }
+          })
+   });
+   
+   $(document).on ('click', '.letdeactive', function (e) { 
+       e.preventDefault();
+       $('.loading').removeClass("d-none");
+       Swal.fire({
+        title: 'Are you sure?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Deactive'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            
+             $.ajax({
+                type: "POST",
+                url:base_url + "?controller=Helperland&function=deactiveuser",
+                data: { "userid" : this.id },
+                success: function (response) {
+                    $('.loading').addClass("d-none");
+                    usermanagement();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Activated',
+                        text:'Deactivated successfully.',
+                        showConfirmButton: false,
+                        timer: 1500
+                        })
+
+                }
+            });
+        }
+      })
+   });
+   
+   $(document).on ('click', '.letapprove', function (e) { 
+       e.preventDefault();
+       $('.loading').removeClass("d-none");
+       $.ajax({
+        type: "POST",
+        url:base_url + "?controller=Helperland&function=approvesp",
+        data: { "userid" : this.id },
+        success: function (response) {
+            $('.loading').addClass("d-none");
+            usermanagement();
+            Swal.fire({
+                icon: 'success',
+                title: 'Approved',
+                showConfirmButton: false,
+                timer: 1500
+                })
+        }
+    });
+   });
+
 });
