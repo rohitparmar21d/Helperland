@@ -28,7 +28,7 @@ $(document).ready(function () {
         }
     });
    }
-
+   /*  Active user*/
    $(document).on ('click', '.letactive', function (e) { 
         e.preventDefault();
         $('.loading').removeClass("d-none");
@@ -62,7 +62,7 @@ $(document).ready(function () {
             }
           })
    });
-   
+   /* Deactive User*/ 
    $(document).on ('click', '.letdeactive', function (e) { 
        e.preventDefault();
        $('.loading').removeClass("d-none");
@@ -96,7 +96,7 @@ $(document).ready(function () {
         }
       })
    });
-   
+   /* Approve SP*/
    $(document).on ('click', '.letapprove', function (e) { 
        e.preventDefault();
        $('.loading').removeClass("d-none");
@@ -116,5 +116,39 @@ $(document).ready(function () {
         }
     });
    });
+
+   /* Cancel Request From Admin Panel*/
+   $(document).on ('click', '.cancelrq', function (e) { 
+    e.preventDefault();
+    $('.loading').removeClass("d-none");
+    Swal.fire({
+     title: 'Are you sure?',
+     icon: 'warning',
+     showCancelButton: true,
+     confirmButtonColor: '#3085d6',
+     cancelButtonColor: '#d33',
+     confirmButtonText: 'Yes, Cancel it'
+   }).then((result) => {
+     if (result.isConfirmed) {
+         
+          $.ajax({
+             type: "POST",
+             url:base_url + "?controller=Helperland&function=cancelfromadmin",
+             data: { "reqid" : this.id },
+             success: function (response) {
+                 $('.loading').addClass("d-none");
+                 adminservicerequest();;
+                 Swal.fire({
+                     icon: 'success',
+                     text:'Request Cancelled  successfully.',
+                     showConfirmButton: false,
+                     timer: 1500
+                     })
+
+             }
+         });
+     }
+   })
+});
 
 });

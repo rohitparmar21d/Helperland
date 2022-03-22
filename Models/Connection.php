@@ -488,5 +488,11 @@ class Helperland
         $statement= $this->conn->prepare($sql_query);
         $statement->execute();  
     }
+    function cancelfromadmin($reqid)
+    {
+        $sql_query = "UPDATE servicerequest SET Status =3 WHERE  ServiceRequestId = '$reqid'";
+        $statement= $this->conn->prepare($sql_query);
+        $statement->execute();  
+    }
 }
 ?>

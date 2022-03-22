@@ -1568,12 +1568,12 @@ class HelperlandController
                          }
                          elseif($SR['Status']==2)
                          {?>
-                             <button class="btn complete"><b>Complete</b></button>
+                             <button class="btn complete"><b>Completed</b></button>
                          <?php
                          }
                          elseif($SR['Status']==3)
                          {?>
-                              <button class="btn cancel"><b>Cancel</b></button>
+                              <button class="btn cancel"><b>Cancelled</b></button>
                          <?php
                          }
                         ?>
@@ -1584,12 +1584,10 @@ class HelperlandController
                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                         </a>
                         <div class="dropdown-menu tooltiptext" aria-labelledby="navbarDropdowns">
-                            <a class="dropdown-item editreschedule" id="<?php echo $SR['ServiceRequestId']; ?>" >Edit & Reschedule</a>
-                            <a class="dropdown-item cancelrq" id="<?php echo $SR['ServiceRequestId']; ?>"  >Cancel SR By Customer</a>
-                            <a class="dropdown-item" >Inquiry</a>
-                            <a class="dropdown-item" >History Log</a>
-                            <a class="dropdown-item" >Download Invoice</a>
-                            <a class="dropdown-item" >Other Transactions</a>
+                            <a class="dropdown-item editreschedule" id="<?php echo $SR['ServiceRequestId']; ?> " href="#" >Edit & Reschedule</a>
+                            <?php if($SR['Status']==1) {  ?>
+                                <a class="dropdown-item cancelrq" id="<?php echo $SR['ServiceRequestId']; ?>" href="#" >Cancel SR By Customer</a>
+                            <?php }  ?>
                         </div>
                     </td>
                 </tr>
@@ -1700,6 +1698,22 @@ class HelperlandController
         $headers = "From: rohit1parmar11@gmail.com";
         mail($to_email, $subject, $body, $headers);
     }
+    public function cancelfromadmin()
+    {
+        $this->model->cancelfromadmin($_POST['reqid']);
+        $SR=$this->model->SRByreqId($_POST['reqid']);
 
+        if(isset($SR['ServiceProviderId']))
+        {
+            $user=$this->model->getUserbyId($SR['ServiceProviderId']);
+
+            $to_email = $user['Email'];
+            $subject = "Service Cancelled";
+            $body = "The Service (Service RequestId =".$_POST['reqid']." DateTime: ".$SR['ServiceStartDate'].")  Assigned to you is cancelled by Customer";
+            $headers = "From: rohit1parmar11@gmail.com";
+            mail($to_email, $subject, $body, $headers);
+        }
+        
+    }
 }
 ?>
