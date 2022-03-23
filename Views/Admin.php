@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
         <link rel="stylesheet" href="./assets/css/admin.css">
     </head>
     <body>
@@ -179,16 +180,14 @@
                         </form>
             
                         <div class="table_usermanagement">
-                            <table class="table table-hover" id="tblusermanagement">
+                            <table class="table table-hover" id="tblSRreq">
                                 <thead id="headings">
                                     <tr>
                                         <th scope="col">Service Id</th>
                                         <th scope="col">Service Date</th>
                                         <th scope="col"> Customer Details</th>
                                         <th scope="col">Service Provider</th>
-                                        <th scope="col">Gross Amount</th>
                                         <th scope="col">Net Amount</th>
-                                        <th scope="col">Discount</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Payment Status </th>
                                         <th scope="col " >Actions </th>
@@ -399,7 +398,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-        <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
         <script src="./assets/js/sweetalert2.all.min.js"></script>
         <script src="./assets/js/Script.js"></script>
         <script src="./assets/js/admin.js"></script>

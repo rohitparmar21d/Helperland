@@ -126,7 +126,7 @@ $base_url = "http://localhost/Helperland/";
                         </div>
                         <div class="container-fluid row db" > 
                             <div class="col">
-                                <table  class="table table-hover">
+                                <table  class="table table-hover" id="newrequest">
                                     <thead>
                                         <tr>
                                             <th>Service Id </th>
@@ -163,7 +163,7 @@ $base_url = "http://localhost/Helperland/";
                     <div class="tab-pane fade" id="v-pills-upcomingservices" role="tabpanel" aria-labelledby="v-pills-upcomingservices-tab">
                         <div class="container-fluid row" id="rightsidebar"> 
                             <div class="col" >
-                                <table id="content-table" class="table table-hover">
+                                <table id="upcoming" class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>ServiceId</th>
@@ -212,7 +212,7 @@ $base_url = "http://localhost/Helperland/";
                         </div>
                         <div class="container-fluid row" > 
                             <div class="col">
-                                <table  class="table table-hover">
+                                <table  class="table table-hover" id="sphistory">
                                     <thead>
                                         <tr>
                                             <th>Service Id </th>

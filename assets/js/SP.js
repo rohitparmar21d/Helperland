@@ -54,6 +54,7 @@ $(document).ready(function () {
             success: function (response)
             {
                 $(".newrequest").html(response);
+                $('#newrequest').DataTable();
             }
         });
     }
@@ -67,6 +68,7 @@ $(document).ready(function () {
             success: function (response)
             {
                 $(".upcoming").html(response);
+                $('#upcoming').DataTable();
             }
         });
     }
@@ -79,6 +81,7 @@ $(document).ready(function () {
             success: function (response)
             {
                 $(".sphistory").html(response);
+                $('#sphistory').DataTable();
             }
         });
     }
@@ -91,6 +94,7 @@ $(document).ready(function () {
             success: function (response) 
             {
                 $(".sprate").html(response);
+                $("#tablerating").DataTable();
                 $(".rateyo").rateYo({
                     starWidth: "16px",
                     ratedFill: "#FFD600",

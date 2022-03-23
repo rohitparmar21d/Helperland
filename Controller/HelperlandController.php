@@ -1646,9 +1646,7 @@ class HelperlandController
                         <div><?php echo $customeraddress['City'].",".$customeraddress['PostalCode']."."; ?></div>
                     </td>
                     <td><?php if(isset($SR['ServiceProviderId'])){ echo $SP['FirstName']." ".$SP['LastName'];} ?></td>
-                    <td>&euro;<?php echo $SR['SubTotal']; ?></td>
                     <td>&euro;<?php echo $SR['TotalCost']; ?></td>
-                    <td></td>
                     <td class="action">
                         <?php  
                          if($SR['Status']==1)

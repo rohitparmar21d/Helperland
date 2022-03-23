@@ -340,7 +340,7 @@ $base_url = "http://localhost/Helperland/";
                         </div>
                         <div class="container-fluid row db" > 
                             <div class="col">
-                                <table  class="table table-hover">
+                                <table  class="table table-hover" id="dboard">
                                     <thead>
                                         <tr>
                                             <th>Service Id </th>
@@ -416,7 +416,7 @@ $base_url = "http://localhost/Helperland/";
                         </div>
                         <div class="container-fluid row" id="rightsidebar"> 
                             <div class="col">
-                                <table id="content-table" class="table table-hover">
+                                <table id="history" class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>ServiceId</th>

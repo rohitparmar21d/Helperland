@@ -13,6 +13,26 @@ $(document).ready(function () {
             url: base_url + "?controller=Helperland&function=adminservicesrequests",
             success: function (response) {
                 $(".adminservicerequest").html(response);
+                $('#tblSRreq').DataTable({
+                    paging: true,
+                    "pagingType": "full_numbers",
+                    // bFilter: false,
+                    ordering: true,
+                    searching: false,
+                    info: false,
+                    "columnDefs": [
+                        { "orderable": false, "targets": 1 },
+                        { "orderable": false, "targets": 2 },
+                        { "orderable": false, "targets": 4 },
+                        { "orderable": false, "targets": 7 }
+                    ],
+                    "oLanguage": {
+                        "sInfo": "Total Records: TOTAL"
+                    },
+                    "dom": '<"top">rt<"bottom"lip><"clear">',
+                    responsive: true,
+                    "order": []
+                });
             }
         });
    }
@@ -25,6 +45,26 @@ $(document).ready(function () {
         url: base_url + "?controller=Helperland&function=usermanagement",
         success: function (response) {
             $(".usermanagement").html(response);
+            $('#tblusermanagement').DataTable({
+                    paging: true,
+                    "pagingType": "full_numbers",
+                    // bFilter: false,
+                    ordering: true,
+                    searching: false,
+                    info: false,
+                    "columnDefs": [
+                        { "orderable": false, "targets": 1 },
+                        { "orderable": false, "targets": 2 },
+                        { "orderable": false, "targets": 4 },
+                        { "orderable": false, "targets": 7 }
+                    ],
+                    "oLanguage": {
+                        "sInfo": "Total Records: TOTAL"
+                    },
+                    "dom": '<"top">rt<"bottom"lip><"clear">',
+                    responsive: true,
+                    "order": []
+                });
         }
     });
    }
@@ -150,6 +190,8 @@ $(document).ready(function () {
      }
    })
 });
+
+
 
 //  $(document).on ('click', '.editreschedule', function (e) { 
 //     e.preventDefault();

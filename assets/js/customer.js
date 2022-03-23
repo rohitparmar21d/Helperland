@@ -19,6 +19,7 @@ $(document).ready(function () {
             success: function (response) 
             {
                    $(".history").html(response);
+                   $('#history').DataTable();
                    $(".rateyo").rateYo({
                     starWidth: "20px",
                     readOnly: true
@@ -37,6 +38,7 @@ $(document).ready(function () {
         success: function (response) 
         {
                $(".dboard").html(response);
+               $('#dboard').DataTable();
                $(".rateyo").rateYo({
                 starWidth: "20px",
                 readOnly: true
