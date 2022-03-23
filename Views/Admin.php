@@ -50,6 +50,25 @@
             </nav>
         </section>
         <!---header ened-->
+
+        <!-- Modal for Edit and reschedule -->
+        <div class="modal fade" id="editreschedule" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     
         <div class="loading d-none">Loading&#8230;</div>
         <!--section-2 left-sidebar -->
@@ -71,7 +90,7 @@
                         <div class="blocks row">
                                 <h2 class="mr-auto">Service Requests</h2>
                         </div>
-                        <form>
+                        <form class="filter">
                             <div class="form-row p1">
                                 <select  class="form-control serviceid">
                                     <option  selected="true" disabled="disabled"  >Service Id</option> 
@@ -273,7 +292,7 @@
                                     <button class="btn adduserbtn"><i class="fa fa-plus-circle plus" aria-hidden="true"></i>Add New User</button>
                                 </div>
                         </div>
-                        <form>
+                        <form class="filter">
                             <div class="form-row r1">
                                 <select id='selUser' class="form-control">
                                     <option  selected="true" disabled="disabled"  >User name</option> 
@@ -312,6 +331,10 @@
                             </div>
                             
                         </form>
+                        <form class="exportbtn" method="POST" action="http://localhost/Helperland/?controller=Helperland&function=exportuserlist">
+                            <button type="submit" class="btn export" id="export">Export</button>
+                        </form>
+                        
                         <div class="table_usermanagement">
                             <table class="table table-hover" id="tblusermanagement">
                                 <thead id="headings">

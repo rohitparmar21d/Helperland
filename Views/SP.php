@@ -197,9 +197,7 @@ $base_url = "http://localhost/Helperland/";
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-serviceschedule" role="tabpanel" aria-labelledby="v-pills-serviceschedule-tab">
-                        nbfgkjs
-                    </div>
+                    <div class="tab-pane fade" id="v-pills-serviceschedule" role="tabpanel" aria-labelledby="v-pills-serviceschedule-tab"> nbfgkjs</div>
                     <div class="tab-pane fade" id="v-pills-servicehistory" role="tabpanel" aria-labelledby="v-pills-servicehistory-tab">
                         <div class="container-fluid row">
                             <div class="mr-auto"><span class="serarea">Payment Status</span></div>
@@ -208,7 +206,9 @@ $base_url = "http://localhost/Helperland/";
                                 <option value="10">Pendimg</option>
                                 <option value="15">Completed</option>>
                             </select>
-                            <a class="btn ml-auto export text-white">Export</a>
+                            <form method="POST" action="http://localhost/Helperland/?controller=Helperland&function=exporthistory_sp">
+                                <button type="submit" class="btn ml-auto export" id="export">Export</button>
+                            </form>
                         </div>
                         <div class="container-fluid row" > 
                             <div class="col">

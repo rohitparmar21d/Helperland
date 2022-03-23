@@ -151,4 +151,9 @@ $(document).ready(function () {
    })
 });
 
+//  $(document).on ('click', '.editreschedule', function (e) { 
+//     e.preventDefault();
+//     $("#editreschedule").modal("show");
+// });
+
 });

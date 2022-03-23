@@ -409,7 +409,10 @@ $base_url = "http://localhost/Helperland/";
                     <div class="tab-pane fade" id="v-pills-history" role="tabpanel" aria-labelledby="v-pills-history-tab">
                         <div class="container-fluid row">
                             <div class="mr-auto  "><h3 class="serhist">Service History</h3></div>
-                            <button class="btn ml-auto export" id="export">Export</button>
+                            <form method="POST" action="http://localhost/Helperland/?controller=Helperland&function=exporthistory">
+                                <button type="submit" class="btn ml-auto export" id="export">Export</button>
+                            </form>
+                            
                         </div>
                         <div class="container-fluid row" id="rightsidebar"> 
                             <div class="col">

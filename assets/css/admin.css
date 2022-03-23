@@ -207,7 +207,7 @@ background-color: #FFFFFF;
   margin-left: 0!important;
   width: 81%;
 }
-form{
+.filter{
   width: 100%;
 align-items: center;
 margin-top: 25px;
@@ -359,14 +359,36 @@ background-color: #F4F4F4;
 .table .action .active{
     border-radius: 0px;
     font-size: 13px;
+    width: 108px;
     color: #FFFFFF;
     background-color: #67B644;
+}
+.table .action .approve{
+  border-radius: 0px;
+  width: 108px;
+  font-size: 13px;
+  color: #FFFFFF;
+  background-color: #fca636;
 }
 .table .action .pending{
   border-radius: 0px;
   font-size: 13px;
+  width: 85px;
   color: #FFFFFF;
   background-color: #fca636;
+}
+.exportbtn
+{
+  justify-content: end;
+}
+.export
+{
+  background-color: #1FB6FF;
+  color: #FFFFFF;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-top: 20px;
+    margin-bottom: -15px;
 }
 .table .action .complete{
   border-radius: 0px;
@@ -385,7 +407,7 @@ background-color: #F4F4F4;
     color: #FFFFFF;
     border-radius: 0px;
     font-size: 13px;
-    width: 62px;
+    width: 108px;
     padding-left: 8px;
 }
 #tblusermanagement_length{

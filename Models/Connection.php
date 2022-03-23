@@ -24,8 +24,8 @@ class Helperland
     }
     
     function Signup($table,$array){
-        $sql_query = "INSERT INTO $table(FirstName,LastName,Email,Password,Mobile,UserTypeId,CreatedDate)
-        VALUES (:FirstName,:LastName,:Email,:Password,:Mobile,:UserTypeId,:CreatedDate)";
+        $sql_query = "INSERT INTO $table(FirstName,LastName,Email,Password,Mobile,UserTypeId,IsApproved,IsActive,CreatedDate)
+        VALUES (:FirstName,:LastName,:Email,:Password,:Mobile,:UserTypeId,:IsApproved,:IsActive,:CreatedDate)";
         $statement= $this->conn->prepare($sql_query);
         $statement->execute($array);
     }
@@ -56,7 +56,7 @@ class Helperland
     }
     function userData($email,$Password)
     {
-        $sql = "SELECT * FROM user WHERE Email = '$email' AND Password = '$Password' ";
+        $sql = "SELECT * FROM user WHERE Email = '$email' AND Password = '$Password'";
         $stmt =  $this->conn->prepare($sql);
         $stmt->execute();
         $row  = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -493,6 +493,32 @@ class Helperland
         $sql_query = "UPDATE servicerequest SET Status =3 WHERE  ServiceRequestId = '$reqid'";
         $statement= $this->conn->prepare($sql_query);
         $statement->execute();  
+    }
+    public function export_service_history($userid)
+    {
+        $sql_qry = "SELECT servicerequest.ServiceRequestId, CONCAT(user.FirstName, ' ', user.LastName) AS ServiceProvider, servicerequest.ServiceStartDate, servicerequest.ServiceHourlyRate, servicerequest.ServiceHours, servicerequest.ExtraHours, servicerequest.HasPets, servicerequest.SubTotal, servicerequest.Discount, servicerequest.TotalCost, servicerequest.Status 
+                    FROM servicerequest INNER JOIN user ON user.UserId = servicerequest.ServiceProviderId WHERE servicerequest.Status IN (2,3) AND servicerequest.UserId = $userid";
+        $statement = $this->conn->prepare($sql_qry);
+        $statement->execute();
+        $row = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    function users()
+    {
+        $sql = " SELECT UserId, CONCAT(FirstName, ' ',LastName) AS User,Email,Mobile,UserTypeId,Gender,DateOfBirth,ZipCode,CreatedDate,IsApproved,IsActive,IsDeleted FROM user WHERE NOT UserTypeId=3 ";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    public function export_service_history_sp($userid)
+    {
+        $sql_qry = "SELECT servicerequest.ServiceRequestId, CONCAT(user.FirstName, ' ', user.LastName) AS Customer, servicerequest.ServiceStartDate,  CONCAT(useraddress.AddressLine1,' ',useraddress.AddressLine2,' ',useraddress.City,' ',useraddress.PostalCode) AS Addresses
+                    FROM servicerequest INNER JOIN user ON user.UserId = servicerequest.UserId INNER JOIN servicerequestaddress on servicerequestaddress.ServiceRequestId=servicerequest.ServiceRequestId INNER JOIN useraddress ON useraddress.AddressId=servicerequestaddress.AddressId  WHERE servicerequest.Status=2 AND servicerequest.ServiceProviderId = $userid";
+        $statement = $this->conn->prepare($sql_qry);
+        $statement->execute();
+        $row = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
     }
 }
 ?>

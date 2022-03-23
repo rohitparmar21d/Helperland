@@ -68,6 +68,8 @@ class HelperlandController
                 'Password' =>$_POST['Password'],
                 'Mobile' => $_POST['Mobile'],
                 'UserTypeId' => 1,
+                'IsApproved' => 1,
+                'IsActive' =>1,
                 'CreatedDate' =>date('Y-m-d H:i:s')
             ];
             $this->model->Signup('user', $array);
@@ -115,6 +117,8 @@ class HelperlandController
                 'Password' =>$_POST['Password'],
                 'Mobile' => $_POST['Mobile'],
                 'UserTypeId' => 2,
+                'IsApproved' => 0,
+                'IsActive' => 0,
                 'CreatedDate' =>date('Y-m-d H:i:s')
             ];
             $this->model->Signup('user', $array);
@@ -203,20 +207,27 @@ class HelperlandController
                 }
                 else
                 {
-                    $usertypeid = $row['UserTypeId'];
-                    $_SESSION['UserId'] = $row['UserId'];
-                    $_SESSION['name'] = $row['FirstName'];
-                    $_SESSION['loggedin'] = $usertypeid;
-                    if($usertypeid == 1){
-                    
-                    header('Location:' . $customer);
+                    if($row['IsApproved']==1)
+                    {
+                        $usertypeid = $row['UserTypeId'];
+                        $_SESSION['UserId'] = $row['UserId'];
+                        $_SESSION['name'] = $row['FirstName'];
+                        $_SESSION['loggedin'] = $usertypeid;
+                        if($usertypeid == 1){
+                             header('Location:' . $customer);
+                        }
+                        if($usertypeid == 2){
+                            header('Location:' . $sp);
+                        }
+                        if($usertypeid == 3){
+                            header('Location:' . $admin);
+                        }
                     }
-                    if($usertypeid == 2){
-                    
-                    header('Location:' . $sp);
-                    }
-                    if($usertypeid == 3){
-                    header('Location:' . $admin);
+                    else
+                    {
+                        $_SESSION['login_wrong']="2";
+                        $base_url ="http://localhost/Helperland";
+                        header('Location:' . $base_url);
                     }
                 }
                 
@@ -950,12 +961,25 @@ class HelperlandController
     }
     public function exporthistory()
     {
-        $list=$this->model->service_history($_SESSION['UserId']);
-        $filename='Service_History.csv';
+        $userid = $_SESSION['UserId'];
+        $list = $this->model->export_service_history($userid);
+        $haspetArray = [0 => 'No', 1 => 'Yes'];
+        $statusArray = [1 => 'Pending', 2 => 'Completed', 3 => 'Cancelled'];
+
+        $filename = 'Service_History.csv';
         $file = fopen($filename,"w");
+
+        $fields = array('ServiceRequest Id', 'ServiceProvider Name', 'Service Date-Time', 'Service Rate(/hour)', 'Service Hours', 'ExtraService Hours', 'HasPets', 'SubTotal', 'Discount', 'TotalCost', 'Status');
+        fputcsv($file, $fields);
+
         foreach ($list as $line)
         {
-            fputcsv($file,$line);
+            $csvHasPets = $haspetArray[$line['HasPets']];
+            $csvStatus = $statusArray[$line['Status']];
+            $line['HasPets'] = $csvHasPets;
+            $line['Status'] = $csvStatus;
+
+            fputcsv($file, $line);
         }
         fclose($file);
 
@@ -967,7 +991,73 @@ class HelperlandController
 
        // deleting file
        unlink($filename);
-       exit();  
+       exit();   
+    }
+    public function exporthistory_sp()
+    {
+        $userid = $_SESSION['UserId'];
+        $list = $this->model->export_service_history_sp($userid);
+
+        $filename = 'Service_History.csv';
+        $file = fopen($filename,"w");
+
+        $fields = array('ServiceRequest Id', 'Customer Name', 'Service Date-Time','Service Address');
+        fputcsv($file, $fields);
+
+        foreach ($list as $line)
+        {
+            fputcsv($file, $line);
+        }
+        fclose($file);
+
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename=".$filename);
+        header("Content-Type: application/csv; "); 
+
+        readfile($filename);
+
+       // deleting file
+       unlink($filename);
+       exit();   
+    }
+    public function exportuserlist()
+    {
+        $list = $this->model->users();
+        $usertype = [1 => 'Customer', 2 => 'ServiceProvider'];
+        $approve = [0 => 'Approved', 1 => 'Not Approved'];
+        $active = [0 => 'Active', 1 => 'InActive'];
+        $delete = [0 => '-', 1 => 'Deleted'];
+        $gender = [1 => 'Male', 2 => 'Female', 3 => 'Rather Not to Say'];
+
+        $filename = 'Users.csv';
+        $file = fopen($filename,"w");
+
+        $fields = array('User Id', 'User Name', 'Email', 'Mobile', 'UserType', 'Gender', 'DOB', 'ZipCode', 'CreateDate', 'IsApprove', 'IsActive','IsDelete');
+        fputcsv($file, $fields);
+
+        foreach ($list as $line)
+        {
+            $line['UserTypeId'] = $usertype[$line['UserTypeId']];
+            if(isset($line['Gender']))
+            {
+                $line['Gender'] = $gender[$line['Gender']];
+            }
+            $line['IsApproved'] = $approve[$line['IsApproved']];
+            $line['IsActive'] = $active[$line['IsActive']];
+            $line['IsDeleted'] = $delete[$line['IsDeleted']];
+            fputcsv($file, $line);
+        }
+        fclose($file);
+
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename=".$filename);
+        header("Content-Type: application/csv; "); 
+
+        readfile($filename);
+
+       // deleting file
+       unlink($filename);
+       exit();   
     }
     public function newservicesrequests()
     {
@@ -1584,10 +1674,14 @@ class HelperlandController
                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                         </a>
                         <div class="dropdown-menu tooltiptext" aria-labelledby="navbarDropdowns">
-                            <a class="dropdown-item editreschedule" id="<?php echo $SR['ServiceRequestId']; ?> " href="#" >Edit & Reschedule</a>
                             <?php if($SR['Status']==1) {  ?>
+                                <a class="dropdown-item editreschedule" id="<?php echo $SR['ServiceRequestId']; ?>"  data-toggle="modal" data-target="#editreschedule">Edit & Reschedule</a>
                                 <a class="dropdown-item cancelrq" id="<?php echo $SR['ServiceRequestId']; ?>" href="#" >Cancel SR By Customer</a>
                             <?php }  ?>
+                            <a class="dropdown-item editreschedule" href="#" >Inquiry</a>
+                            <a class="dropdown-item editreschedule" href="#" >History Log</a>
+                            <a class="dropdown-item editreschedule" href="#" >Download Invoice</a>
+                            <a class="dropdown-item editreschedule" href="#" >Other Transactions</a>
                         </div>
                     </td>
                 </tr>
@@ -1622,17 +1716,21 @@ class HelperlandController
                     <td><?php echo $user['ZipCode']; ?></td>
                     <td class="action">
                         <?php 
-                        if($user['IsActive']==0)
+                        if($user['IsActive']==0 && $user['IsApproved']==1)
                         {?>
                             <button class="btn inactive">Inactive</button>
                         <?php
                         }
-                        elseif($user['IsActive']==1)
+                        elseif($user['IsActive']==1 && $user['IsApproved']==1)
                         {?>
                             <button class="btn active">Active</button>
                         <?php
                         }
+                        elseif($user['IsApproved']==0){
                         ?>
+                        <button class="btn approve">Not Approved</button>
+                        <?php
+                        }?>
                     </td>
                     <td class="action">
                         <a class="dropdown-toggle Actions " href="#" id="navbarDropdowns" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -1640,12 +1738,12 @@ class HelperlandController
                         </a>
                         <div class="dropdown-menu tooltiptext" aria-labelledby="navbarDropdowns">
                             <?php 
-                                if($user['IsActive']==0)
+                                if($user['IsActive']==0 && $user['IsApproved']==1)
                                 {?>
                                     <a class="dropdown-item letactive" id="<?php echo $user['UserId']; ?>" href="#">Activate</a>
                                 <?php
                                 }
-                                elseif($user['IsActive']==1)
+                                elseif($user['IsActive']==1 && $user['IsApproved']==1)
                                 {?>
                                     <a class="dropdown-item letdeactive" id="<?php echo $user['UserId']; ?>" href="#">Deactivate</a>
                                 <?php
