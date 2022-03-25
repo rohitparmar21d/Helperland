@@ -374,10 +374,23 @@ class HelperlandController
             if($m<10){$m="0".$m;}
             return $h.":".$m;
         }
+        ?>
+            <table id="history" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ServiceId</th>
+                                            <th>Service Details </th>
+                                            <th id="sd">Service Provider</th>
+                                            <th id="cd">Payment</th>
+                                            <th >Status</th>
+                                            <th>Rate SP</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="">
+            <?php
         if($list != NULL)
         {
-            
-            foreach($list as $history)
+                foreach($list as $history)
            {
             $SP = $this->model->getUserbyId($history['ServiceProviderId']);
             $dt=substr($history['ServiceStartDate'],0,10);
@@ -446,6 +459,10 @@ class HelperlandController
           <div class="text-center"><h4>No history Found</h4></div>
         <?php
         }
+        ?>
+          </tbody>
+                                </table>
+        <?php
         
     }
     public function dboard()
@@ -1093,6 +1110,20 @@ class HelperlandController
             if($m<10){$m="0".$m;}
             return $h.":".$m;
         }
+        ?>
+        <table  class="table table-hover" id="newrequest">
+                                    <thead>
+                                        <tr>
+                                            <th>Service Id </th>
+                                            <th >Service Date </th>
+                                            <th >Customer's Details</th>
+                                            <th >Payment</th>
+                                            <th >Time Conflict</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="newrequest">
+        <?php
         foreach($list as $rq)
         {
             $customer= $this->model->getUserbyId($rq['UserId']);
@@ -1120,6 +1151,10 @@ class HelperlandController
             </tr>
         <?php   
         }
+        ?>
+        </tbody>
+                                </table>
+        <?php
     }
     public function acceptrequest()
     {
@@ -1190,6 +1225,21 @@ class HelperlandController
             if($m<10){$m="0".$m;}
             return $h.":".$m;
         }
+        ?>
+        <table id="upcoming" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ServiceId</th>
+                                            <th>Service Date </th>
+                                            <th id="sd">Customer Details</th>
+                                            <th id="cd">Payment</th>
+                                            <th >Distance</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="">
+        <?php
+
         foreach($list as $rq)
         {
             $customer= $this->model->getUserbyId($rq['UserId']);
@@ -1227,6 +1277,10 @@ class HelperlandController
         </tr>
         <?php
         }
+        ?>
+        </tbody>
+                                </table>
+        <?php
     }
     public function cancelrequest()
     {
@@ -1278,6 +1332,17 @@ class HelperlandController
             if($m<10){$m="0".$m;}
             return $h.":".$m;
         }
+        ?>
+        <table  class="table table-hover" id="sphistory">
+                                    <thead>
+                                        <tr>
+                                            <th>Service Id </th>
+                                            <th >Service Date </th>
+                                            <th >Customer Details </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class=" ">
+        <?php
         foreach($list as $history)
         {
             $customer= $this->model->getUserbyId($history['UserId']);
@@ -1302,6 +1367,10 @@ class HelperlandController
             </tr>
         <?php
         }
+        ?>
+        </tbody>
+                                </table>
+        <?php
     }
     public function sprate()
     {
@@ -1319,6 +1388,11 @@ class HelperlandController
             if($m<10){$m="0".$m;}
             return $h.":".$m;
         }
+        ?>
+        <table id="tablerating" class="table display">
+                            <thead class="d-none"><th>details</th></thead>
+                            <tbody class="">
+        <?php
         foreach($rates as $rate)
         {
             $customer = $this->model->getUserbyId($rate['RatingFrom']);
@@ -1381,6 +1455,10 @@ class HelperlandController
                     </tr>
             <?php
         }
+        ?>
+        </tbody>
+                        </table>
+        <?php
     }
     public function blockcard()
     {
@@ -1640,6 +1718,22 @@ class HelperlandController
             if($m<10){$m="0".$m;}
             return $h.":".$m;
         }
+        ?>
+        <table class="table table-hover" id="tblSRreq">
+                                <thead id="headings">
+                                    <tr>
+                                        <th scope="col">Service Id</th>
+                                        <th scope="col">Service Date</th>
+                                        <th scope="col"> Customer Details</th>
+                                        <th scope="col">Service Provider</th>
+                                        <th scope="col">Net Amount</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Payment Status </th>
+                                        <th scope="col " >Actions </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="">
+        <?php
         foreach($SRs as $SR)
         {
             $dt=substr($SR['ServiceStartDate'],0,10);
@@ -1702,6 +1796,10 @@ class HelperlandController
                 </tr>
             <?php
         }
+        ?>
+        </tbody>
+                            </table>
+        <?php
     }
     public function usermanagement()
     {
@@ -1719,6 +1817,22 @@ class HelperlandController
             if($m<10){$m="0".$m;}
             return $h.":".$m;
         }
+        ?>
+        <table class="table table-hover" id="tblusermanagement">
+                                <thead id="headings">
+                                    <tr>
+                                        <th scope="col">User Name</th>
+                                        <th scope="col">Role </th>
+                                        <th scope="col"> Date of Registration</th>
+                                        <th scope="col">User Type</th>
+                                        <th scope="col">Phone </th>
+                                        <th scope="col">Postal Code</th>
+                                        <th scope="col" class="action">Status </th>
+                                        <th scope="col " class="action" >Actions </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="">
+        <?php
         foreach($users as $user)
         {
             ?>
@@ -1776,6 +1890,10 @@ class HelperlandController
                 </tr>
             <?php
         }
+        ?>
+        </tbody>
+                            </table>
+        <?php
     }
     public function activeuser()
     {

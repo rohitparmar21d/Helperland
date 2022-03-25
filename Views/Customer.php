@@ -415,8 +415,8 @@ $base_url = "http://localhost/Helperland/";
                             
                         </div>
                         <div class="container-fluid row" id="rightsidebar"> 
-                            <div class="col">
-                                <table id="history" class="table table-hover">
+                            <div class="col history">
+                                <!-- <table id="history" class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>ServiceId</th>
@@ -427,7 +427,7 @@ $base_url = "http://localhost/Helperland/";
                                             <th>Rate SP</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="history">
+                                    <tbody class=""> -->
                                         <!--1st row start-->
                                         <!-- <tr class="t-row">
                                             <td><p>2323</p></td>
@@ -456,8 +456,8 @@ $base_url = "http://localhost/Helperland/";
                                             <td><div class="status-completed text-center" disabled>Completed</div></td>
                                             <td ><button  class="rate-sp" >Rate SP</button></td>
                                         </tr> -->
-                                    </tbody>
-                                </table>
+                                    <!-- </tbody>
+                                </table> -->
                             </div>
                         </div>
                     </div>

@@ -193,59 +193,26 @@
                         </div>
                         <form class="filter">
                             <div class="form-row p1">
-                                <select  class="form-control serviceid">
-                                    <option  selected="true" disabled="disabled"  >Service Id</option> 
-                                    <option value='1'>John Smith</option> 
-                                    <option value='2'>Lyum watson</option> 
-                                    <option value='3'>John Smith</option> 
-                                    <option value='4'>Lyum watson</option> 
-                                    <option value='5'>John Smith</option> 
-                                    <option value='6'>Vijay Mourya</option> 
-                                    <option value='7'>Lyum watson</option> 
-                                </select>
-                                <select  class=" form-control postalcode">
-                                    <option  selected="true" disabled="disabled" >Postal Code</option> 
-                                    <option value='1'>Call Center</option> 
-                                    <option value='2'>Service provider</option> 
-                                    <option value='3'>Customer </option> 
-                                </select>
-                                <div class="form-group email ">
+                                <input type="text" class="form-control serviceid serviceidservicereuqest" id="serviceid" placeholder=" Service Id">
+                                <!-- <div class="form-group email d-none">
                                     <input type="email" class="form-control  email" id="email" placeholder="Email">
-                                </div>
+                                </div> -->
                                 <div class="form-group zips ">
-                                    <input type="number" class="form-control  zips" id="zipcode" placeholder="Postal Code">
+                                    <input type="text" class="form-control zips postalcodeservierequest" id="postalcode" placeholder="Postal Code">
                                 </div>
                                 <select  class="form-control selcust customers">
-                                    <option  selected="true" disabled="disabled"  >Select Customer</option> 
-                                    <option value='1'>John Smith</option> 
-                                    <option value='2'>Lyum watson</option> 
-                                    <option value='3'>John Smith</option> 
-                                    <option value='4'>Lyum watson</option> 
-                                    <option value='5'>John Smith</option> 
-                                    <option value='6'>Vijay Mourya</option> 
-                                    <option value='7'>Lyum watson</option> 
+                                    <option  selected="true" disabled="disabled" value="1"  >Select Customer</option>  
                                 </select>
                                 <select  class="form-control sp sps">
-                                    <option  selected="true" disabled="disabled"  >Select Service Provider</option> 
-                                    <option value='1'>John Smith</option> 
-                                    <option value='2'>Lyum watson</option> 
-                                    <option value='3'>John Smith</option> 
-                                    <option value='4'>Lyum watson</option> 
-                                    <option value='5'>John Smith</option> 
-                                    <option value='6'>Vijay Mourya</option> 
-                                    <option value='7'>Lyum watson</option> 
+                                    <option  selected="true" disabled="disabled" value="1"  >Select Service Provider</option>  
                                 </select>
                                 <select  class="form-control status">
-                                    <option  selected="true" disabled="disabled"  >Select Status</option> 
-                                    <option value='1'>John Smith</option> 
-                                    <option value='2'>Lyum watson</option> 
-                                    <option value='3'>John Smith</option> 
-                                    <option value='4'>Lyum watson</option> 
-                                    <option value='5'>John Smith</option> 
-                                    <option value='6'>Vijay Mourya</option> 
-                                    <option value='7'>Lyum watson</option> 
+                                    <option  selected="true" disabled="disabled" value="0" >Select Status</option> 
+                                    <option value='1'>New</option> 
+                                    <option value='2'>Completed</option> 
+                                    <option value='3'>Cancelled</option> 
                                 </select>
-                                <select  class="form-control sppaymentstatus">
+                                <select  class="form-control sppaymentstatus" disabled>
                                     <option  selected="true" disabled="disabled"  >SP Payment Status</option> 
                                     <option value='1'>John Smith</option> 
                                     <option value='2'>Lyum watson</option> 
@@ -257,7 +224,7 @@
                                 </select>
                             </div>  
                             <div class="form-row p2">  
-                                <select  class="form-control statusforpay">
+                                <select  class="form-control statusforpay" disabled>
                                     <option  selected="true" disabled="disabled"  >Select Status</option> 
                                     <option value='1'>John Smith</option> 
                                     <option value='2'>Lyum watson</option> 
@@ -271,16 +238,16 @@
                                     <input type="checkbox" class="checkbox pet" id="pet">
                                     <label class="checkbox-text" for="pet">Has Issues</label>
                                 </div>
-                                <input class="input-element fromdate form-group form-control" type="date" id="formdate" name="formdate" data placeholder="From Date">
-                                <input class="input-element todate form-group form-control" type="date" id="formdate" name="formdate" data placeholder="From Date">
-                                <button type="submit" class="btn  search" >Search</button>
-                                <button class="btn  reset" type="reset" id="reset">Clear</button>
+                                <input class="input-element fromdate fromdateservicereuqest form-group form-control" type="date" id="formdate" name="formdate" data placeholder="From Date">
+                                <input class="input-element todate todateservicerequest form-group form-control" type="date" id="formdate" name="formdate" data placeholder="From Date">
+                                <button type="submit" class="btn  search requestformsearch" >Search</button>
+                                <button class="btn reset  requestformreset" type="reset" id="reset">Clear</button>
                             </div>
                             
                         </form>
             
-                        <div class="table_usermanagement">
-                            <table class="table table-hover" id="tblSRreq">
+                        <div class="table_usermanagement  adminservicerequest">
+                            <!-- <table class="table table-hover" id="tblSRreq">
                                 <thead id="headings">
                                     <tr>
                                         <th scope="col">Service Id</th>
@@ -293,7 +260,7 @@
                                         <th scope="col " >Actions </th>
                                     </tr>
                                 </thead>
-                                <tbody class="adminservicerequest">
+                                <tbody class=""> -->
                                     <!-- <tr>
                                         <td>2323</td>
                                         <td>
@@ -380,8 +347,8 @@
                                             </div>
                                         </td> 
                                     </tr> -->
-                                </tbody>
-                            </table>
+                                <!-- </tbody>
+                            </table> -->
                         </div>
                     </div>
                     <div class="tab-pane fade" id="v-pills-usermanagement" role="tabpanel" aria-labelledby="v-pills-usermanagement-tab">
@@ -391,45 +358,44 @@
                                     <button class="btn adduserbtn"><i class="fa fa-plus-circle plus" aria-hidden="true"></i>Add New User</button>
                                 </div>
                         </div>
-                        <form class="filter">
+                        <div class="filter">
                             <div class="form-row r1">
                                 <select id='selUser' class="form-control username">
-                                    <option  selected="true" disabled="disabled"  >User name</option>  
+                                    <option  selected="true" disabled="disabled" value='0' >User name</option>  
                                 </select>
-                                <select id='selUserRole' class=" form-control">
-                                    <option  selected="true" disabled="disabled" >UserType</option> 
-                                    <option value='1'>Call Center</option> 
+                                <select id='selUserRole' class=" form-control usertypeuser">
+                                    <option  selected="true" disabled="disabled" value='0'>UserType</option>
                                     <option value='2'>Service provider</option> 
-                                    <option value='3'>Customer </option> 
+                                    <option value='1'>Customer </option> 
                                 </select>
                                 <div class="input-group mobiles ">
                                     <div class="input-group-prepend" id="mobilenum">
                                         <div class="input-group-text" >+49</div>
                                     </div>
-                                    <input type="tel" class="form-control" id="phone" placeholder="Phone Number">
+                                    <input type="tel" class="form-control mobileuser" id="phone" placeholder="Phone Number">
                                 </div> 
                                 <div class="form-group zips ">
-                                    <input type="number" class="form-control  zips" id="zipcode" placeholder="Postal Code">
+                                    <input type="text" class="form-control  zips postalcodeuser" id="zipcode" placeholder="Postal Code">
                                 </div>
-                                <div class="form-group email ">
-                                    <input type="email" class="form-control  email" id="email" placeholder="Email">
-                                </div>
-                                <input class="input-element fromdate form-group form-control" type="date" id="formdate" name="formdate" placeholder="From Date">
-                                <input class="input-element todate form-group form-control" type="date" id="formdate" name="formdate" placeholder="From Date">
+                                <!-- <div class="form-group email ">
+                                    <input type="email" class="form-control  email emailuser"  id="email" placeholder="Email">
+                                </div> -->
+                                <input class="input-element fromdate fromdateuser form-group form-control" type="date" id="formdate" name="formdate" placeholder="From Date">
+                                <input class="input-element todate todateuser form-group form-control" type="date" id="formdate" name="formdate" placeholder="From Date">
                             </div>  
                             <div class="form-row r2">            
-                                <button type="submit" class="btn  search" >Search</button>
-                                <button class="btn  reset" type="reset" id="reset">Clear</button>
+                                <button type="submit" class="btn  search userformsearch" >Search</button>
+                                <button class="btn reset userformreset"  id="reset">Clear</button>
                             </div>
-                            
-                        </form>
+                        </div> 
+                        
                         <form class="exportbtn" method="POST" action="http://localhost/Helperland/?controller=Helperland&function=exportuserlist">
                             <button type="submit" class="btn export" id="export">Export</button>
                         </form>
                         
-                        <div class="table_usermanagement">
-                            <table class="table table-hover" id="tblusermanagement">
-                                <thead id="headings">
+                        <div class="table_usermanagement usermanagement">
+                            
+                                <!-- <thead id="headings">
                                     <tr>
                                         <th scope="col">User Name</th>
                                         <th scope="col">Role </th>
@@ -441,7 +407,7 @@
                                         <th scope="col " class="action" >Actions </th>
                                     </tr>
                                 </thead>
-                                <tbody class="usermanagement">
+                                <tbody class=""> -->
                                     <!-- <tr>
                                         <td>Lyum watson </td>
                                         <td>Call Center</td>
@@ -479,8 +445,8 @@
                                             </div>
                                         </td> 
                                     </tr> -->
-                                </tbody>
-                            </table>
+                                <!-- </tbody>
+                            </table> -->
                         </div> 
                     </div>
                 </div>

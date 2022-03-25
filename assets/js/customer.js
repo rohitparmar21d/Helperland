@@ -199,6 +199,7 @@ $(document).ready(function () {
             
             success: function (response) {
                 dashboard();
+                history();
                 $("#reschedule_modal").modal("hide");
                 Swal.fire({
                     icon: 'success',
@@ -234,6 +235,7 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         dashboard();
+                        history();
                         $("#cancel_bookingrequest_modal").modal("hide");
                         Swal.fire({
                             icon: 'success',

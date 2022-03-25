@@ -281,4 +281,52 @@ function fill_option(classname,typeid1,typeid2="")
     });
 }
 
+$(".requestformreset").click(function (e) { 
+    e.preventDefault();
+    $(".postalcodeservierequest").val("");
+    $(".serviceidservicereuqest").val("");
+    $(".customers").val("1").change();
+    $(".sps").val("1").change();
+    $(".status").val("0").change();
+    $(".fromdateservicereuqest").val("");
+    $(".todateservicerequest").val("");
+    adminservicerequest();
+});
+$(".userformreset").click(function (e) { 
+    e.preventDefault();
+    $(".username").val("0").change();
+    $(".usertypeuser").val("0").change();
+    $(".mobileuser").val("");
+    $(".postalcodeuser").val("");
+    $(".emailuser").val("");
+    $(".fromdateuser").val("");
+    $(".todateuser").val("");
+    usermanagement();
+});
+$(".usertypeuser").select2();
+$(".status").select2();
+$(".userformsearch").click(function (e) { 
+    e.preventDefault();
+   var username= $(".username").val();
+    var usertype=$(".usertypeuser").val();
+    var mobile=$(".mobileuser").val();
+    var postalcode=$(".postalcodeuser").val();
+    var email=$(".emailuser").val();
+   var fromdate= $(".fromdateuser").val();
+    var todate=$(".todateuser").val();
+    alert(username+" "+usertype+" "+mobile+" "+postalcode+" "+email+" "+fromdate+" "+todate);
+});
+$(".requestformsearch").click(function (e) { 
+    e.preventDefault();
+    var serviceid=$(".serviceidservicereuqest").val();
+    var postalcoe=$(".postalcodeservierequest").val();
+    var customer=$(".customers").val();
+    var sp=$(".sps").val();
+    var status=$(".status").val();
+    var fromdate=$(".fromdateservicereuqest").val();
+    var todate=$(".todateservicerequest").val();
+
+    alert(serviceid+"  "+postalcoe+" "+customer+" "+sp+" "+status+" "+fromdate+" "+todate);
+});
+
 });
