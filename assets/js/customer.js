@@ -8,7 +8,7 @@ $(document).ready(function () {
     
     
     
-    history();
+    history();//1
     dashboard();
     function history()
     {
@@ -233,7 +233,6 @@ $(document).ready(function () {
                         "comment":comment
                     },
                     success: function (response) {
-                        history();
                         dashboard();
                         $("#cancel_bookingrequest_modal").modal("hide");
                         Swal.fire({

@@ -4,6 +4,9 @@ $(document).ready(function () {
     
     adminservicerequest();
     usermanagement();
+    fill_option("username",1,2);
+    fill_option("customers",1);
+    fill_option("sps",2);
    
    function adminservicerequest()
    {
@@ -193,9 +196,90 @@ $(document).ready(function () {
 
 
 
-//  $(document).on ('click', '.editreschedule', function (e) { 
-//     e.preventDefault();
-//     $("#editreschedule").modal("show");
-// });
+$(document).on ('click', '.editreschedule', function (e) {
+    $.ajax({
+        type: "POST",
+        url: base_url + "?controller=Helperland&function=fill_reschedule_servicerequest_detail",
+        data: {
+                'selectedrequestid' : this.id
+        },
+        success: function (response) {
+            $(".fill_selected_service_request_data").html(response);
+        }
+    });
+});
+$(document).on ('click', '.admin-sr-update', function (e) {
+    
+        var srdate = $("input[name='srdate']").val();
+        var srtime = $("input[name='srtime']").val();
+        var streetname = $("input[name='streetname']").val();
+        var housenumber = $("input[name='housenumber']").val();
+        var postalcode = $("input[name='postalcode']").val();
+        var city = $("input[name='city']").val();
+        var comment = $("textarea[name='reschedulereason']").val();
+
+        if(srdate == "" || srtime == "" || streetname == "" || housenumber == "" || postalcode == "" || city == "" || comment == "")
+        {
+            $(".admin-error").css('display', 'block');
+            $(".admin-error").html("fill all the details.");
+        }
+        else
+        {
+            $(".admin-error").html("");
+            $.ajax({
+                type: "POST",
+                url: base_url + "?controller=Helperland&function=reschedule_selected_service_request",
+                data: {
+                    'srdate' : srdate,
+                    'srtime' : srtime,
+                    'streetname' : streetname,
+                    'housenumber' : housenumber,
+                    'postalcode' : postalcode,
+                    'city' : city,
+                    'comment' : comment,
+                    'selectedrequestid' : this.id
+                },
+                success: function (response) {
+                    if(response == 1)
+                    {
+                        $("#reschedule_admin_modal").modal("hide");
+                        Swal.fire({
+                            icon: 'error',
+                            text: 'You can not reschedule the service because only 1 day remains to start service.',
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
+                    }
+                    else
+                    {
+                        $("#reschedule_admin_modal").modal("hide");
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'request rescheduled successfully.',
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
+                    }
+                }
+            });
+        }
+});
+
+function fill_option(classname,typeid1,typeid2=NULL)
+{
+    $.ajax({
+        type: "POST",
+        url: base_url + "?controller=Helperland&function=fill_option",
+        data: {
+            'typeid1':typeid1,
+            'typeid2':typeid2
+        },
+        success: function (response) {
+            $("."+classname).append(response);
+            $("."+classname).select2();
+            $(".temp1").html(response);
+        }
+    });
+}
 
 });

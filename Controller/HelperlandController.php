@@ -464,7 +464,20 @@ class HelperlandController
             return $h.":".$m;
         }
         if($list != NULL)
-        {  
+        {  ?>
+         <table  class="table table-hover" id="dboard">
+                                    <thead>
+                                        <tr>
+                                            <th>Service Id </th>
+                                            <th >Service Date </th>
+                                            <th >Sevice Provider </th>
+                                            <th >Payment</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="">
+
+        <?php
             
             foreach($list as $history)
             {
@@ -530,13 +543,17 @@ class HelperlandController
                     </tr>
                 <?php
             }
-           
+           ?>
+           </tbody>
+                                </table>
+           <?php
         }
         else
         { ?>
           <div class="text-center"><h4>No history Found</h4></div>
         <?php
         }
+
 
 
     }
@@ -1810,6 +1827,153 @@ class HelperlandController
             mail($to_email, $subject, $body, $headers);
         }
         
+    }
+    public function fill_reschedule_servicerequest_detail()
+    {
+        $SR=$this->model->SRByreqId($_POST['selectedrequestid']);
+        $date = substr($SR['ServiceStartDate'], 0, 10);
+        $time = substr($SR['ServiceStartDate'], 11, 5);
+        $SRAddId=$this->model->getSRAddbySRId($_POST['selectedrequestid']);
+        $SRAdd=$this->model->getUserAddbyAddId($SRAddId['AddressId']);
+        ?>
+                    <div class="modal-header">
+                        <h5 class="modal-title temp" id="exampleModalLongTitle">Edit Service Request</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="reschedule-inputs fill-selected-request mr-0 ml-0">
+                            <div>
+                                <label class="admin-error" for="admin-error"></label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="srdate"><b>Date</b></label>
+                                    <div class="date-group position-relative">
+                                        <input class="input" type="date" id="srdate" name="srdate" value="<?php echo $date; ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="srtime"><b>Time</b></label><br>
+                                    <div class="date-group position-relative">
+                                        <input class="input" type="time" id="srdate" name="srtime" value="<?php echo $time; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row address-heading">
+                                <span class="pr-0 pl-0"><b>Service Address</b></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="streetname">Street name</label><br>
+                                    <input class="input" type="text" name="streetname" placeholder="Street name" value="<?php echo $SRAdd['AddressLine1']; ?>">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="housenumber">House number</label><br>
+                                    <input class="input" type="text" name="housenumber" placeholder="House number" value="<?php echo $SRAdd['AddressLine2']; ?>">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="postalcode">Postal code</label><br>
+                                    <input class="input" type="text" name="postalcode" placeholder="360005" value="<?php echo $SRAdd['PostalCode']; ?>">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="city">City</label><br>
+                                    <input class="input" type="text" name="city" placeholder="Bonn" value="<?php if(isset($_POST['selectedrequestid'])) { echo $SRAdd['City']; } ?>">
+                                </div>
+                            </div>
+                            <div class="row address-heading">
+                                <span class="pr-0 pl-0"><b>Invoice Address</b></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="streetname">Street name</label><br>
+                                    <input class="input" type="text" placeholder="Street name" value="<?php echo $SRAdd['AddressLine1']; ?>">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="housenumber">House number</label><br>
+                                    <input class="input" type="text" placeholder="House number" value="<?php echo $SRAdd['AddressLine2']; ?>">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="postalcode">Postal code</label><br>
+                                    <input class="input" type="text" placeholder="360005" value="<?php echo $SRAdd['PostalCode']; ?>">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="city">City</label><br>
+                                    <input class="input" type="text" placeholder="Bonn" value="<?php if(isset($_POST['selectedrequestid'])) { echo $SRAdd['City']; } ?>">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="reschedulereason"><b>Why do you want to reschedule service request?</b></label><br>
+                                    <textarea class="reschedulereason" name="reschedulereason" placeholder="Why do you want to reschedule service request?"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="emp-notes"><b>Call Center EMP Notes</b></label><br>
+                                    <textarea class="reschedulereason" name="emp-notes" placeholder="Enter Notes"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn button-update admin-sr-update" id="<?php echo $_POST['selectedrequestid']; ?>">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        <?php
+    }
+    public function reschedule_selected_service_request()
+    {
+        
+        $selectedrequestid = $_POST['selectedrequestid'];
+        $row =$this->model->SRByreqId($selectedrequestid);
+        $Address=$this->model->getSRAddbySRId($_POST['selectedrequestid']);
+        $previousdate = date('Y-m-d H-i-s', strtotime($row['ServiceStartDate'] . '-1 day'));
+
+        $streetname = $_POST['streetname'];
+        $housenumber = $_POST['housenumber'];
+        $postalcode = $_POST['postalcode'];
+        $city = $_POST['city'];
+        $srdate = $_POST['srdate'];
+        $srtime = $_POST['srtime'];
+        $comment = $_POST['comment'];
+
+        if ($previousdate > date('Y-m-d H-i-s')) {
+
+            $array = [
+                "ServiceRequestId" => $selectedrequestid,
+                "ServiceStartDate" => $srdate.' '.$srtime,
+                "Comments" => $comment
+            ];
+    
+            $array2 = [
+                "AddressId" => $Address['AddressId'],
+                "AddressLine1" => $streetname,
+                "AddressLine2" => $housenumber,
+                "PostalCode" => $postalcode,
+                "City" => $city
+            ];
+            
+            $this->model->reschedule_selected_service_request($array, $array2);
+        } else {
+            echo 1;
+        }
+    }
+    public function fill_option()
+    {
+        $typeid1 = $_POST['typeid1'];
+        $typeid2 = $_POST['typeid2'];
+        $ans = $this->model->get_filter_option($typeid1, $typeid2);
+        foreach ($ans as $row) {
+        ?>
+            <option value="<?php echo $row['FirstName'] . ' ' . $row['LastName'] ?>"><?php echo $row['FirstName'] . ' ' . $row['LastName'] ?></option>
+        <?php
+        }
+
     }
 }
 ?>

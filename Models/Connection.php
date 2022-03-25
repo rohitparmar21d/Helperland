@@ -520,5 +520,27 @@ class Helperland
         $row = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
+    public function reschedule_selected_service_request($array, $array2)
+    {
+        $sql_qry1 = "UPDATE servicerequest SET ServiceStartDate = :ServiceStartDate, Comments = :Comments WHERE ServiceRequestId = :ServiceRequestId";
+        $statement= $this->conn->prepare($sql_qry1);
+        $statement->execute($array); 
+        
+        $sql_qry2 = "UPDATE useraddress SET AddressLine1 = :AddressLine1, AddressLine2 = :AddressLine2, PostalCode = :PostalCode, City = :City WHERE  AddressId = :AddressId";
+        $statement= $this->conn->prepare($sql_qry2);
+        $statement->execute($array2);
+    }
+    public function get_filter_option($typeid1,$typeid2)
+    {
+        if ($typeid2 != null) {
+            $sql = "SELECT `FirstName`,`LastName` FROM `user` WHERE `UserTypeId` IN ($typeid1,$typeid2)";
+        } else {
+            $sql = "SELECT `FirstName`,`LastName` FROM `user` WHERE `UserTypeId` IN ($typeid1)";
+        }
+        $statement = $this->conn->prepare($sql);
+        $statement->execute();
+        $row = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
 }
 ?>

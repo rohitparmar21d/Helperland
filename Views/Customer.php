@@ -339,8 +339,8 @@ $base_url = "http://localhost/Helperland/";
                             <a class="btn ml-auto export text-white" href="http://localhost/Helperland/?controller=Helperland&function=gotobookservicepage">Add New Service Request</a>
                         </div>
                         <div class="container-fluid row db" > 
-                            <div class="col">
-                                <table  class="table table-hover" id="dboard">
+                            <div class="col dboard">
+                                <!-- <table  class="table table-hover" id="dboard">
                                     <thead>
                                         <tr>
                                             <th>Service Id </th>
@@ -350,7 +350,7 @@ $base_url = "http://localhost/Helperland/";
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="dboard">
+                                    <tbody class=""> -->
                                         <!--1st row start-->
                                         <!-- <tr class="t-row">
                                             <td id="hs">2323</td>
@@ -401,8 +401,8 @@ $base_url = "http://localhost/Helperland/";
                                             </td>
                                         </tr> -->
                                         
-                                    </tbody>
-                                </table>
+                                    <!-- </tbody>
+                                </table> -->
                             </div>
                         </div>
                     </div>

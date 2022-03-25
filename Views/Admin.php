@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
         <link rel="stylesheet" href="./assets/css/admin.css">
     </head>
     <body>
@@ -55,17 +56,116 @@
         <!-- Modal for Edit and reschedule -->
         <div class="modal fade" id="editreschedule" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
+                <div class="modal-content fill_selected_service_request_data">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle">Edit Service Request</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <div class="reschedule-inputs fill-selected-request mr-0 ml-0">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="srdate"><b>Date</b></label>
+                                    <div class="date-group position-relative">
+                                        <input class="input" type="date" id="srdate" name="srdate">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="srtime"><b>Time</b></label><br>
+                                    <select class="input" name="srtime" id="srtime">
+                                        <option value="8:00">8:00</option>
+                                        <option value="8:30">8:30</option>
+                                        <option value="9:00">9:00</option>
+                                        <option value="9:30">9:30</option>
+                                        <option value="10:30">10:30</option>
+                                        <option value="11:00">11:00</option>
+                                        <option value="11:30">11:30</option>
+                                        <option value="12:00">12:00</option>
+                                        <option value="12:30">12:30</option>
+                                        <option value="13:00">13:00</option>
+                                        <option value="13:30">13:30</option>
+                                        <option value="14:00">14:00</option>
+                                        <option value="14:30">14:30</option>
+                                        <option value="15:00">15:00</option>
+                                        <option value="15:30">15:30</option>
+                                        <option value="16:00">16:00</option>
+                                        <option value="16:30">16:30</option>
+                                        <option value="17:00">17:00</option>
+                                        <option value="17:30">17:30</option>
+                                        <option value="18:00">18:00</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row address-heading">
+                                <span class="pr-0 pl-0"><b>Service Address</b></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="streetname">Street name</label><br>
+                                    <input class="input" type="text" name="streetname" placeholder="Street name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="housenumber">House number</label><br>
+                                    <input class="input" type="text" name="housenumber" placeholder="House number">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="postalcode">Postal code</label><br>
+                                    <input class="input" type="text" name="postal_code" placeholder="360005">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="city">City</label><br>
+                                    <select class="input" name="city" id="city">
+                                        <option value="Rajkot">Rajkot</option>
+                                        <option value="Ahmedabad">Ahmedabad</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row address-heading">
+                                <span class="pr-0 pl-0"><b>Invoice Address</b></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="streetname">Street name</label><br>
+                                    <input class="input" type="text" name="streetname" placeholder="Street name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="housenumber">House number</label><br>
+                                    <input class="input" type="text" name="housenumber" placeholder="House number">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="postalcode">Postal code</label><br>
+                                    <input class="input" type="text" name="postal_code" placeholder="360005">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="city">City</label><br>
+                                    <select class="input" name="city" id="city">
+                                        <option value="Rajkot">Rajkot</option>
+                                        <option value="Ahmedabad">Ahmedabad</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="reschedulereason"><b>Why do you want to reschedule service request?</b></label><br>
+                                    <textarea class="reschedulereason" name="reschedulereason" placeholder="Why do you want to reschedule service request?"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="emp-notes"><b>Call Center EMP Notes</b></label><br>
+                                    <textarea class="reschedulereason" name="emp-notes" placeholder="Enter Notes"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn button-update admin-sr-update">Update</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -87,7 +187,7 @@
             </nav>
             <div class="ml-0 data">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-servicerequest" role="tabpanel" aria-labelledby="v-pills-servicerequest-tab">
+                    <div class="tab-pane fade" id="v-pills-servicerequest" role="tabpanel" aria-labelledby="v-pills-servicerequest-tab">
                         <div class="blocks row">
                                 <h2 class="mr-auto">Service Requests</h2>
                         </div>
@@ -115,7 +215,7 @@
                                 <div class="form-group zips ">
                                     <input type="number" class="form-control  zips" id="zipcode" placeholder="Postal Code">
                                 </div>
-                                <select  class="form-control selcust">
+                                <select  class="form-control selcust customers">
                                     <option  selected="true" disabled="disabled"  >Select Customer</option> 
                                     <option value='1'>John Smith</option> 
                                     <option value='2'>Lyum watson</option> 
@@ -125,7 +225,7 @@
                                     <option value='6'>Vijay Mourya</option> 
                                     <option value='7'>Lyum watson</option> 
                                 </select>
-                                <select  class="form-control sp">
+                                <select  class="form-control sp sps">
                                     <option  selected="true" disabled="disabled"  >Select Service Provider</option> 
                                     <option value='1'>John Smith</option> 
                                     <option value='2'>Lyum watson</option> 
@@ -284,24 +384,17 @@
                             </table>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-usermanagement" role="tabpanel" aria-labelledby="v-pills-usermanagement-tab">
+                    <div class="tab-pane fade  show active" id="v-pills-usermanagement" role="tabpanel" aria-labelledby="v-pills-usermanagement-tab">
                         <div class="blocks row">
-                                <h2 class="mr-auto">User Management</h2>
+                                <h2 class="mr-auto temp1">User Management</h2>
                                 <div class="adduser">
                                     <button class="btn adduserbtn"><i class="fa fa-plus-circle plus" aria-hidden="true"></i>Add New User</button>
                                 </div>
                         </div>
                         <form class="filter">
                             <div class="form-row r1">
-                                <select id='selUser' class="form-control">
-                                    <option  selected="true" disabled="disabled"  >User name</option> 
-                                    <option value='1'>John Smith</option> 
-                                    <option value='2'>Lyum watson</option> 
-                                    <option value='3'>John Smith</option> 
-                                    <option value='4'>Lyum watson</option> 
-                                    <option value='5'>John Smith</option> 
-                                    <option value='6'>Vijay Mourya</option> 
-                                    <option value='7'>Lyum watson</option> 
+                                <select id='selUser' class="form-control username">
+                                    <option  selected="true" disabled="disabled"  >User name</option>  
                                 </select>
                                 <select id='selUserRole' class=" form-control">
                                     <option  selected="true" disabled="disabled" >UserType</option> 
@@ -321,8 +414,8 @@
                                 <div class="form-group email ">
                                     <input type="email" class="form-control  email" id="email" placeholder="Email">
                                 </div>
-                                <input class="input-element fromdate form-group form-control" type="date" id="formdate" name="formdate" data placeholder="From Date">
-                                <input class="input-element todate form-group form-control" type="date" id="formdate" name="formdate" data placeholder="From Date">
+                                <input class="input-element fromdate form-group form-control" type="date" id="formdate" name="formdate" placeholder="From Date">
+                                <input class="input-element todate form-group form-control" type="date" id="formdate" name="formdate" placeholder="From Date">
                             </div>  
                             <div class="form-row r2">            
                                 <button type="submit" class="btn  search" >Search</button>
@@ -399,6 +492,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
         <script src="./assets/js/sweetalert2.all.min.js"></script>
         <script src="./assets/js/Script.js"></script>
         <script src="./assets/js/admin.js"></script>
