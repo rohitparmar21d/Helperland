@@ -265,7 +265,7 @@ $(document).on ('click', '.admin-sr-update', function (e) {
         }
 });
 
-function fill_option(classname,typeid1,typeid2=NULL)
+function fill_option(classname,typeid1,typeid2="")
 {
     $.ajax({
         type: "POST",
@@ -277,7 +277,6 @@ function fill_option(classname,typeid1,typeid2=NULL)
         success: function (response) {
             $("."+classname).append(response);
             $("."+classname).select2();
-            $(".temp1").html(response);
         }
     });
 }
