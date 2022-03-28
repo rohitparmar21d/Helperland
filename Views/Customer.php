@@ -333,7 +333,7 @@ $base_url = "http://localhost/Helperland/";
             <!-- content -->
             <div class="col-9" id="rightside">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade   show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+                    <div class="tab-pane fade" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
                         <div class="container-fluid row">
                             <div class="mr-auto "><h3 class="serhist">Current Service Requests</h3></div>
                             <a class="btn ml-auto export text-white" href="http://localhost/Helperland/?controller=Helperland&function=gotobookservicepage">Add New Service Request</a>
@@ -464,7 +464,24 @@ $base_url = "http://localhost/Helperland/";
                     <div class="tab-pane fade" id="v-pills-schedule" role="tabpanel" aria-labelledby="v-pills-schedule-tab">
                         nbfgkjs
                     </div>
-                    <div class="tab-pane fade" id="v-pills-favpro" role="tabpanel" aria-labelledby="v-pills-favpro-tab">..dds.</div>
+                    <div class="tab-pane fade    show active" id="v-pills-favpro" role="tabpanel" aria-labelledby="v-pills-favpro-tab">
+                        <div class="card-customer favpro">
+                            <!--
+                            <div class="card">
+                                <div class="customer-image"><img src="./assets/Image/forma-1-copy-19.png" alt=""></div>
+                                <div class="customer-name"><b>Rohit Parmar</b></div>
+                                <div class="row rates justify-content-center">
+                                    <div class="rateyo fav" id= "rating"  data-rateyo-rating="4"></div>
+                                    <div>4</div>
+                                </div>
+                                <div class="cleanings text-center mb-2"><span>1 Cleanings</span></div>
+                                <div class="block-unblock-button">
+                                    <button class="add-button">Remove</button>
+                                    <button class="block-button">Block</button>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
                     <div class="tab-pane fade" id="v-pills-invoice" role="tabpanel" aria-labelledby="v-pills-invoice-tab">.ssd..</div>
                     <div class="tab-pane fade" id="v-pills-notification" role="tabpanel" aria-labelledby="v-pills-notification-tab">
                         <div class="customer-table mysetting">

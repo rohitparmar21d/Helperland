@@ -547,6 +547,19 @@ $(document).ready(function () {
             }
         });
    });
+
+   /*fav pro*/
+   $.ajax({
+       type: "POST",
+       url: base_url +"?controller=Helperland&function=favpro",
+       success: function (response) {
+           $(".favpro").html(response);
+           $(".fav").rateYo({
+            starWidth: "20px",
+            readOnly: true
+           });
+       }
+   });
 });
 
 

@@ -6,7 +6,6 @@ $base_url = "http://localhost/Helperland/";
 
 <link rel="stylesheet" href="./assets/css/SP.css">
 
-
 <title>Service Provider</title>
 </head>
 
@@ -93,6 +92,7 @@ $base_url = "http://localhost/Helperland/";
     <section class="section-2-2">
         <div class="row dashboard justify-content-center" id="dashboard">
             <!-- left nav -->
+            
             <div class="col-3">
                 <div class="nav flex-column nav-pills leftsidebar" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link active" id="v-pills-newservicerequest-tab" data-toggle="pill" href="#v-pills-newservicerequest" role="tab" aria-controls="v-pills-newservicerequest" aria-selected="true">New Service Requests</a>
@@ -197,7 +197,9 @@ $base_url = "http://localhost/Helperland/";
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-serviceschedule" role="tabpanel" aria-labelledby="v-pills-serviceschedule-tab"> nbfgkjs</div>
+                    <div class="tab-pane fade" id="v-pills-serviceschedule" role="tabpanel" aria-labelledby="v-pills-serviceschedule-tab">
+                        <div id="serviceschedule"></div>
+                    </div>
                     <div class="tab-pane fade" id="v-pills-servicehistory" role="tabpanel" aria-labelledby="v-pills-servicehistory-tab">
                         <div class="container-fluid row">
                             <div class="mr-auto"><span class="serarea">Payment Status</span></div>
@@ -475,9 +477,12 @@ $base_url = "http://localhost/Helperland/";
         </div>
     </section>
     
+    
     <?php include('./footer.php'); ?>
     <script src="./assets/js/SP.js"></script>
+    
         <script src="./assets/js/session.js"></script>
+        
     
     
 </body>

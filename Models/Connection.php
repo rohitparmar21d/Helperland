@@ -542,5 +542,102 @@ class Helperland
         $row = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
+    function custhistory($id)
+    {
+        $sql = "SELECT DISTINCT ServiceProviderId FROM servicerequest WHERE UserId = '$id' AND Status=2";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $row; 
+    }
+    public function userfilter($array)
+    {
+        $FirstName=$array['FirstName'];
+        $LastName=$array['LastName'];
+        $UserTypeId=$array['UserTypeId'];
+        $Mobile=$array['Mobile'];
+        $ZipCode=$array['ZipCode'];
+        $fromdate=$array['fromdate'];
+        $todate=$array['todate'];
+
+        $sql_qry = "SELECT * FROM user WHERE UserId>0 ";
+
+        if($FirstName!="")
+        {
+            $sql_qry = $sql_qry."AND FirstName = '$FirstName' AND LastName ='$LastName' ";
+        }
+        if($UserTypeId!="")
+        {
+            $sql_qry =$sql_qry."AND UserTypeId='$UserTypeId' ";
+        }
+        if($Mobile!="")
+        {
+            $sql_qry =$sql_qry."AND Mobile='$Mobile' ";
+        }
+        if($ZipCode!="")
+        {
+            $sql_qry =$sql_qry."AND ZipCode='$ZipCode' ";
+        }
+        if($fromdate!="")
+        {
+            $sql_qry =$sql_qry." AND  CreatedDate >= '$fromdate' ";
+        }
+        if($todate!="")
+        {
+            $sql_qry =$sql_qry." AND  CreatedDate <= '$todate' ";
+        }
+        $statement = $this->conn->prepare($sql_qry);
+        $statement->execute();
+        $row  = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    public function requestfilter($array)
+    {
+        $ServiceRequestId=$array['ServiceRequestId'];
+        $ZipCode=$array['ZipCode'];
+        $Customer=$array['Customer'];
+        $SP=$array['SP'];
+        $Status=$array['Status'];
+        $fromdate=$array['fromdate'];
+        $todate=$array['todate'];
+
+
+        $sql_qry="SELECT * FROM servicerequest 
+                  WHERE servicerequest.ServiceRequestId > 0  ";
+        if($SP!='')
+        {
+            $sql_qry = $sql_qry." AND servicerequest.ServiceProviderId = (SELECT UserId from user WHERE CONCAT(FirstName,' ',LastName) = '$SP') ";
+        }
+        if($Customer!='')
+        {
+            $sql_qry = $sql_qry." AND servicerequest.UserId = (SELECT UserId from user WHERE CONCAT(FirstName,' ',LastName) = '$Customer') ";
+        }
+        if($ZipCode!='')
+        {
+            $sql_qry = $sql_qry." AND servicerequest.ZipCode='$ZipCode'  ";
+        }
+        if($Status!='')
+        {
+            $sql_qry = $sql_qry." AND servicerequest.Status='$Status' ";
+        }
+        if($fromdate!='')
+        {
+            $sql_qry = $sql_qry." AND servicerequest.ServiceStartDate >= '$fromdate'  ";
+        }
+        if($todate!='')
+        {
+            $sql_qry = $sql_qry." AND servicerequest.ServiceStartDate <= '$todate' ";
+        }
+        if($ServiceRequestId!='')
+        {
+            $sql_qry = $sql_qry."  AND servicerequest.ServiceRequestId='$ServiceRequestId'   ";
+        }
+        $statement = $this->conn->prepare($sql_qry);
+        $statement->execute();
+        $row  = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+
+    }
+    
 }
 ?>

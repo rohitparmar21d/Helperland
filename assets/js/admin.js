@@ -314,19 +314,49 @@ $(".userformsearch").click(function (e) {
     var email=$(".emailuser").val();
    var fromdate= $(".fromdateuser").val();
     var todate=$(".todateuser").val();
-    alert(username+" "+usertype+" "+mobile+" "+postalcode+" "+email+" "+fromdate+" "+todate);
+    
+    $.ajax({
+        type: "POST",
+        url: base_url + "?controller=Helperland&function=userfilter",
+        data: {
+            'username':username,
+            'usertype':usertype,
+            'mobile':mobile,
+            'postalcode':postalcode,
+            'fromdate':fromdate,
+            'todate':todate
+        },
+        success: function (response) {
+            $(".tempu").html(response);
+        }
+    });
 });
 $(".requestformsearch").click(function (e) { 
     e.preventDefault();
     var serviceid=$(".serviceidservicereuqest").val();
-    var postalcoe=$(".postalcodeservierequest").val();
+    var postalcode=$(".postalcodeservierequest").val();
     var customer=$(".customers").val();
     var sp=$(".sps").val();
     var status=$(".status").val();
     var fromdate=$(".fromdateservicereuqest").val();
     var todate=$(".todateservicerequest").val();
 
-    alert(serviceid+"  "+postalcoe+" "+customer+" "+sp+" "+status+" "+fromdate+" "+todate);
+    $.ajax({
+        type: "POST",
+        url: base_url + "?controller=Helperland&function=requestfilter",
+        data: {
+            'serviceid':serviceid,
+            'postalcode':postalcode,
+            'customer':customer,
+            'sp':sp,
+            'status':status,
+            'fromdate':fromdate,
+            'todate':todate
+        },
+        success: function (response) {
+            $(".tempr").html(response);
+        }
+    });
 });
 
 });

@@ -2093,5 +2093,139 @@ class HelperlandController
         }
 
     }
+    public function service_schedule_sp()
+    {
+        $events=$this->model->getSPScheduledetail($_SESSION['UserId']);
+        $data = array();
+        function HourMinuteToDecimal($hour_minute) 
+        {
+            $t = explode(':', $hour_minute);
+            return $t[0] * 60 + $t[1];
+        }
+        function DecimalToHoursMins($mins)
+        {
+            $h=(int)($mins/60);
+            $m=round($mins%60);
+            if($h<10){$h="0".$h;}
+            if($m<10){$m="0".$m;}
+            return $h.":".$m;
+        }
+        foreach ($events as $row) {
+
+            $starttime=substr($row['ServiceStartDate'],11,5);
+            $totalmins=HourMinuteToDecimal($starttime)+ (($row['ServiceHours']+$row['ExtraHours'])*60);
+            $totaltime=DecimalToHoursMins($totalmins);
+
+            if ($row['Status'] == '1') {
+                $color = "#1d7a8c";
+            }
+            if ($row['Status'] == '2') {
+                $color = "#5fec0e";
+            }
+            if ($row['Status'] == '3') {
+                $color = "#db4c53";
+            }
+            $data[] = array(
+                'id' => $row['ServiceId'],
+                'title' => "$starttime" . " - " . "$totaltime",
+                'start' => date("Y-m-d", strtotime($row['ServiceStartDate'])),
+                'end' => date("Y-m-d", strtotime($row['ServiceStartDate'])),
+                'color' => "$color"
+            );
+        }
+        echo json_encode($data);
+    }
+    public function userfilter()
+    {
+        if($_POST['username']!='')
+        {
+            $username=explode(' ',$_POST['username']);
+            $FirstName=$username[0];
+            $LastName=$username[1];
+        }
+        else
+        {
+            $FirstName="";
+            $LastName="";
+        }
+        $fromdate=$_POST['fromdate'];
+        $todate=$_POST['todate'];
+        $array=[
+            "FirstName" => $FirstName,
+            "LastName" => $LastName,
+            "UserTypeId" => $_POST['usertype'],
+            "Mobile" => $_POST['mobile'],
+            "ZipCode" => $_POST['postalcode'],
+            "fromdate" => $fromdate,
+            "todate" => $todate
+        ];
+        $rows=$this->model->userfilter($array);
+        print_r($rows);
+
+    }
+    public function requestfilter()
+    {
+        $customer=$_POST['customer'];
+        $sp=$_POST['sp'];
+        $fromdate=$_POST['fromdate'];
+        $todate=$_POST['todate'];
+        $array=[
+            "ServiceRequestId" => $_POST['serviceid'],
+            "ZipCode" => $_POST['postalcode'],
+            "Customer" => $customer,
+            "SP" => $sp,
+            "Status" => $_POST['status'],
+            "fromdate" => $fromdate,
+            "todate" => $todate
+        ];
+        $rows=$this->model->requestfilter($array);
+        print_r($rows);
+    }
+    public function favpro()
+    {
+        $row=$this->model->custhistory($_SESSION['UserId']);
+        foreach($row as $rq)
+        {
+            $sp= $this->model->getUserbyId($rq['ServiceProviderId']);
+            $rates=$this->model->rate($rq['ServiceProviderId']);
+                $j=0;
+                $totalrate=0;
+                if($rates==NULL)
+                {
+                    $avrrate=0;
+                }
+                else
+                {
+                    foreach($rates as $rate)
+                    {
+                        $totalrate+=$rate['Ratings'];
+                        $j++;
+                    }
+                    if($j == 0)
+                    {
+                        $avrrate=$totalrate;
+                    }
+                    else
+                    {
+                        $avrrate=$totalrate/$j;
+                    }
+                }
+            ?>
+            <div class="card">
+                <div class="customer-image"><img src="<?php echo $sp['UserProfilePicture']; ?>" alt=""></div>
+                <div class="customer-name"><b><?php echo $sp['FirstName']." ".$sp['LastName']; ?></b></div>
+                <div class="row rates justify-content-center">
+                    <div class="rateyo fav" id= "rating"  data-rateyo-rating="<?php echo $avrrate; ?>"></div>
+                    <div><?php echo round($avrrate,1); ?></div>
+                </div>
+                <div class="cleanings text-center mb-2"><span>1 Cleanings</span></div>
+                <div class="block-unblock-button">
+                    <button class="add-button">Remove</button>
+                    <button class="block-button">Block</button>
+                </div>
+            </div>
+        <?php
+        }
+    }
 }
 ?>

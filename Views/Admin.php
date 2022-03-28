@@ -189,7 +189,7 @@
                 <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-servicerequest" role="tabpanel" aria-labelledby="v-pills-servicerequest-tab">
                         <div class="blocks row">
-                                <h2 class="mr-auto temp1">Service Requests</h2>
+                                <h2 class="mr-auto tempr">Service Requests</h2>
                         </div>
                         <form class="filter">
                             <div class="form-row p1">
@@ -353,7 +353,7 @@
                     </div>
                     <div class="tab-pane fade" id="v-pills-usermanagement" role="tabpanel" aria-labelledby="v-pills-usermanagement-tab">
                         <div class="blocks row">
-                                <h2 class="mr-auto temp1">User Management</h2>
+                                <h2 class="mr-auto tempu">User Management</h2>
                                 <div class="adduser">
                                     <button class="btn adduserbtn"><i class="fa fa-plus-circle plus" aria-hidden="true"></i>Add New User</button>
                                 </div>
