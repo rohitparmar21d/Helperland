@@ -327,7 +327,27 @@ $(".userformsearch").click(function (e) {
             'todate':todate
         },
         success: function (response) {
-            $(".tempu").html(response);
+            $(".usermanagement").html(response);
+            $('#tblusermanagement').DataTable({
+                    paging: true,
+                    "pagingType": "full_numbers",
+                    // bFilter: false,
+                    ordering: true,
+                    searching: false,
+                    info: false,
+                    "columnDefs": [
+                        { "orderable": false, "targets": 1 },
+                        { "orderable": false, "targets": 2 },
+                        { "orderable": false, "targets": 4 },
+                        { "orderable": false, "targets": 7 }
+                    ],
+                    "oLanguage": {
+                        "sInfo": "Total Records: TOTAL"
+                    },
+                    "dom": '<"top">rt<"bottom"lip><"clear">',
+                    responsive: true,
+                    "order": []
+                });
         }
     });
 });
@@ -354,7 +374,27 @@ $(".requestformsearch").click(function (e) {
             'todate':todate
         },
         success: function (response) {
-            $(".tempr").html(response);
+            $(".adminservicerequest").html(response);
+            $('#tblSRreq').DataTable({
+                paging: true,
+                "pagingType": "full_numbers",
+                // bFilter: false,
+                ordering: true,
+                searching: false,
+                info: false,
+                "columnDefs": [
+                    { "orderable": false, "targets": 1 },
+                    { "orderable": false, "targets": 2 },
+                    { "orderable": false, "targets": 4 },
+                    { "orderable": false, "targets": 7 }
+                ],
+                "oLanguage": {
+                    "sInfo": "Total Records: TOTAL"
+                },
+                "dom": '<"top">rt<"bottom"lip><"clear">',
+                responsive: true,
+                "order": []
+            });
         }
     });
 });

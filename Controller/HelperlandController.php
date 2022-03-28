@@ -209,19 +209,30 @@ class HelperlandController
                 {
                     if($row['IsApproved']==1)
                     {
-                        $usertypeid = $row['UserTypeId'];
-                        $_SESSION['UserId'] = $row['UserId'];
-                        $_SESSION['name'] = $row['FirstName'];
-                        $_SESSION['loggedin'] = $usertypeid;
-                        if($usertypeid == 1){
+                        if($row['IsActive']==1)
+                        {
+                            $usertypeid = $row['UserTypeId'];
+                            $_SESSION['UserId'] = $row['UserId'];
+                            $_SESSION['name'] = $row['FirstName'];
+                            $_SESSION['loggedin'] = $usertypeid;
+                            if($usertypeid == 1){
                              header('Location:' . $customer);
+                            }
+                            if($usertypeid == 2){
+                             header('Location:' . $sp);
+                            } 
+                            if($usertypeid == 3){
+                             header('Location:' . $admin);
+                            }
                         }
-                        if($usertypeid == 2){
-                            header('Location:' . $sp);
+                        else
+                        {
+                            $_SESSION['login_wrong']="3";
+                            $base_url ="http://localhost/Helperland";
+                            header('Location:' . $base_url);
+
                         }
-                        if($usertypeid == 3){
-                            header('Location:' . $admin);
-                        }
+                        
                     }
                     else
                     {
@@ -2160,7 +2171,96 @@ class HelperlandController
             "todate" => $todate
         ];
         $rows=$this->model->userfilter($array);
-        print_r($rows);
+        function HourMinuteToDecimal($hour_minute) 
+        {
+            $t = explode(':', $hour_minute);
+            return $t[0] * 60 + $t[1];
+        }
+        function DecimalToHoursMins($mins)
+        {
+            $h=(int)($mins/60);
+            $m=round($mins%60);
+            if($h<10){$h="0".$h;}
+            if($m<10){$m="0".$m;}
+            return $h.":".$m;
+        }
+        ?>
+        <table class="table table-hover" id="tblusermanagement">
+            <thead id="headings">
+                <tr>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Role </th>
+                    <th scope="col"> Date of Registration</th>
+                    <th scope="col">User Type</th>
+                    <th scope="col">Phone </th>
+                    <th scope="col">Postal Code</th>
+                    <th scope="col" class="action">Status </th>
+                    <th scope="col " class="action" >Actions </th>
+                </tr>
+            </thead>
+        <tbody class="">
+        <?php
+        foreach($rows as $user)
+        {
+            ?>
+                <tr>
+                    <td><?php echo $user['FirstName']." ".$user['LastName']; ?></td>
+                    <td></td>
+                    <td><img class="calender" src="./assets/Image/calendar2.png"><?php echo substr($user['CreatedDate'],0,10) ?></td>
+                    <td><?php if($user['UserTypeId']==1){ echo "Customer";} elseif($user['UserTypeId']==2){ echo "Service Provider"; } ?></td>
+                    <td><?php echo $user['Mobile']; ?></td>
+                    <td><?php echo $user['ZipCode']; ?></td>
+                    <td class="action">
+                        <?php 
+                        if($user['IsActive']==0 && $user['IsApproved']==1)
+                        {?>
+                            <button class="btn inactive">Inactive</button>
+                        <?php
+                        }
+                        elseif($user['IsActive']==1 && $user['IsApproved']==1)
+                        {?>
+                            <button class="btn active">Active</button>
+                        <?php
+                        }
+                        elseif($user['IsApproved']==0){
+                        ?>
+                        <button class="btn approve">Not Approved</button>
+                        <?php
+                        }?>
+                    </td>
+                    <td class="action">
+                        <a class="dropdown-toggle Actions " href="#" id="navbarDropdowns" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                        </a>
+                        <div class="dropdown-menu tooltiptext" aria-labelledby="navbarDropdowns">
+                            <?php 
+                                if($user['IsActive']==0 && $user['IsApproved']==1)
+                                {?>
+                                    <a class="dropdown-item letactive" id="<?php echo $user['UserId']; ?>" href="#">Activate</a>
+                                <?php
+                                }
+                                elseif($user['IsActive']==1 && $user['IsApproved']==1)
+                                {?>
+                                    <a class="dropdown-item letdeactive" id="<?php echo $user['UserId']; ?>" href="#">Deactivate</a>
+                                <?php
+                                }
+                            ?>
+                            <?php 
+                                if($user['UserTypeId']==2 && $user['IsApproved']==0)
+                                {?>
+                                <a class="dropdown-item letapprove" id="<?php echo $user['UserId']; ?>" href="#">Approve</a>
+                                <?php
+                                }
+                            ?>
+                        </div>
+                    </td>          
+                </tr>
+            <?php
+        }
+        ?>
+            </tbody>
+        </table>
+        <?php
 
     }
     public function requestfilter()
@@ -2179,7 +2279,101 @@ class HelperlandController
             "todate" => $todate
         ];
         $rows=$this->model->requestfilter($array);
-        print_r($rows);
+        function HourMinuteToDecimal($hour_minute) 
+        {
+            $t = explode(':', $hour_minute);
+            return $t[0] * 60 + $t[1];
+        }
+        function DecimalToHoursMins($mins)
+        {
+            $h=(int)($mins/60);
+            $m=round($mins%60);
+            if($h<10){$h="0".$h;}
+            if($m<10){$m="0".$m;}
+            return $h.":".$m;
+        }
+        ?>
+        <table class="table table-hover" id="tblSRreq">
+            <thead id="headings">
+                <tr>
+                    <th scope="col">Service Id</th>
+                    <th scope="col">Service Date</th>
+                    <th scope="col"> Customer Details</th>
+                    <th scope="col">Service Provider</th>
+                    <th scope="col">Net Amount</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Payment Status </th>
+                    <th scope="col " >Actions </th>
+                </tr>
+            </thead>
+            <tbody class="">
+        <?php
+        foreach($rows as $SR)
+        {
+            $dt=substr($SR['ServiceStartDate'],0,10);
+            $tm=substr($SR['ServiceStartDate'],11,5);
+            $totalmins=HourMinuteToDecimal($tm)+ (($SR['ServiceHours']+$SR['ExtraHours'])*60);
+            $totime=DecimalToHoursMins($totalmins);
+            $SRAdd=$this->model->getSRAddbySRId($SR['ServiceRequestId']);
+            $customer=$this->model->getUserbyId($SR['UserId']);
+            $SP=$this->model->getUserbyId($SR['ServiceProviderId']);
+            $customeraddress=$this->model->getAddressbyId($SRAdd['AddressId']);
+            ?>
+                <tr>
+                    <td><?php echo $SR['ServiceRequestId']; ?></td>
+                    <td>
+                        <div><img src="./assets/Image/calendar2.png"><?php echo $dt; ?></div>
+                        <div><img src="./assets/Image/layer-14.png"><?php echo $tm."-".$totime; ?></div>
+                    </td>
+                    <td>
+                        <div><?php echo $customer['FirstName']." ".$customer['LastName']; ?></div>
+                        <divp><img src="./assets/Image/layer-719.png"><?php echo $customeraddress['AddressLine1'].",".$customeraddress['AddressLine2'].","; ?></divp>
+                        <div><?php echo $customeraddress['City'].",".$customeraddress['PostalCode']."."; ?></div>
+                    </td>
+                    <td><?php if(isset($SR['ServiceProviderId'])){ echo $SP['FirstName']." ".$SP['LastName'];} ?></td>
+                    <td>&euro;<?php echo $SR['TotalCost']; ?></td>
+                    <td class="action">
+                        <?php  
+                         if($SR['Status']==1)
+                         {?>
+                            <button class="btn pending"><b>New</b></button>
+                         <?php
+                         }
+                         elseif($SR['Status']==2)
+                         {?>
+                             <button class="btn complete"><b>Completed</b></button>
+                         <?php
+                         }
+                         elseif($SR['Status']==3)
+                         {?>
+                              <button class="btn cancel"><b>Cancelled</b></button>
+                         <?php
+                         }
+                        ?>
+                    </td>
+                    <td class="action"></td>
+                    <td class="action">
+                        <a class="dropdown-toggle Actions " href="#" id="navbarDropdowns" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                        </a>
+                        <div class="dropdown-menu tooltiptext" aria-labelledby="navbarDropdowns">
+                            <?php if($SR['Status']==1) {  ?>
+                                <a class="dropdown-item editreschedule" id="<?php echo $SR['ServiceRequestId']; ?>"  data-toggle="modal" data-target="#editreschedule">Edit & Reschedule</a>
+                                <a class="dropdown-item cancelrq" id="<?php echo $SR['ServiceRequestId']; ?>" href="#" >Cancel SR By Customer</a>
+                            <?php }  ?>
+                            <a class="dropdown-item editreschedule" href="#" >Inquiry</a>
+                            <a class="dropdown-item editreschedule" href="#" >History Log</a>
+                            <a class="dropdown-item editreschedule" href="#" >Download Invoice</a>
+                            <a class="dropdown-item editreschedule" href="#" >Other Transactions</a>
+                        </div>
+                    </td>
+                </tr>
+            <?php
+        }
+        ?>
+            </tbody>
+        </table>
+        <?php
     }
     public function favpro()
     {
