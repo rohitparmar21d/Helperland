@@ -26,10 +26,12 @@ $(document).ready(function () {
            $(".tab-content .tab-pane").removeClass("show active");
            $("#v-pills-notification").addClass("show active");
     });
-
-
-    
-    /*service schedule*/
+    $("#v-pills-serviceschedule-tab").click(function (e) { 
+        e.preventDefault();
+        $(".leftsidebar .nav-link").removeClass("active");
+        $(".tab-content .tab-pane").removeClass("show active");
+        $("#v-pills-serviceschedule").addClass("show active");
+         /*service schedule*/
     $.ajax({
         type: "POST",
         url: base_url + "?controller=Helperland&function=service_schedule_sp",
@@ -39,15 +41,16 @@ $(document).ready(function () {
                 defaultView: 'month',
                 events: JSON.parse(response)
             });
-            $('#dashboard').tabs({
-                activate: function(event, ui) {
-                  $('#serviceschedule').fullCalendar('render');
-                }
-              });
             
             
         }
     });
+        
+    });
+
+
+    
+   
 
     $("#pet").click(function () { 
         if(this.checked == true){

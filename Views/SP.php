@@ -97,7 +97,7 @@ $base_url = "http://localhost/Helperland/";
                 <div class="nav flex-column nav-pills leftsidebar" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link active" id="v-pills-newservicerequest-tab" data-toggle="pill" href="#v-pills-newservicerequest" role="tab" aria-controls="v-pills-newservicerequest" aria-selected="true">New Service Requests</a>
                     <a class="nav-link" id="v-pills-upcomingservices-tab" data-toggle="pill" href="#v-pills-upcomingservices" role="tab" aria-controls="v-pills-upcomingservices" aria-selected="false">Upcoming Services</a>
-                    <a class="nav-link" id="v-pills-serviceschedule-tab" data-toggle="pill" href="#v-pills-serviceschedule" role="tab" aria-controls="v-pills-serviceschedule" aria-selected="false">Service Schedule</a>
+                    <a class="nav-link" id="v-pills-serviceschedule-tab" data-toggle="pill" href="" role="tab"  aria-selected="false" >Service Schedule</a>
                     <a class="nav-link" id="v-pills-servicehistory-tab" data-toggle="pill" href="#v-pills-servicehistory" role="tab" aria-controls="v-pills-servicehistory" aria-selected="false">Service History</a>
                     <a class="nav-link" id="v-pills-myratings-tab" data-toggle="pill" href="#v-pills-myratings" role="tab" aria-controls="v-pills-myratings" aria-selected="false">My Ratings</a>
                     <a class="nav-link" id="v-pills-bolckcustomer-tab" data-toggle="pill" href="#v-pills-bolckcustomer" role="tab" aria-controls="v-pills-bolckcustomer" aria-selected="false">Block Customer</a>

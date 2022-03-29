@@ -243,6 +243,7 @@ if (!isset($_SESSION['loggedin'])) { ?>
     </section>
     
     <!--section-2-->
+    <div class="loading d-none">Loading&#8230;</div>
     <section class="section-2 container-fluid">
       <div class="text-center ">
         <h1>Set up your cleaning service</h1>
@@ -302,7 +303,7 @@ if (!isset($_SESSION['loggedin'])) { ?>
                                 </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
-                                <div class="tab-pane fade show active " id="pills-SetupService" role="tabpanel" aria-labelledby="pills-SetupService-tab">
+                                <div class="tab-pane fade  " id="pills-SetupService" role="tabpanel" aria-labelledby="pills-SetupService-tab">
                                    <div class="row">
                                     <span class="text-1"><b>Enter your Postal Code</b></span></div>
                                     <div class="row">
@@ -410,7 +411,7 @@ if (!isset($_SESSION['loggedin'])) { ?>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane  fade" id="pills-YourDetails" role="tabpanel" aria-labelledby="pills-YourDetails-tab">
+                                <div class="tab-pane  fade show active" id="pills-YourDetails" role="tabpanel" aria-labelledby="pills-YourDetails-tab">
                                     <span class="text-1 temp"><b>Please enter your address so that your helper can find you.</b></span>
                                     <div class="row address"  id="add">
                                         <!-- <label class="area-label">
@@ -466,6 +467,12 @@ if (!isset($_SESSION['loggedin'])) { ?>
                                             </div>
                                         
                                     </div>
+
+                                    <!-- fav pro -->
+                                    <div><b>Your Favourite Service Provider</b></div>
+                                    <hr>
+                                    <div>you can Choose your favorite provider from the below list </div>
+                                    
                                     <div class="row">
                                         <div class="continue-right">
                                             <button type="submit" class="continue continue-tab-3" disabled >Continue</button>

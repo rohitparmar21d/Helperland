@@ -560,11 +560,11 @@ class Helperland
         $fromdate=$array['fromdate'];
         $todate=$array['todate'];
 
-        $sql_qry = "SELECT * FROM user WHERE UserTypeId <>3 ";
+        $sql_qry = "SELECT * FROM user WHERE UserTypeId !=3 ";
 
         if($FirstName!="")
         {
-            $sql_qry = $sql_qry."AND FirstName = '$FirstName' AND LastName ='$LastName' ";
+            $sql_qry = $sql_qry." AND FirstName = '$FirstName' AND LastName ='$LastName' ";
         }
         if($UserTypeId!="")
         {

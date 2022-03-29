@@ -333,7 +333,7 @@ $base_url = "http://localhost/Helperland/";
             <!-- content -->
             <div class="col-9" id="rightside">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+                    <div class="tab-pane fade  show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
                         <div class="container-fluid row">
                             <div class="mr-auto "><h3 class="serhist">Current Service Requests</h3></div>
                             <a class="btn ml-auto export text-white" href="http://localhost/Helperland/?controller=Helperland&function=gotobookservicepage">Add New Service Request</a>
@@ -464,7 +464,7 @@ $base_url = "http://localhost/Helperland/";
                     <div class="tab-pane fade" id="v-pills-schedule" role="tabpanel" aria-labelledby="v-pills-schedule-tab">
                         nbfgkjs
                     </div>
-                    <div class="tab-pane fade    show active" id="v-pills-favpro" role="tabpanel" aria-labelledby="v-pills-favpro-tab">
+                    <div class="tab-pane fade" id="v-pills-favpro" role="tabpanel" aria-labelledby="v-pills-favpro-tab">
                         <div class="card-customer favpro">
                             <!--
                             <div class="card">

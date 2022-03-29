@@ -389,7 +389,8 @@ $(document).ready(function(){
 
         
     });
-    $(".complete-booking").click(function () { 
+    $(".complete-booking").click(function () {
+        $(".loading").removeClass("d-none"); 
         add_service_request();
         
 
@@ -418,17 +419,19 @@ $(document).ready(function(){
                  "extraserv":extraserv
                },
             success: function (response) {
+                $(".loading").addClass("d-none");
                
                if(response){
                 Swal.fire({
                     icon: 'success',
                     title: 'Done',
                     text: 'Booking has been successfully submitted.',
+                    showConfirmButton: false,
+                    timer: 1000
                     
                   }).then((result) => {
-                    if (result.isConfirmed) {
                         window.location.href = base_url;
-                    }
+                    
                       
                   });
                }
