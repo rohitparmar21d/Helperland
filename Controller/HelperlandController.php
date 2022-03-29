@@ -1502,10 +1502,20 @@ class HelperlandController
     public function blockcustomer()
     {
         $this->model->blockcustomer($_POST['userid'], $_SESSION['UserId']);
+        $this->model->unfavcustomer($_POST['userid'], $_SESSION['UserId']);
     }
     public function unblockcustomer()
     {
         $this->model->unblockcustomer($_POST['userid'], $_SESSION['UserId']);
+    }
+    public function favcustomer()
+    {
+        $this->model->favcustomer($_POST['userid'], $_SESSION['UserId']);
+        $this->model->unblockcustomer($_POST['userid'], $_SESSION['UserId']);
+    }
+    public function unfavcustomer()
+    {
+        $this->model->unfavcustomer($_POST['userid'], $_SESSION['UserId']);
     }
     public function spdetails()
     {
@@ -2381,6 +2391,7 @@ class HelperlandController
         foreach($row as $rq)
         {
             $sp= $this->model->getUserbyId($rq['ServiceProviderId']);
+            $num_of_cleanings=$this->model->cleanings($_SESSION['UserId'],$rq['ServiceProviderId']);
             $rates=$this->model->rate($rq['ServiceProviderId']);
                 $j=0;
                 $totalrate=0;
@@ -2412,10 +2423,30 @@ class HelperlandController
                     <div class="rateyo fav" id= "rating"  data-rateyo-rating="<?php echo $avrrate; ?>"></div>
                     <div><?php echo round($avrrate,1); ?></div>
                 </div>
-                <div class="cleanings text-center mb-2"><span>1 Cleanings</span></div>
+                <div class="cleanings text-center mb-2"><span><?php echo $num_of_cleanings; ?> Cleanings</span></div>
                 <div class="block-unblock-button">
-                    <button class="add-button">Remove</button>
-                    <button class="block-button">Block</button>
+                    <?php
+                    $checkfav = $this->model->checkfav($_SESSION['UserId'],$rq['ServiceProviderId']);
+                    if ($checkfav== null) {
+                    ?>
+                        <button class="add-button addfav" id="<?php echo $rq['ServiceProviderId']; ?>">Add</button>
+                    <?php
+                    } else {
+                    ?>
+                        <button class="remove-button removefav" id="<?php echo $rq['ServiceProviderId']; ?>">Remove</button>
+                    <?php
+                    }
+                    $checkblock = $this->model->checkblocked($rq['ServiceProviderId'],$_SESSION['UserId']);
+                    if ($checkblock == null) {
+                    ?>
+                        <button class="block-button" id="<?php echo $rq['ServiceProviderId']; ?>">Block</button>
+                    <?php
+                    } else {
+                    ?>
+                        <button class="unblock-button" id="<?php echo $rq['ServiceProviderId']; ?>">Unblock</button>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
         <?php

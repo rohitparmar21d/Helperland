@@ -397,25 +397,25 @@ class Helperland
         $row = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
-    public function checkblocked($selectedcustomerid,$serviceproviderid)
+    public function checkblocked($targetid,$userid)
     {
-        $sql_qry = "SELECT * FROM favoriteandblocked WHERE UserId = $serviceproviderid AND TargetUserId = $selectedcustomerid";
+        $sql_qry = "SELECT * FROM favoriteandblocked WHERE UserId = $userid AND TargetUserId = $targetid AND IsBlocked=1";
         $statement = $this->conn->prepare($sql_qry);
         $statement->execute();
         $row = $statement->fetch(PDO::FETCH_ASSOC);
         return $row;
     }
-    public function blockcustomer($selectedcustomerid, $serviceproviderid)
+    public function blockcustomer($targetid, $userid)
     {
         $sql_qry = "INSERT INTO favoriteandblocked(UserId, TargetUserId, IsBlocked)
-                    VALUES ($serviceproviderid, $selectedcustomerid, 1)";
+                    VALUES ($userid , $targetid , 1)";
         $statement= $this->conn->prepare($sql_qry);
         $statement->execute();
     }
 
-    public function unblockcustomer($selectedcustomerid, $serviceproviderid)
+    public function unblockcustomer($targetid, $userid)
     {
-        $sql_qry = "DELETE FROM favoriteandblocked WHERE UserId = $serviceproviderid AND TargetUserId = $selectedcustomerid AND IsBlocked = 1";
+        $sql_qry = "DELETE FROM favoriteandblocked WHERE UserId = $userid AND TargetUserId = $targetid AND IsBlocked = 1";
         $statement= $this->conn->prepare($sql_qry);
         $statement->execute();
     }
@@ -638,6 +638,36 @@ class Helperland
         return $row;
 
     }
-    
+    public function cleanings($customer,$sp)
+    {
+        $Check_Query = "SELECT * FROM servicerequest WHERE  UserId = $customer AND ServiceProviderId=$sp";
+        $statement= $this->conn->prepare($Check_Query);
+        $statement->execute();
+        $count = $statement->rowCount();
+        return $count;
+
+    }
+    public function checkfav($userid,$targetid)
+    {
+        $sql_qry = "SELECT * FROM favoriteandblocked WHERE UserId = $userid AND TargetUserId = $targetid AND IsFavorite=1";
+        $statement = $this->conn->prepare($sql_qry);
+        $statement->execute();
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    public function favcustomer($targetid, $userid)
+    {
+        $sql_qry = "INSERT INTO favoriteandblocked(UserId, TargetUserId, IsFavorite)
+                    VALUES ($userid, $targetid, 1)";
+        $statement= $this->conn->prepare($sql_qry);
+        $statement->execute();
+    }
+
+    public function unfavcustomer($targetid, $userid)
+    {
+        $sql_qry = "DELETE FROM favoriteandblocked WHERE UserId = $userid AND TargetUserId = $targetid AND IsFavorite = 1";
+        $statement= $this->conn->prepare($sql_qry);
+        $statement->execute();
+    }
 }
 ?>
