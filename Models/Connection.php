@@ -669,5 +669,13 @@ class Helperland
         $statement= $this->conn->prepare($sql_qry);
         $statement->execute();
     }
+    public function favpro_list($id)
+    {
+        $sql = "SELECT DISTINCT TargetUserId FROM favoriteandblocked WHERE UserId = '$id' AND IsFavorite=1";
+        $stmt =  $this->conn->prepare($sql);
+        $stmt->execute();
+        $row  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $row; 
+    }
 }
 ?>

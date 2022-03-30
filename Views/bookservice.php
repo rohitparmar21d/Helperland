@@ -303,7 +303,7 @@ if (!isset($_SESSION['loggedin'])) { ?>
                                 </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
-                                <div class="tab-pane fade  " id="pills-SetupService" role="tabpanel" aria-labelledby="pills-SetupService-tab">
+                                <div class="tab-pane fade show active " id="pills-SetupService" role="tabpanel" aria-labelledby="pills-SetupService-tab">
                                    <div class="row">
                                     <span class="text-1"><b>Enter your Postal Code</b></span></div>
                                     <div class="row">
@@ -411,7 +411,7 @@ if (!isset($_SESSION['loggedin'])) { ?>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane  fade show active" id="pills-YourDetails" role="tabpanel" aria-labelledby="pills-YourDetails-tab">
+                                <div class="tab-pane  fade " id="pills-YourDetails" role="tabpanel" aria-labelledby="pills-YourDetails-tab">
                                     <span class="text-1 temp"><b>Please enter your address so that your helper can find you.</b></span>
                                     <div class="row address"  id="add">
                                         <!-- <label class="area-label">
@@ -472,7 +472,29 @@ if (!isset($_SESSION['loggedin'])) { ?>
                                     <div><b>Your Favourite Service Provider</b></div>
                                     <hr>
                                     <div>you can Choose your favorite provider from the below list </div>
-                                    
+                                    <div class="customer-card row">
+                                        <!-- <div class="card">
+                                            <div class="customer-image"><img src="./assets/Image/forma-1-copy-19.png" alt=""></div>
+                                            <div class="customer-name"><b>Rohit Parmar</b></div>
+                                            <div class="block-unblock-button">
+                                                <button class="add-button">Select</button>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="customer-image"><img src="./assets/Image/forma-1-copy-19.png" alt=""></div>
+                                            <div class="customer-name"><b>Rohit Parmar</b></div>
+                                            <div class="block-unblock-button">
+                                                <button class="add-button">Select</button>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="customer-image"><img src="./assets/Image/forma-1-copy-19.png" alt=""></div>
+                                            <div class="customer-name"><b>Rohit Parmar</b></div>
+                                            <div class="block-unblock-button">
+                                                <button class="add-button">Select</button>
+                                            </div>
+                                        </div> -->
+                                    </div>
                                     <div class="row">
                                         <div class="continue-right">
                                             <button type="submit" class="continue continue-tab-3" disabled >Continue</button>

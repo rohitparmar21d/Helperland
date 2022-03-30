@@ -359,15 +359,27 @@ class HelperlandController
                     $this->model->add_extraservice($array2);
                 }
             }
-            
-            $SPList=$this->model->getSPById($_POST['postalcode']);
-            foreach($SPList as $SPs)
+            if($_POST['selsp']!= NULL)
             {
-                $to_email = $SPs['Email'];
+                $SP=$this->model->getUserbyId($_POST['selsp']);
+                    
+                $to_email = $SP['Email'];
                 $subject = "NEW SERVICE REQUEST";
                 $body = "we got new service request for you, accept if you are available";
                 $headers = "From: rohit1parmar11@gmail.com";
                 mail($to_email, $subject, $body, $headers);
+            }
+            else
+            {
+                $SPList=$this->model->getSPById($_POST['postalcode']);
+                foreach($SPList as $SPs)
+                {
+                    $to_email = $SPs['Email'];
+                    $subject = "NEW SERVICE REQUEST";
+                    $body = "we got new service request for you, accept if you are available";
+                    $headers = "From: rohit1parmar11@gmail.com";
+                    mail($to_email, $subject, $body, $headers);
+                }
             }
     }
     public function service_history()
@@ -2451,6 +2463,24 @@ class HelperlandController
             </div>
         <?php
         }
+    }
+    public function favpro_booking()
+    {
+        $row=$this->model->favpro_list($_SESSION['UserId']);
+        foreach($row as $data)
+        {
+            $SP=$this->model->getUserbyId($data['TargetUserId']);
+        ?>
+        <div class="card">
+            <div class="customer-image"><img src="<?php echo $SP['UserProfilePicture']; ?>" alt=""></div>
+            <div class="customer-name"><b><?php echo $SP['FirstName']." ".$SP['LastName']; ?></b></div>
+            <div class="block-unblock-button">
+                <button class="add-button" id="<?php echo $data['TargetUserId']; ?>">Select</button>
+            </div>
+        </div>
+        <?php
+        }
+        
     }
 }
 ?>

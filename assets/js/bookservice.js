@@ -1,6 +1,7 @@
 
 $(document).ready(function(){
     var seladdid ;
+    var selsp;
     var postalcode;
     var servicedatetime;
     var servicehours;
@@ -12,6 +13,7 @@ $(document).ready(function(){
     var date;
     var time;
     var extraserv=[] ;
+    var spav=[];
      var base_url = "http://localhost/Helperland/";
        function switchtab(from, to )
     {
@@ -84,23 +86,6 @@ $(document).ready(function(){
         console.log(extraserv);
          
      });
-    // for (let i=1 ; i<=images.length ; i++)
-    // {
-    //     $(images[i]).click(function () { 
-    //         alert("njs");
-    //         // const index = extraserv.indexOf(i);
-
-    //         // if(!(document.getElementById("im"+i).classList.contains("active")))
-    //         // {
-    //         //     extraserv.push(i);
-    //         // }
-    //         // else
-    //         // {
-    //         //     extraserv.splice(index, 1);
-    //         // } 
-    //         // console.log(extraserv);
-    //     });
-    // }
     $(".extra-image-1").click(function ()
     { 
         
@@ -316,7 +301,48 @@ $(document).ready(function(){
         $(".add-address").css("display", "none");
         $(".add-new-address").css("display", "block");
     });
+    /* fav pro list*/
 
+    $.ajax({
+        type: "POST",
+        url: base_url + "?controller=Helperland&function=favpro_booking",
+        success: function (response) {
+            $(".customer-card").html(response);
+            spav=document.querySelectorAll(".customer-card .card .add-button");
+
+            for (let index = 0; index < spav.length; index++) {
+                spav[index].addEventListener('click', function() {
+
+                    $(".customer-card .card .add-button").html("Select");
+                    $(".customer-card .card .add-button").css("background","none");
+                    $(".customer-card .card .add-button").css("color","#111111");
+                    if($(".customer-card .card .add-button").hasClass("active"))
+                    {
+                        $(this).removeClass("active");
+                    }
+                   if(!$(this).hasClass("active"))
+                   {
+                       $(this).html("Selected");
+                       $(this).css("background","#1D7A8C");
+                       $(this).css("color","#ffffff");
+                       $(this).addClass("active");
+                   }
+                   else
+                   {
+                    $(this).html("Select");
+                    $(this).css("background","none");
+                    $(this).css("color","#111111");
+                    $(this).removeClass("active");
+                   }
+                  
+                
+                }, false);
+                
+            }
+        }
+    });
+
+    
     //enlisting addresses
     function enlistaddress()
     {
@@ -370,9 +396,7 @@ $(document).ready(function(){
         $(".add-new-address").css("display", "block");
     });
 
-    $(".continue-tab-3").click(function () { 
-        switchtab("YourDetails", "MakePayment");        
-    });
+    
 
     $("#terms-conditions-last").click(function () { 
             
@@ -396,8 +420,18 @@ $(document).ready(function(){
 
         
     });
+   
     $(".address").click(function (e) { 
          seladdid =e.target.value;
+    });
+    $(document).on ('click', '.add-button', function (e) { 
+        selsp=this.id;       
+    });
+
+    
+
+    $(".continue-tab-3").click(function () { 
+         switchtab("YourDetails", "MakePayment");        
     });
     function add_service_request()
     {servicedatetime= date+time;
@@ -416,6 +450,7 @@ $(document).ready(function(){
                 "comments":comments,
                 "haspet" : haspet,
                  "seladdid" : seladdid,
+                 "selsp" :selsp,
                  "extraserv":extraserv
                },
             success: function (response) {
@@ -439,6 +474,9 @@ $(document).ready(function(){
             }
         });
     }
+
+
+    
  
 });
 

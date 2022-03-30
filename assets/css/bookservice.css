@@ -23,6 +23,49 @@ body {
     max-height: 370px;
     margin-top: 64px;
 }
+
+.card {
+  width: 180px;
+	border: none;
+  padding-top: 5px;
+}
+.card .customer-image {
+	    /* padding: inherit; */
+      margin: auto;
+      width: 80px;
+      height: 80px;
+      border: 1px solid #9C9C9C;
+      border-radius: 50%;
+      padding: auto;
+      background-color: #fff;
+     
+}
+
+.card .customer-image img {
+	width: 78px;
+	height: 78px;
+}
+
+.card .customer-name {
+	font-size: 20px;
+	text-align: center;
+	padding: 15px 0;
+}
+
+.card .block-unblock-button {
+	text-align: center;
+}
+
+.card .block-unblock-button .add-button{
+  font-family: 'Roboto';
+  font-size: 16px;
+  color: #0a0a0a;
+  padding: 0 20px;
+  height: 34px;
+  border-radius: 4px;
+  /* background: #ff6b6b08; */
+  border: 1px solid #a09d9d;
+}
 /*section-2*/
 .Rectangle-5-copy-5 {
     width: 62px;
@@ -171,7 +214,7 @@ body {
     color: #646464;
     border: 1px solid #E1E1E1;
     padding: 0px 10px;
-    margin: 16px 10px 0px 0px;
+    margin-left: 5px;
   }
   
   .book-service .extra-service {
@@ -526,6 +569,7 @@ body {
   /*3rd tab*/
   .book-service .bookservice-content .bookservice-area .faq-tab .tab-content .row {
     margin: 0 0;
+    margin-top: 15px;
   }
   
   .book-service .bookservice-content .bookservice-area .faq-tab .tab-content .area-label {
