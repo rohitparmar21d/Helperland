@@ -54,9 +54,9 @@ class Helperland
         $statement->execute();
        
     }
-    function userData($email,$Password)
+    function userData($email)
     {
-        $sql = "SELECT * FROM user WHERE Email = '$email' AND Password = '$Password'";
+        $sql = "SELECT * FROM user WHERE Email = '$email'";
         $stmt =  $this->conn->prepare($sql);
         $stmt->execute();
         $row  = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -65,7 +65,7 @@ class HelperlandController
                 'FirstName' => $_POST['FirstName'],
                 'LastName'=>$_POST['LastName'],
                 'Email' => $_POST['Email'],
-                'Password' =>$_POST['Password'],
+                'Password' => password_hash($_POST['Password'], PASSWORD_BCRYPT),
                 'Mobile' => $_POST['Mobile'],
                 'UserTypeId' => 1,
                 'IsApproved' => 1,
@@ -114,7 +114,7 @@ class HelperlandController
                 'FirstName' => $_POST['FirstName'],
                 'LastName'=>$_POST['LastName'],
                 'Email' => $_POST['Email'],
-                'Password' =>$_POST['Password'],
+                'Password' =>password_hash($_POST['Password'], PASSWORD_BCRYPT),
                 'Mobile' => $_POST['Mobile'],
                 'UserTypeId' => 2,
                 'IsApproved' => 0,
@@ -166,7 +166,7 @@ class HelperlandController
         {    
             if(($_POST['Password']) == ($_POST['confirmPassword']))
             {
-                $new_password=$_POST['Password'];
+                $new_password=password_hash($_POST['Password'], PASSWORD_BCRYPT);
                 $email= $_SESSION['regmail'];
                 $this->model->resetpass('user', $email,$new_password);
                 unset($_SESSION['regmail']);
@@ -198,7 +198,7 @@ class HelperlandController
             } else{
                 $email = $_POST['Email'];
                 $Password = $_POST['Password'];
-                $row = $this->model->userData($email,$Password);
+                $row = $this->model->userData($email);
                 if($row == NULL)
                 {
                     $_SESSION['login_wrong']="1";
@@ -207,36 +207,45 @@ class HelperlandController
                 }
                 else
                 {
-                    if($row['IsApproved']==1)
+                    if(password_verify($Password, $row['Password']))
                     {
-                        if($row['IsActive']==1)
+                        if($row['IsApproved']==1)
                         {
-                            $usertypeid = $row['UserTypeId'];
-                            $_SESSION['UserId'] = $row['UserId'];
-                            $_SESSION['name'] = $row['FirstName'];
-                            $_SESSION['loggedin'] = $usertypeid;
-                            if($usertypeid == 1){
-                             header('Location:' . $customer);
+                            if($row['IsActive']==1)
+                            {
+                                $usertypeid = $row['UserTypeId'];
+                                $_SESSION['UserId'] = $row['UserId'];
+                                $_SESSION['name'] = $row['FirstName'];
+                                $_SESSION['loggedin'] = $usertypeid;
+                                if($usertypeid == 1){
+                                 header('Location:' . $customer);
+                                }
+                                if($usertypeid == 2){
+                                 header('Location:' . $sp);
+                                } 
+                                if($usertypeid == 3){
+                                 header('Location:' . $admin);
+                                }
                             }
-                            if($usertypeid == 2){
-                             header('Location:' . $sp);
-                            } 
-                            if($usertypeid == 3){
-                             header('Location:' . $admin);
+                            else
+                            {
+                                $_SESSION['login_wrong']="3";
+                                $base_url ="http://localhost/Helperland";
+                                header('Location:' . $base_url);
+    
                             }
+                            
                         }
                         else
                         {
-                            $_SESSION['login_wrong']="3";
+                            $_SESSION['login_wrong']="2";
                             $base_url ="http://localhost/Helperland";
                             header('Location:' . $base_url);
-
                         }
-                        
                     }
                     else
                     {
-                        $_SESSION['login_wrong']="2";
+                        $_SESSION['login_wrong']="4";
                         $base_url ="http://localhost/Helperland";
                         header('Location:' . $base_url);
                     }
@@ -817,13 +826,13 @@ class HelperlandController
         $newpassword = $_POST['newpassword'];
         $confirmpassword = $_POST['confirmpassword'];
 
-        $count = $this->model->check_password($email, $oldpassword);
+        $count = $this->model->userData($email);
 
-        if($count == 1)
+        if(password_verify($oldpassword, $count['Password']))
         {
             if($newpassword == $confirmpassword)
             {
-                $this->model->update_password($email, $newpassword);
+                $this->model->update_password($email, password_hash($newpassword, PASSWORD_BCRYPT));
             }
             else
             {
